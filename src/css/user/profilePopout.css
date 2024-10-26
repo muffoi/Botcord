@@ -3,7 +3,7 @@ div#profilePopout {
     /* padding: 10px; */
     /* vertical-align: text-top; */
     box-sizing: border-box;
-    background-color: var(--bg);
+    background-color: var(--background);
     border-radius: 10px;
 
     display: flex;
@@ -28,7 +28,7 @@ div.popItem {
     padding: 10px 10px 10px;
     /* vertical-align: text-top; */
     box-sizing: border-box;
-    background-color: var(--bg);
+    background-color: var(--background);
     transition: background-color var(--trSmooth);
 
     display: flex;
@@ -40,7 +40,7 @@ div.popItem {
 }
 
 div.popItem:not(.static):hover {
-    background-color: var(--bgNi);
+    background-color: var(--backgroundLight);
 }
 
 div.popItem:last-child {
@@ -54,7 +54,7 @@ div.popItem.standalone {
 }
 
 div#addUser {
-    color: var(--colorNi);
+    color: var(--colorDark);
     transition: all var(--trSmooth);
 
     border-top-left-radius: 10px;

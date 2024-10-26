@@ -1,7 +1,7 @@
 body {
     font-family: "Work Sans";
     color: var(--color);
-    background-color: var(--bg);
+    background-color: var(--background);
     text-align: center;
     user-select: none;
     width: 100vw;

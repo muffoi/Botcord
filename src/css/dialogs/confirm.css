@@ -16,13 +16,13 @@ button[class*=dialogBtn] {
     border: none;
     border-radius: 8px;
 
-    background-color: var(--fgNi);
+    background-color: var(--foregroundLight);
     box-shadow: var(--shadow) 0 3px 10px;
     transition: all var(--trSmooth);
 }
 
 button[class*=dialogBtn]:hover {
-    background-color: var(--bg);
+    background-color: var(--background);
     box-shadow: none;
     cursor: pointer;
 }

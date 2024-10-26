@@ -14,7 +14,7 @@
     transition: all var(--trLongEase);
     opacity: 0;
     transform:translateY(-30px);
-    background-color: var(--bgNi);
+    background-color: var(--backgroundLight);
     color: var(--color);
     box-shadow: var(--shadow) 0 10px 30px;
 }
@@ -30,12 +30,12 @@
 
 #dialog::backdrop {
     transition: all var(--trLongEase);
-    background-color: rgba(var(--absRgb), 0);
+    background-color: rgba(var(--absoluteRgb), 0);
     backdrop-filter: blur(0px);
 }
 
 #dialog.show::backdrop {
-    background-color: rgba(var(--absRgb), 0.125);
+    background-color: rgba(var(--absoluteRgb), 0.125);
     backdrop-filter: blur(15px);
 }
 

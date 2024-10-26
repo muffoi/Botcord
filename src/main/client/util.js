@@ -8,7 +8,7 @@ function propIcons() {
         let el = els[i];
         if(el.hasAttribute("data-icon")) {
             let icon = el.getAttribute("data-icon");
-            el.style.backgroundImage = `url(https://img.icons8.com/material-rounded/${color(el.classList.contains("static")?theme.color:theme.colorNi)}/${icon})`;
+            el.style.backgroundImage = `url(https://img.icons8.com/material-rounded/${color(el.classList.contains("static")?theme.color:theme.colorDark)}/${icon})`;
             // if(el.hasAttribute("data-size")) {
             //     el.style.backgroundSize
             // }

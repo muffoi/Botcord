@@ -1,7 +1,7 @@
 div.msgContent span.d-mention {
     /* display: inline-block; */
     background-color: var(--accentLightTransparent);
-    color: var(--accentColor);
+    color: var(--accentLightest);
     padding: 0 2px ;
     border-radius: 4px;
 }
@@ -24,7 +24,7 @@ span.codeFull {
     word-break: break-all;
     overflow: hidden;
 
-    background-color: var(--bg);
+    background-color: var(--background);
     border-radius: 8px;
     font-family: "Source Code Pro";
     font-weight: 400;
@@ -38,7 +38,7 @@ code {
     overflow: hidden;
     vertical-align: middle;
 
-    background-color: var(--bg);
+    background-color: var(--background);
     border-radius: 4px;
     font-family: "Source Code Pro";
     font-size: 0.8em;
@@ -52,8 +52,8 @@ pre code.hljs {
     padding: 2px 4px;
     overflow-y: auto;
 
-    border: solid 1px var(--fgNi);
+    border: solid 1px var(--foregroundLight);
     box-shadow: var(--shadow) 0px 0px 10px;
-    background-color: var(--bg);
+    background-color: var(--background);
     /* border-radius: 4px; */
 }

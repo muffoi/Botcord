@@ -1,6 +1,6 @@
 const { app, BrowserWindow, ipcMain, safeStorage, shell } = require("electron");
 const { join, relative } = require("path");
-const { bg } = require("./src/theme");
+const { background } = require("./src/theme");
 
 let win, package = require("./package.json");
 
@@ -38,7 +38,7 @@ function createWindow () {
                     autoHideMenuBar: true,
                     maximizable: false,
                     minimizable:false,
-                    backgroundColor: bg,
+                    backgroundColor: background,
                     icon: join(__dirname, "resources", "icon-sm.ico"),
                     webPreferences: {
                         devTools: !app.isPackaged

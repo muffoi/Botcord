@@ -37,7 +37,7 @@ async function fillBCM(id) {
 }
 
 function channelIcon(channel, guild) {
-    return `https://img.icons8.com/material-rounded/24/${color(theme.colorNi)}/` + (channel.permissionsFor(client.user).has("ViewChannel")?
+    return `https://img.icons8.com/material-rounded/24/${color(theme.colorDark)}/` + (channel.permissionsFor(client.user).has("ViewChannel")?
         (guild.rulesChannel === channel?
             "bookmark": // repository
             resolveChannelIconNamespace(channel)

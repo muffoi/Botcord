@@ -53,7 +53,7 @@ div.msgHeader > span.msgAddition {
 
 div.msgHeader > span.msgDate {
     font-size: 0.75em;
-    color: var(--colorNi);
+    color: var(--colorDark);
 
 }
 
