@@ -1,0 +1,70 @@
+@import url(./chat-ui/panel.css);
+@import url(./chat-ui/content.css);
+
+div.chat {
+    width: calc(100vw - 312px);
+    height: 100vh;
+    overflow: hidden;
+}
+
+div.chatCont {
+    width: 100%;
+    height: calc(100vh - 48px);
+    display: flex;
+    flex-direction: row;
+    position: relative;
+}
+
+div#chName {
+    background-color: var(--fg);
+    width: 100%;
+    height: 48px;
+    box-shadow: #000a 0 0 5px;
+    position: relative;
+    z-index: 1;
+
+    display: flex;
+    flex-direction: row;
+}
+
+div.chInfoBox {
+    display: flex;
+    flex-direction: row;
+
+    padding: 0px 12px;
+    width: calc(100% - 80px);
+}
+
+#chInfoImg {
+    width: 24px;
+    height: 48px;
+    padding: 12px 0px;
+}
+
+#chInfoName {
+    padding: 12px 8px;
+    line-height: 24px;
+}
+
+#credits {
+    width: 80px;
+    line-height: 48px;
+    padding: 0px 12px;
+    color: var(--colorNi);
+    transition: color var(--trSmooth);
+}
+
+#credits:hover {
+    color: var(--accent);
+}
+
+div#chContent {
+    background-color: var(--fg);
+    width: calc(100% - 240px);
+    display: flex;
+    flex-direction: column-reverse;
+    position: relative;
+    padding: 5px;
+    overflow: hidden auto;
+    list-style-type: none;
+}

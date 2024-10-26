@@ -1,0 +1,90 @@
+div#profilePopout {
+    width: 224px;
+    /* padding: 10px; */
+    /* vertical-align: text-top; */
+    box-sizing: border-box;
+    background-color: var(--bg);
+    border-radius: 10px;
+
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    overflow: hidden;
+    justify-content: space-between;
+    box-shadow: var(--shadow) 0 6px 20px;
+    transition: all var(--trSmooth);
+
+    bottom: 60px;
+    left: 0px;
+}
+
+div#profilePopout:not(.open) {
+    height: 0px;
+    padding: 0px;
+}
+
+div.popItem {
+    width: 100%;
+    padding: 10px 10px 10px;
+    /* vertical-align: text-top; */
+    box-sizing: border-box;
+    background-color: var(--bg);
+    transition: background-color var(--trSmooth);
+
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    /* justify-content: space-between; */
+}
+
+div.popItem:not(.static):hover {
+    background-color: var(--bgNi);
+}
+
+div.popItem:last-child {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+div.popItem.standalone {
+    border-radius: 10px;
+    width: 224px;
+}
+
+div#addUser {
+    color: var(--colorNi);
+    transition: all var(--trSmooth);
+
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+div#addUser:hover {
+    color: var(--color);
+}
+
+div#addUser .usernameBox {
+    top: 8px;
+    position: relative;
+}
+
+div#addUser:hover .pfp {
+    filter: var(--iconFilter);
+}
+
+div.delBotBtn {
+    width: 18px;
+    height: 18px;
+    float: right;
+    align-self: center;
+    margin-left: auto;
+    position: absolute;
+    right: 0;
+    margin: 0 12px;
+}
+
+div.popItem .usernameBox {
+    max-width: 138px;
+}

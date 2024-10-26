@@ -1,0 +1,80 @@
+.loginHeader {
+    font-size: 26px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+input[name="loginToken"] {
+    margin: 6px 0 0;
+    padding: 6px 12px;
+    width: 100%;
+    border: none;
+    border-radius: 6px;
+    line-height: 1.5em;
+
+    background-color: var(--fgNi);
+    color: var(--color);
+    font-family: inherit;
+}
+
+input[name="loginToken"]::placeholder {
+    color: var(--colorNi);
+}
+
+input[name="loginSubmit"] {
+    margin-top: 20px;
+    padding: 8px 12px;
+    font-family: inherit;
+    border: none;
+    border-radius: 8px;
+
+    background-color: var(--fgNi);
+    box-shadow: var(--shadow) 0 3px 10px;
+    transition: all var(--trSmooth);
+}
+
+input[name="loginSubmit"]:hover:not(:disabled) {
+    background-color: var(--bg);
+    box-shadow: none;
+    cursor: pointer;
+}
+
+input[name="loginSubmit"]:disabled {
+    color: var(--colorNi);
+}
+
+input[name="loginDefaultStatus"] {
+    display: none;
+}
+
+div.loginDefaultStatusSetter {
+    width: 246px;
+    padding: 0 12px;
+}
+
+div.loginBox {
+    display: flex;
+    flex-direction: row;
+}
+
+#loginError {
+    margin: 6px;
+
+    font-size: .8rem;
+    font-weight: 600;
+    opacity: 1;
+
+    color: var(--error);
+}
+
+#loginError::before { 
+    content: "✕ ";
+}
+
+#loginError.hide {
+    opacity: 0;
+}
+
+#loginForm:has(#loginError:not(.hide)) .popItem * {
+    filter: blur(5px);
+}

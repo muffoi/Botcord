@@ -1,0 +1,109 @@
+@import url(./user/profilePopout.css);
+@import url(./user/botClientMenu.css);
+
+div.user {
+    width: 224px;
+    height: 52px;
+    padding: 10px;
+    /* vertical-align: text-top; */
+    box-sizing: border-box;
+    background-color: var(--bg);
+    border-radius: 10px;
+
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    /* overflow: hidden; */
+    justify-content: space-between;
+    margin: 8px;
+    box-shadow: var(--shadow) 0 5px 20px;
+}
+
+#infoProfile {
+    margin-right: 10px;
+    height: 32px;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+#infoProfile:hover {
+    background-color: var(--bgNi);
+}
+
+.pfpBox {
+    height: 32px;
+    width: 32px;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.pfpBox > .pfp {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+#userStatus {
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    top: 19px;
+    left: 19px;
+    padding: 2px;
+
+    background-color: var(--bg);
+    border-radius: 50%;
+}
+
+.usernameBox {
+    height: 32px;
+    width: auto;
+    padding-left: 10px;
+    box-sizing: border-box;
+    overflow: hidden;
+    max-width: 126px;
+}
+
+/* .usernameBox * {
+    user-select: text;
+} */
+
+.username {
+    font-size: 14px;
+    font-weight: 600;
+    display: block;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    text-wrap: nowrap;
+}
+
+.status {
+    position: absolute;
+    top: 16px;
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.buttonsProfile {
+    height: 32px;
+    /* width: 52px; */
+    /* padding: 0px 5px; */
+    box-sizing: border-box;
+    position: relative;
+}
+
+.buttonsProfile > div {
+    width: 24px !important;
+    height: 24px !important;
+    transition: filter var(--trSmooth);
+    margin: 4px 6px;
+    background-size: 24px;
+    cursor: pointer;
+}
+
+.buttonsProfile > div.open {
+    filter: var(--iconFilter);
+}

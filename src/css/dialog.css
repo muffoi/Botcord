@@ -1,0 +1,55 @@
+@import url(./dialogs/login.css);
+@import url(./dialogs/confirm.css);
+
+#dialog {
+    border: none;
+    border-radius: 12px;
+    font-family: inherit;
+    margin: auto;
+    width: 500px;
+
+    padding: 30px 15px;
+    overflow-x: hidden;
+    
+    transition: all var(--trLongEase);
+    opacity: 0;
+    transform:translateY(-30px);
+    background-color: var(--bgNi);
+    color: var(--color);
+    box-shadow: var(--shadow) 0 10px 30px;
+}
+
+#dialog.small {
+    width: 400px;
+}
+
+#dialog.show {
+    opacity: 1;
+    transform:translateY(0px);
+}
+
+#dialog::backdrop {
+    transition: all var(--trLongEase);
+    background-color: rgba(var(--absRgb), 0);
+    backdrop-filter: blur(0px);
+}
+
+#dialog.show::backdrop {
+    background-color: rgba(var(--absRgb), 0.125);
+    backdrop-filter: blur(15px);
+}
+
+#dialog .dismiss {
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+
+#dialog.small .dismiss {
+    width: 20px;
+    height: 20px;
+    top: 15px;
+    right: 15px;
+}

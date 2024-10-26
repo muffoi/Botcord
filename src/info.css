@@ -1,0 +1,28 @@
+body {
+    font-family: "Work Sans";
+    color: var(--color);
+    background-color: var(--bg);
+    text-align: center;
+    user-select: none;
+    width: 100vw;
+    height: 220px;
+    margin: 29px 0px 61px;
+    overflow: hidden;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+a {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--accentDark);
+}
+
+a:visited {
+    color: var(--accent);
+}

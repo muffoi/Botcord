@@ -1,0 +1,59 @@
+div.msgContent span.d-mention {
+    /* display: inline-block; */
+    background-color: oklab(0.576971 0.014185 -0.208914 / 0.3);
+    color: oklab(0.860326 0.0120938 -0.0626684);
+    padding: 0 2px;
+    border-radius: 4px;
+}
+
+div.msgContent img.d-emoji {
+    width: 22px;
+    height: 22px;
+}
+
+div.msgContent img.d-emoji.d-single {
+    width: 48px;
+    height: 48px;
+}
+
+span.codeFull {
+    display: block;
+    margin: 2px 0;
+
+    padding: 4px 8px;
+    word-break: break-all;
+    overflow: hidden;
+
+    background-color: var(--bg);
+    border-radius: 8px;
+    font-family: "Source Code Pro";
+    font-weight: 400;
+}
+
+code {
+    display: inline-block;
+
+    padding: 0px 4px;
+    word-break: break-all;
+    overflow: hidden;
+    vertical-align: middle;
+
+    background-color: var(--bg);
+    border-radius: 4px;
+    font-family: "Source Code Pro";
+    font-size: 0.8em;
+    font-weight: 400;
+}
+
+pre code.hljs {
+    width: 100%;
+    margin: 8px 0;
+
+    padding: 2px 4px;
+    overflow-y: auto;
+
+    border: solid 1px var(--fgNi);
+    box-shadow: var(--shadow) 0px 0px 10px;
+    background-color: var(--bg);
+    /* border-radius: 4px; */
+}

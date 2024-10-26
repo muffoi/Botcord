@@ -1,0 +1,96 @@
+div.menu {
+    width: 240px;
+    background-color: var(--bgNi);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px 0px 0px 0px;
+}
+
+div.gName {
+    width: 240px;
+    height: 48px;
+    box-shadow: #000a 0 0 5px;
+    box-sizing: border-box;
+}
+
+div#gName {
+    height: 48px;
+    padding: 12px 16px;
+    line-height: 24px;
+    font-weight: 500;
+    font-size: 1rem;
+    vertical-align: baseline;
+    box-sizing: border-box;
+}
+
+div#channels {
+    padding: 10px;
+    box-sizing: border-box;
+    width: 240px;
+    height: calc(100vh - 48px * 2);
+    overflow-x: hidden;
+    overflow-y: auto;
+    color: var(--colorNi);
+    list-style-type: none;
+}
+
+summary.catName {
+    cursor: pointer;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: .2px;
+    padding-bottom: 6px;
+}
+
+summary.catName:hover {
+    color: var(--color);
+}
+
+details.category {
+    padding: 8px 0;
+}
+
+ul.chList {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+ul.chlist:empty {
+    margin:0 !important;
+}
+
+li.channel {
+    padding: 6px 12px;
+    margin: 4px 0;
+    cursor: pointer;
+    transition: color 170ms;
+    border-radius: 8px;
+    line-height: 18px;
+    font-size: 16px;
+}
+
+li.channel > img.chIcon {
+    width: 1em;
+    height: 1em;
+    margin-right: 4%;
+    vertical-align: bottom;
+}
+
+li.channel.active {
+    color: var(--color);
+    position:relative;
+    background-color: var(--fgNi);
+}
+
+li.channel:not(.active):hover {
+    color: var(--color);
+    background-color: var(--fg);
+}
+
+li.channel.invisible {
+    cursor: not-allowed;
+}

@@ -1,0 +1,18 @@
+# Electron Builder Output
+dist/
+
+# Node Modules
+node_modules
+
+# Unused files
+_templateWiki
+eslint.config.mjs
+discordMarkdown.pegjs
+accounts.json
+
+# ASAR Unpacker for testing resons
+asarunpacked
+unpack.bat
+
+# NPM Files
+package-lock.json

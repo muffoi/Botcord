@@ -1,0 +1,75 @@
+@import url(./messages.css);
+
+li.message {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    padding: 2px 48px 2px 72px;
+    line-height: 22px;
+    margin-top: 1.0625rem;
+}
+
+li.message * {
+    user-select: text;
+}
+
+li.message > div.pfpCon {
+    max-width: 40px;
+    max-height: 40px;
+    min-width: 40px;
+    min-height: 40px;
+
+    position: absolute;
+    left: 16px;
+    margin-top: 2px;
+}
+
+li.message > div.pfpCon > img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    user-select: none;
+}
+
+li.message > div.pfpCon > div.msgFollowupFiller {
+    width: 40px;
+    height: 24px;
+}
+
+.message.no-margin {
+    margin-top: 0;
+}
+
+div.msgHeader > span.msgAuthor {
+    font-weight: 500;
+    margin-right: 2px;
+}
+
+div.msgHeader > span.msgAddition {
+    font-style: italic;
+    font-size: 0.8em;
+    vertical-align: top;
+}
+
+div.msgHeader > span.msgDate {
+    font-size: 0.75em;
+    color: var(--colorNi);
+
+}
+
+li.message div.msgContent {
+    text-overflow: clip;
+    word-wrap: break-word;
+    user-select: text;
+    width: 100%;
+}
+
+li.message div.msgCon {
+    width: 100%;
+}
+
+li.message.unknown {
+    position: relative;
+    left: -56px;
+    padding-right: 0;
+}

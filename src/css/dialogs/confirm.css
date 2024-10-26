@@ -1,0 +1,44 @@
+div.dialogHeader {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+div.dialogDescription {
+    margin-bottom: 16px;
+    line-height: 1.5em;
+}
+
+button[class*=dialogBtn] {
+    margin-right: 12px;
+    padding: 8px 12px;
+    font-family: inherit;
+    border: none;
+    border-radius: 8px;
+
+    background-color: var(--fgNi);
+    box-shadow: var(--shadow) 0 3px 10px;
+    transition: all var(--trSmooth);
+}
+
+button[class*=dialogBtn]:hover {
+    background-color: var(--bg);
+    box-shadow: none;
+    cursor: pointer;
+}
+
+button.dialogBtnMain {
+    background-color: var(--accent);
+}
+
+button.dialogBtnMain:hover {
+    background-color: var(--accentDark);
+}
+
+button.dialogBtnMain.warn {
+    background-color: var(--error);
+}
+
+button.dialogBtnMain.warn:hover {
+    background-color: var(--errorDark);
+}

@@ -1,0 +1,185 @@
+div#botClientMenu {
+    width: 300px;
+    z-index: 500;
+    position: absolute;
+    left: 42px;
+    bottom: 74px;
+
+    display: flex;
+    flex-direction: column;
+    /* overflow: hidden; */
+
+    border-radius: 12px;
+    background-color: var(--bg);
+    box-shadow: var(--shadow) 0 6px 20px;
+}
+
+div#botClientMenu:not(.open) {
+    display: none;
+}
+
+div.bcmHeader {
+    height: 105px;
+}
+
+div#bcmBanner {
+    height: 105px;
+
+    background-size: cover;
+    border-radius: 12px 12px 0 0;
+}
+
+div.bcmPfpCont {
+    width: 92px;
+    height: 92px;
+    position: relative;
+    top: -46px;
+    left: 16px;
+
+    overflow: hidden;
+    padding: 6px;
+
+    border-radius: 50%;
+    background-color: var(--bg);
+}
+
+#bcmPfp {
+    width: 80px;
+    height: 80px;
+
+    border-radius: 50%;
+}
+
+#bcmStatus {
+    width: 26px;
+    height: 26px;
+    position: absolute;
+    top: 120px;
+    left: 78px;
+    padding: 2px;
+
+    background-color: var(--bg);
+    border-radius: 50%;
+}
+
+div.bcmContent {
+    margin: 52px 16px 16px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+div.bcmUsernames {
+    margin-top: 0px;
+    height: 48px;
+    width: 100%;
+    overflow: hidden;
+}
+
+div.bcmName {
+    display: block;
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--colorNi);
+    text-wrap: nowrap;
+}
+
+#bcmDisplayName {
+    display: inline-block;
+    color: var(--color);
+    max-width: 185px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-wrap: nowrap;
+    vertical-align: top;
+    margin-right: 4px;
+}
+
+div.bcmDetails {
+    padding: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    /* overflow: hidden; */
+
+    background-color: var(--bgNi);
+    border-radius: 8px;
+}
+
+div.bcmDetails > *:not(.arrow) {
+    display: block;
+    margin: 4px 0px 8px;
+
+    font-weight: 400;
+}
+
+div.bcmDetails > *:last-child {
+    margin-bottom: 0px;
+}
+
+div.bcmDetails:not(:last-child) {
+    margin-bottom: 8px;
+}
+
+div.bcmDetails.openable:hover .arrow {
+    filter: var(--iconFilter);
+}
+
+div.bcmDetails.openable:hover {
+    background-color: var(--fg);
+    color: var(--color);
+}
+
+div.bcmDetails.openable {
+    /* transition: background-color var(--trSmooth); */
+    cursor: pointer;
+    color: var(--colorNi);
+}
+
+.arrow {
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    display: inline-block;
+
+    transform: translate(232px, -3px);
+}
+
+#bcmStatusSetter {
+    position: absolute;
+    left: calc(100% - 8px);
+    bottom: 15px;
+    width: 172px;
+
+    padding: 6px 8px;
+    font-size: 16px;
+
+    background-color: var(--bgNi);
+    color: var(--colorNi);
+    border-radius: 4px;
+    box-shadow: var(--shadow) 0 4px 20px;
+}
+
+#bcmStatusSetter:not(.open) {
+    display: none;
+}
+
+#bcmStatusSetter > div:hover {
+    color: var(--abs);
+    background-color: var(--accent);
+}
+
+#bcmStatusSetter > div > img {
+    height: 1em;
+    width: 1em;
+    vertical-align: sub;
+}
+
+#bcmStatusSetter > div:hover > img {
+    filter: brightness(10);
+}
+
+#bcmStatusSetter > div {
+    margin: 2px 0px;
+    padding: 6px 8px;
+    border-radius: 2px;
+}

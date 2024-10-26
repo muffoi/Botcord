@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https://*; child-src 'none'; style-src 'unsafe-inline' 'self' https://*; script-src 'unsafe-inline' 'self'" />
+    <base target="_blank">
+    <link rel="stylesheet" href="static.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <link rel="stylesheet" href="style.css" id="stylesMain">
+    <style id="themeCSS"></style>
+    <script>window.forceNoModule = true;</script>
+    <script src="theme.js"></script>
+</head>
+<body>
+    <dialog id="dialog" class="hide"></dialog>
+
+    <div id="botClientMenu">
+        <div class="bcmHeader">
+            <div id="bcmBanner"></div>
+
+            <div class="bcmPfpCont">
+                <img src="https://cdn.discordapp.com/embed/avatars/1.png" alt="Profile Picture" id="bcmPfp">
+            </div>
+
+            <img id="bcmStatus">
+        </div>
+        <div class="bcmContent">
+            <div class="bcmUsernames">
+                <div class="bcmName"><span id="bcmDisplayName">User</span>#<span id="bcmTag">0000</span></div>
+            </div>
+
+            <div class="bcmDetails">
+                Member Since<br>
+                <span id="bcmSince">loading</span>
+            </div>
+
+            <div class="bcmDetails openable" id="bcmStatusPicker">
+                <div class="i arrow" data-icon="24/forward"></div>
+                <div id="bcmStatusSetter">
+                    <div id="bcmStatusOnline"><img src="../resources/statusOnline.svg"> Online</div>
+                    <div id="bcmStatusIdle"><img src="../resources/statusIdle.svg"> Idle</div>
+                    <div id="bcmStatusDnd"><img src="../resources/statusDoNotDisturb.svg"> Do Not Disturb</div>
+                    <div id="bcmStatusInvis"><img src="../resources/statusInvisible.svg"> Invisible</div>
+                </div>
+                Set Bot Status
+            </div>
+        </div>
+    </div>
+    
+    <div id="loader"></div>
+
+    <ul id="guilds"></ul>
+
+    <div class="menu">
+        <div class="gName">
+            <div id="gName"></div>
+        </div>
+
+        <div id="channels"></div>
+
+        <div class="user">
+            <div id="infoProfile">
+                <div class="pfpBox">
+                    <img src="https://cdn.discordapp.com/embed/avatars/1.png" alt="Profile picture" class="pfp" id="pfp">
+                    <img src="../resources/statusInvisible.svg" id="userStatus">
+                </div>
+
+                <div class="usernameBox">
+                    <span class="username" id="username">User</span>
+                    <span class="status" id="status"></span>
+                </div>
+            </div>
+            
+            <div class="buttonsProfile">
+                <div id="btnSwitch" class="i" data-icon="36/user-male-circle" title="Switch Accounts"></div>
+            </div>
+
+            <div id="profilePopout">
+                <div id="addUser" class="popItem" title="Add a New User">
+                    <div class="pfpBox">
+                        <div class="pfp i" data-icon="48/plus--v1"></div>
+                    </div>
+
+                    <div class="usernameBox">
+                        <span class="username">New User</span>
+                        <span class="status"></span>
+                    </div>
+                </div>
+                <div id="profilePopoutFill"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="chat">
+        <div id="chName">
+            <div class="chInfoBox">
+                <img id="chInfoImg">
+                <div id="chInfoName"></div>
+            </div>
+            <div id="credits">Credits</div>
+        </div>
+        <div class="chatCont">
+            <div id="chContent"></div>
+            <div id="panel"></div>
+        </div>
+    </div>
+
+    <script src="loader.js"></script>
+</body>
+</html>
