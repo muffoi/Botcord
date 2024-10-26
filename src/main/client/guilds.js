@@ -31,19 +31,19 @@ async function loadGuilds() {
         firstChannel.id
     ];
 
-    elem('#gName').innerText = currentGuild.name;
+    elem("#gName").innerText = currentGuild.name;
 
     for(let i in guilds) {
         let guild = guilds[i];
         let icon = guild.iconURL({size: 128});
 
-        let li = mkelem('li', "gItem"),
-            img = mkelem('img', 'gIcon', 0, icon?icon:0),
-            div = mkelem('div', 'gIconCont'),
-            div2 = mkelem('div', 'gIconC');
+        let li = mkelem("li", "gItem"),
+            img = mkelem("img", "gIcon", 0, icon?icon:0),
+            div = mkelem("div", "gIconCont"),
+            div2 = mkelem("div", "gIconC");
 
         if(typeof icon !== "string") {
-            img = mkelem('div', 'gText');
+            img = mkelem("div", "gText");
             img.innerText = guild.nameAcronym;
         }
 
@@ -54,10 +54,10 @@ async function loadGuilds() {
         div2.appendChild(img);
         div.appendChild(div2)
         li.appendChild(div);
-        document.querySelector('#guilds').appendChild(li);
+        document.querySelector("#guilds").appendChild(li);
     }
 
-    active(elem('#guilds').children[0], "guild");
+    active(elem("#guilds").children[0], "guild");
 
     loadChannels();
 }
@@ -83,7 +83,7 @@ async function selectGuild() {
         firstChannel.id
     ];
 
-    elem('#gName').innerText = currentGuild.name;
+    elem("#gName").innerText = currentGuild.name;
 
     loadChannels();
 }

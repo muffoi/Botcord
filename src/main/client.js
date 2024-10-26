@@ -28,7 +28,7 @@ times.stamp("client");
 
 let guilds = {}, channels = {};
 let currentGuild, currentChannel, topLoadedMessage;
-let pinnedOpenChannel, chatContent = elem('#chContent');
+let pinnedOpenChannel, chatContent = elem("#chContent");
 let storage, current, client;
 
 //#region Sort Channels
@@ -65,7 +65,7 @@ function setStatus(status) {
     await require("./main/client/subs")();
 
     if(flags.disableLoaderCurtain) {
-        let l = elem('#loader');
+        let l = elem("#loader");
         l.style.transform = "scaleY(0)";
         l.style.opacity = 0;
     }

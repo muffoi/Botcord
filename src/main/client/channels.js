@@ -1,7 +1,7 @@
 //#region Load Channels
 
 function loadChannels() {
-    let el = elem('#channels'), categoryObjs = {}, channelObjs = {}, categoryEls = {}, channelEls = {};
+    let el = elem("#channels"), categoryObjs = {}, channelObjs = {}, categoryEls = {}, channelEls = {};
     el.innerHTML = "";
 
     for(let i in channels) {
@@ -13,10 +13,10 @@ function loadChannels() {
 
     categoryObjs = sortChannels(categoryObjs);
     channelObjs = sortChannels(channelObjs);
-    let channelList = el.appendChild(mkelem('ul', "chList"));
+    let channelList = el.appendChild(mkelem("ul", "chList"));
 
     for(let c of categoryObjs) {
-        let sum = mkelem('summary', 'catName'), det = mkelem('details', 'category'), ul = mkelem('ul', 'chList');
+        let sum = mkelem("summary", "catName"), det = mkelem("details", "category"), ul = mkelem("ul", "chList");
         sum.innerText = c.name;
         det.appendChild(sum);
 
@@ -49,15 +49,15 @@ function loadChannels() {
         }
         if(channel.type == 11) continue;
 
-        let li = mkelem('li', 'channel');
+        let li = mkelem("li", "channel");
 
         li.appendChild(mkelem(
-            'img', 'chIcon', 0,
+            "img", "chIcon", 0,
             channelIcon(channel, currentGuild)
         ));
 
         li.innerHTML += esc(channel.name);
-        li.setAttribute('cid', channel.id);
+        li.setAttribute("cid", channel.id);
 
         if(channel.permissionsFor(client.user).has("ViewChannel")) {
             evt(li, "click", selectChannel);

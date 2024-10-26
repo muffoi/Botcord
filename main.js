@@ -1,6 +1,6 @@
-const { app, BrowserWindow, ipcMain, safeStorage, shell } = require('electron');
+const { app, BrowserWindow, ipcMain, safeStorage, shell } = require("electron");
 const { join, relative } = require("path");
-const { bg } = require('./src/theme');
+const { bg } = require("./src/theme");
 
 let win, package = require("./package.json");
 
@@ -15,7 +15,7 @@ function createWindow () {
         },
         autoHideMenuBar: true,
         title: package.productName + " v" + package.version,
-        icon: join(__dirname, "resources", "icon-sm.ico")
+        icon: join(__dirname, "resources", "icon.ico")
     })
 
     let allowed = [
@@ -88,15 +88,15 @@ app.whenReady().then(() => {
         createWindow();
     });
 
-    app.on('activate', () => {
+    app.on("activate", () => {
         if (BrowserWindow.getAllWindows().length === 0) {
             createWindow();
         }
     })
 })
 
-app.on('window-all-closed', () => {
-    if (process.platform !== 'darwin') {
+app.on("window-all-closed", () => {
+    if (process.platform !== "darwin") {
         app.quit();
     }
 })

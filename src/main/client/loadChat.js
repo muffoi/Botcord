@@ -18,7 +18,7 @@ async function loadChat(add = false) {
         else if(messages.length != 0) chatContent.removeChild(chatContent.lastChild);
 
     for(let id in messages) {
-        let li = mkelem('li', 'message');
+        let li = mkelem("li", "message");
         let message = messages[id];
 
         previousMessage = messages[+id + 1];

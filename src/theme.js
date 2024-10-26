@@ -1,10 +1,10 @@
 function applyColorVars() {
-    let cssString = 'body, #dialog {', el = document.getElementById('themeCSS');
+    let cssString = "body, #dialog {", el = document.getElementById("themeCSS");
     for(let i in theme) {
         if(i == _themeData.spec) continue;
         cssString += `--${i}: ${theme[i]};`
     }
-    cssString += '}';
+    cssString += "}";
     el.textContent = cssString;
 }
 let _themeData = {
@@ -16,22 +16,34 @@ let _themeData = {
 };
 const theme = {
     [_themeData.spec]: _themeData.durations,
-    bg: '#1e1f22',
-    bgNi: '#2b2d31',
-    fg: '#313338',
-    fgNi: '#37393f',
-    color: '#dddddd',
-    colorNi: '#868686',
-    accent: '#515cd3',
-    accentLight: '#6b78ff',
-    accentDark: '#293297',
-    error: '#ff4455',
-    errorDark: '#96121d',
-    shadow: '#00000066',
-    abs: '#ffffff',
-    absRgb: '255, 255, 255',
-    trSmooth: _themeData.durations.tr1 + 'ms',
-    trLongEase: _themeData.durations.tr2 + 'ms ease-in-out',
+    bg: "#1e1f22",
+    bgNi: "#2b2d31",
+    fg: "#313338",
+    fgNi: "#37393f",
+    // bg: "#17181C",
+    // bgNi: "#202024",
+    // fg: "#252629",
+    // fgNi: "#2E2F33",
+    // fgNiNi: "#424245",
+
+    color: "#dddddd",
+    colorNi: "#868686",
+
+    accent: "#701dff",// "#515cd3",
+    accentColor: "#c7a7ff",
+    accentTransparent: "#701dff4d",
+    accentLight: "#8d4cff", // "#6b78ff",
+    accentLightTransparent: "#8d4cff4d",
+    accentDark: "#3c0896", // "#293297",
+    error: "#ff4455",
+    errorDark: "#96121d",
+
+    shadow: "#00000066",
+    abs: "#ffffff",
+    absRgb: "255, 255, 255",
+
+    trSmooth: _themeData.durations.tr1 + "ms",
+    trLongEase: _themeData.durations.tr2 + "ms ease-in-out",
     iconFilter: "brightness(1.523)"
 };
 

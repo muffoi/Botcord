@@ -18,7 +18,7 @@ module.exports = async () => {
     initClickables();
     if(!flags.noServerList) await loadGuilds();
 
-    let loader = elem('#loader');
+    let loader = elem("#loader");
     loader.style.transform = "scaleY(0)";
     loader.style.opacity = 0;
 

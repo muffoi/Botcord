@@ -132,7 +132,7 @@ a {
 }
 
 a:hover {
-    color: var(--accent);
+    color: var(--accentLight);
     text-decoration: underline;
 }
 

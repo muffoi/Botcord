@@ -9,6 +9,10 @@ _templateWiki
 eslint.config.mjs
 discordMarkdown.pegjs
 accounts.json
+moment.*
+
+# Branding templates
+branding
 
 # ASAR Unpacker for testing resons
 asarunpacked

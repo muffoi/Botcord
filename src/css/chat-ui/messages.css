@@ -1,8 +1,8 @@
 div.msgContent span.d-mention {
     /* display: inline-block; */
-    background-color: oklab(0.576971 0.014185 -0.208914 / 0.3);
-    color: oklab(0.860326 0.0120938 -0.0626684);
-    padding: 0 2px;
+    background-color: var(--accentLightTransparent);
+    color: var(--accentColor);
+    padding: 0 2px ;
     border-radius: 4px;
 }
 

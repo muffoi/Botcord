@@ -17,7 +17,8 @@
     "files": [
       "!**/accounts.json",
       "!**/{discordMarkdown.pegjs,eslint.config.mjs}",
-      "!**/{_templateWiki,asarunpacked,unpack.bat}"
+      "!**/{_templateWiki,asarunpacked,unpack.bat}",
+      "!**/moment.{js,min.js}"
     ],
     "win": {
       "target": [
