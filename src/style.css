@@ -127,15 +127,14 @@ div.info {
 }
 
 a {
-    color: var(--accentLight);
+    color: var(--accentExtraLight);
     text-decoration: none;
 }
 
 a:hover {
-    color: var(--accentLight);
     text-decoration: underline;
 }
 
 a:visited {
-    color: var(--accentLight);
+    color: var(--accentExtraLight);
 }

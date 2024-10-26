@@ -15,14 +15,14 @@ body {
 }
 
 a {
-    color: var(--accent);
+    color: var(--accentLight);
     text-decoration: none;
 }
 
 a:hover {
-    color: var(--accentDark);
+    text-decoration: underline;
 }
 
 a:visited {
-    color: var(--accent);
+    color: var(--accentLight);
 }

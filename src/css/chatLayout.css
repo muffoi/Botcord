@@ -55,7 +55,7 @@ div.chInfoBox {
 }
 
 #credits:hover {
-    color: var(--accent);
+    color: var(--accentLight);
 }
 
 div#chContent {

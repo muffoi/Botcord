@@ -29,12 +29,14 @@ const theme = {
     color: "#dddddd",
     colorNi: "#868686",
 
+    accentColor: "#e3c9ff",
+    accentLight: "#9f5fff", // "#6b78ff",
+    accentLightTransparent: "#9f5fff4d",
+    accentExtraLight: "#b27aff",
     accent: "#701dff",// "#515cd3",
-    accentColor: "#c7a7ff",
     accentTransparent: "#701dff4d",
-    accentLight: "#8d4cff", // "#6b78ff",
-    accentLightTransparent: "#8d4cff4d",
-    accentDark: "#3c0896", // "#293297",
+    accentDark: "#491b98", // "#293297",
+
     error: "#ff4455",
     errorDark: "#96121d",
 
