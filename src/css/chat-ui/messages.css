@@ -7,8 +7,9 @@ div.msgContent span.d-mention {
 }
 
 div.msgContent img.d-emoji {
-    width: 22px;
-    height: 22px;
+    vertical-align: bottom;
+    width: 1.375em;
+    height: 1.375em;
 }
 
 div.msgContent img.d-emoji.d-single {
@@ -56,4 +57,76 @@ pre code.hljs {
     box-shadow: var(--shadow) 0px 0px 10px;
     background-color: var(--background);
     /* border-radius: 4px; */
+}
+
+span.d-spoiler {
+    padding: 0px 4px;
+
+    border-radius: 4px;
+    background-color: var(--background);
+    border: solid 1px var(--foregroundLight);
+    transition: all var(--trSmooth);
+}
+
+span.d-spoiler:not(.show) {
+    cursor: pointer;
+    color: var(--backgroundLight);
+    background-color: var(--backgroundLight);
+}
+
+span.d-spoiler:not(.show):hover {
+    color: var(--background);
+    background-color: var(--background);
+}
+
+blockquote {
+    padding: 0 8px 0 12px;
+    position: relative;
+}
+
+blockquote::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 4px;
+    height: 100%;
+
+    background-color: var(--colorDark);
+    border-radius: 4px;
+}
+
+h1 {
+    font-size: 1.5rem;
+    margin: 16px 0 8px;
+}
+
+h1:first-child {
+    margin-top: 8px;
+}
+
+h2 {
+    font-size: 1.25rem;
+    margin: 16px 0 8px;
+}
+
+h3 {
+    font-size: 1rem;
+    margin: 16px 0 8px;
+}
+
+ul {
+    list-style-type: disc;
+}
+
+ul, ol {
+    margin: 4px 0 0 16px;
+    list-style-position: outside;
+}
+
+small {
+    display: block;
+    font-size: .8125rem;
+    line-height: 1.11719rem;
+
+    color: var(--colorDark);
 }

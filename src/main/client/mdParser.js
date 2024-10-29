@@ -53,6 +53,12 @@ function afterEffect(li) {
             msgContent.children[0].tagName == "IMG"
         )
     ) msgContent.children[0].classList.add("d-single");
+
+    for(let elem of msgContent.querySelectorAll("span.d-spoiler")) {
+        evt(elem, "click", () => {
+            elem.classList.add("show");
+        })
+    }
 }
 
 //#endregion

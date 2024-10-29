@@ -14,6 +14,7 @@ let _themeData = {
     },
     spec: "_dat"
 };
+
 const theme = {
     [_themeData.spec]: _themeData.durations,
     background: "#1e1f22",

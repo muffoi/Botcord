@@ -6,7 +6,7 @@
  */
 
 const { Client, Partials, DiscordjsErrorCodes } = require("discord.js");
-const discordMarkdown = require("discord-markdown");
+const discordMarkdown = require("@odiffey/discord-markdown");
 const dayjs = require("dayjs");
 const Vibrant = require("node-vibrant");
 

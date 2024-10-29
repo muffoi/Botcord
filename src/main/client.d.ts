@@ -111,6 +111,16 @@ declare const popouts: Popouts;
 declare const templates: Templates;
 
 //#endregion
+//#region NPM Modules
+
+declare const Client: import("discord.js").Client;
+declare const Partials: import("discord.js").Partials;
+declare const DiscordjsErrorCodes: import("discord.js").DiscordjsErrorCodes;
+declare const discordMarkdown: import("@odiffey/discord-markdown");
+declare const dayjs: import("dayjs");
+declare const Vibrant: import("node-vibrant");
+
+//#endregion
 //#region Client Variables
 
 declare let guilds: import("discord.js").Guild[];
@@ -202,16 +212,25 @@ interface ThemeData {
     backgroundLight: string,
     foreground: string,
     foregroundLight: string,
+
     color: string,
     colorDark: string,
-    accent: string,
+
+    accentLightest: string,
+    accentLighter: string,
     accentLight: string,
+    accentLightTransparent: string,
+    accent: string,
+    accentTransparent: string,
     accentDark: string,
+
     error: string,
     errorDark: string,
+
     shadow: string,
     absolute: string,
     absoluteRgb: string,
+
     trSmooth: string,
     trLongEase: string,
     iconFilter: string
