@@ -1,6 +1,8 @@
 //#region Load Chat
 
 async function loadChat(add = false) {
+    if(!add) chatContent.innerHTML = "";
+
     let msgs = await currentChannel.messages.fetch(add? {
         before: topLoadedMessage,
         limit: limits.messageFetch
@@ -14,8 +16,7 @@ async function loadChat(add = false) {
         messages.push(message);
     });
 
-    if(!add) chatContent.innerHTML = "";
-        else if(messages.length != 0) chatContent.removeChild(chatContent.lastChild);
+    if(add && messages.length != 0) chatContent.removeChild(chatContent.lastChild);
 
     for(let id in messages) {
         let li = mkelem("li", "message");

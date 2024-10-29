@@ -90,13 +90,17 @@ function loadChannels() {
 
 function selectChannel() {
     let target = channels[this.getAttribute("cid")];
-    if(target.type === 0) {
+    let allowedChannelTypes = [0, 5];
+    if(allowedChannelTypes.includes(target.type)) {
         active(this, "channel");
         active(this.parentElement.parentElement, "categoryOf");
         currentChannel = target;
+
         elem("#chInfoName").textContent = currentChannel.name;
         elem("#chInfoImg").src = channelIcon(currentChannel, currentGuild);
-        if(pinnedOpenChannel)pinnedOpenChannel.remove();
+
+        if(pinnedOpenChannel) pinnedOpenChannel.remove();
+        chatContent.scrollTop = 0;
 
         loadChat();
     } else {
