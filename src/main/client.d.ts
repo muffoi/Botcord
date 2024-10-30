@@ -151,7 +151,8 @@ declare function initClickables(): void;
 interface Limits {
     messageFetch: number,
     bufferChatScroll: number,
-    attachmentHeight: number
+    attachmentHeight: number,
+    messageGroupingTime: number
 }
 interface Logs {
     messages: boolean | undefined,

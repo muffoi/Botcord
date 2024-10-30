@@ -65,6 +65,7 @@ function formatDate(date) {
     }) */
 
     return dayjs().calendar(date);
+    // return require("./moment.min")(date).calendar();
 }
 
 function color(hex) {

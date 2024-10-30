@@ -47,7 +47,7 @@ async function loadGuilds() {
             img.innerText = guild.nameAcronym;
         }
 
-        img.title = esc(`${guild.name} (${guild.id})`);
+        img.title = esc(guild.name);
         div2.setAttribute("gid", guild.id);
         evt(div2, "click", selectGuild);
 

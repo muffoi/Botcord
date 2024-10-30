@@ -30,7 +30,9 @@ async function loadChat(add = false) {
         }
 
 
-        let followup = previousMessage?.author === message.author, attachments = ""; // , nfollowup = nextMessage?.author === message.author;
+        let followup = (previousMessage?.author === message.author) &&
+            (message.createdTimestamp - previousMessage.createdTimestamp < limits.messageGroupingTime),
+            attachments = ""; // , nfollowup = nextMessage?.author === message.author;
         // logger.log(prevMsg, nextMsg, followup, nfollowup, isLast);
 
         if(followup) li.classList.add("no-margin");
@@ -78,7 +80,7 @@ async function loadChat(add = false) {
                     <div class="msgCon">
                         <div class="msgHeader">
                             <span class="msgAuthor">${esc(message.author.displayName)}</span>
-                            <span class="msgDate">${formatDate(message.createdAt)}</span>
+                            <span class="msgDate" title="${message.createdAt}">${formatDate(message.createdAt)}</span>
                         </div>
                         <div class="msgContent">${markdown(message)}</div>
                         <div class="msgAttachment">${attachments}</div>
@@ -95,7 +97,7 @@ async function loadChat(add = false) {
                         <div class="msgHeader">
                             <span class="msgAuthor">${esc(message.author.displayName)}</span>
                             <span class="msgAddition">(responding to ${message.mentions.repliedUser? `<b>${message.mentions.repliedUser.displayName}</b>`: "a deleted message"})</span>
-                            <span class="msgDate">${formatDate(message.createdAt)}</span>
+                            <span class="msgDate" title="${message.createdAt}">${formatDate(message.createdAt)}</span>
                         </div>
                         <div class="msgContent">${markdown(message)}</div>
                         <div class="msgAttachment">${attachments}</div>

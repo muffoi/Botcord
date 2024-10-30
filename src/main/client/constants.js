@@ -1,7 +1,8 @@
 const limits = {
     messageFetch: 20,
     bufferChatScroll: 50,
-    attachmentHeight: 350
+    attachmentHeight: 350,
+    messageGroupingTime: 420_000
 }, logs = {
     // Log message parser outputs and elements
     messages: true,

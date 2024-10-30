@@ -47,14 +47,14 @@ div.msgHeader > span.msgAuthor {
 
 div.msgHeader > span.msgAddition {
     font-style: italic;
-    font-size: 0.8em;
+    font-size: 0.8rem;
     vertical-align: top;
 }
 
 div.msgHeader > span.msgDate {
-    font-size: 0.75em;
+    font-size: 0.75rem;
     color: var(--colorDark);
-
+    vertical-align: top;
 }
 
 li.message div.msgContent {
