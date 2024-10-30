@@ -43,19 +43,21 @@ function afterEffect(li) {
     if(!li.classList.contains("text")) return;
 
     let msgContent = li.children[1].children;
-    msgContent = msgContent[msgContent.length - 1];
+    msgContent = msgContent[msgContent.length - 2];
 
     if(logs.messages) logger.log(msgContent);
 
     if(msgContent.childNodes.length == 1 &&
         (
             msgContent.children.length == 1 &&
-            msgContent.children[0].tagName == "IMG"
+            msgContent.children[0].tagName == "IMG" /* &&
+            msgContent.children[0].classList.contains("d-emoji") */
         )
     ) msgContent.children[0].classList.add("d-single");
 
     for(let elem of msgContent.querySelectorAll("span.d-spoiler")) {
-        evt(elem, "click", () => {
+        evt(elem, "click", e => {
+            e.preventDefault();
             elem.classList.add("show");
         })
     }

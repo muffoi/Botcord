@@ -30,46 +30,76 @@ async function loadChat(add = false) {
         }
 
 
-        let followup = previousMessage?.author === message.author; // , nfollowup = nextMessage?.author === message.author;
+        let followup = previousMessage?.author === message.author, attachments = ""; // , nfollowup = nextMessage?.author === message.author;
         // logger.log(prevMsg, nextMsg, followup, nfollowup, isLast);
 
         if(followup) li.classList.add("no-margin");
 
+        if (message.attachments.size > 0) {
+            for (const attachment of message.attachments) {
+                let media = attachment[1];
+
+                if(getContentType(media.contentType).category != "image") continue;
+                let { width, height } = media;
+
+                if(height > limits.attachmentHeight) {
+                    width = resizeDimensions(height, width, limits.attachmentHeight);
+                    height = limits.attachmentHeight;
+                }
+
+                let maxMsgWidth = styleDimensions.maxMessageWidth();
+
+                if(width > maxMsgWidth) {
+                    height = resizeDimensions(width, height, maxMsgWidth);
+                    width = maxMsgWidth;
+                }
+
+                attachments += `
+                <div class="attachmentBox"  style="aspect-ratio:${width}/${height};width:${width}px">
+                    <img class="attachment" src="${media.proxyURL}">
+                </div>
+                `;
+            }
+        }
+
         switch(message.type) {
             case 0: // Text message
                 li.innerHTML = followup?`
-                <div class="pfpCon">
+                    <div class="pfpCon">
 
-                </div>
-                <div class="msgCon">
-                    <div class="msgContent">${markdown(message)}</div>
-                </div>`: `
-                <div class="pfpCon">
-                    <img src="${message.author.avatarURL({size: 64})}">
-                </div>
-                <div class="msgCon">
-                    <div class="msgHeader">
-                        <span class="msgAuthor">${esc(message.author.displayName)}</span>
-                        <span class="msgDate">${formatDate(message.createdAt)}</span>
                     </div>
-                    <div class="msgContent">${markdown(message)}</div>
-                </div>`;
+                    <div class="msgCon">
+                        <div class="msgContent">${markdown(message)}</div>
+                        <div class="msgAttachment">${attachments}</div>
+                    </div>`: `
+                    <div class="pfpCon">
+                        <img src="${message.author.avatarURL({size: 64})}">
+                    </div>
+                    <div class="msgCon">
+                        <div class="msgHeader">
+                            <span class="msgAuthor">${esc(message.author.displayName)}</span>
+                            <span class="msgDate">${formatDate(message.createdAt)}</span>
+                        </div>
+                        <div class="msgContent">${markdown(message)}</div>
+                        <div class="msgAttachment">${attachments}</div>
+                    </div>`;
                 li.classList.add("text");
                 break;
 
             case 19: // Response
                 li.innerHTML = `
-                <div class="pfpCon">
-                    <img src="${message.author.avatarURL({size: 64})}">
-                </div>
-                <div class="msgCon">
-                    <div class="msgHeader">
-                        <span class="msgAuthor">${esc(message.author.displayName)}</span>
-                        <span class="msgAddition">(responding to ${message.mentions.repliedUser? `<b>${message.mentions.repliedUser.displayName}</b>`: "a deleted message"})</span>
-                        <span class="msgDate">${formatDate(message.createdAt)}</span>
+                    <div class="pfpCon">
+                        <img src="${message.author.avatarURL({size: 64})}">
                     </div>
-                    <div class="msgContent">${markdown(message)}</div>
-                </div>`;
+                    <div class="msgCon">
+                        <div class="msgHeader">
+                            <span class="msgAuthor">${esc(message.author.displayName)}</span>
+                            <span class="msgAddition">(responding to ${message.mentions.repliedUser? `<b>${message.mentions.repliedUser.displayName}</b>`: "a deleted message"})</span>
+                            <span class="msgDate">${formatDate(message.createdAt)}</span>
+                        </div>
+                        <div class="msgContent">${markdown(message)}</div>
+                        <div class="msgAttachment">${attachments}</div>
+                    </div>`;
                 li.classList.add("text");
                 break;
 

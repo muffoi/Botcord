@@ -62,6 +62,7 @@ li.message div.msgContent {
     word-wrap: break-word;
     user-select: text;
     width: 100%;
+    overflow: hidden;
 }
 
 li.message div.msgCon {

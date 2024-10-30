@@ -1,6 +1,7 @@
 const limits = {
     messageFetch: 20,
-    bufferChatScroll: 50
+    bufferChatScroll: 50,
+    attachmentHeight: 350
 }, logs = {
     // Log message parser outputs and elements
     messages: true,
@@ -26,4 +27,9 @@ const limits = {
         productName,
         version
     }
-})();
+})(), styleDimensions = {
+    messagePadding: 120,
+    maxMessageWidth() {
+        return chatContent.clientWidth - this.messagePadding;
+    }
+}

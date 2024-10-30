@@ -74,6 +74,11 @@ span.d-spoiler:not(.show) {
     background-color: var(--backgroundLight);
 }
 
+span.d-spoiler:not(.show) * {
+    opacity: 0;
+    cursor: pointer;
+}
+
 span.d-spoiler:not(.show):hover {
     color: var(--background);
     background-color: var(--background);
@@ -129,4 +134,27 @@ small {
     line-height: 1.11719rem;
 
     color: var(--colorDark);
+}
+
+img.attachment {
+    display: block;
+    min-width: 100%;
+    min-height: 100%;
+    max-width: 100%;
+}
+
+div.attachmentBox {
+    margin: 2px 0;
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+div.msgAttachment:not(:empty) {
+    width: fit-content;
+    display: flex;
+    flex-flow: column nowrap;
+    /* flex: auto; */
+    overflow: hidden;
+
+    border-radius: 8px;
 }

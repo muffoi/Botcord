@@ -150,7 +150,8 @@ declare function initClickables(): void;
 
 interface Limits {
     messageFetch: number,
-    bufferChatScroll: number
+    bufferChatScroll: number,
+    attachmentHeight: number
 }
 interface Logs {
     messages: boolean | undefined,
@@ -168,7 +169,13 @@ interface PackageJsonPartial {
     productName: string,
     version: string
 }
-declare const limits: Limits, logs: Logs, flags: Flags, package: PackageJsonPartial;
+
+interface StyleDimensions {
+    messagePadding: number,
+    maxMessageWidth(): number
+} 
+
+declare const limits: Limits, logs: Logs, flags: Flags, package: PackageJsonPartial, styleDimensions: StyleDimensions;
 
 declare function displayPresence(): void;
 declare function fillBCM(id: import("discord.js").Snowflake): Promise<import("discord.js").User>;
@@ -185,6 +192,16 @@ declare function newUser(free: boolean | undefined): Promise<void>;
 declare function formatDate(date: Date): string;
 declare function color(hex: string): string;
 declare function getBotInfo(obj: BaseUserData): UserData | BaseUserData;
+
+declare function resizeDimensions(x: number, y: number, x2: number): number;
+declare function getContentType(mimeType: string): MimeTypeDetails;
+
+interface MimeTypeDetails {
+    mime: string,
+    category: string,
+    type: string
+}
+
 interface Logger {
     log(...args: any[]): void,
     warn(...args: any[]): void,

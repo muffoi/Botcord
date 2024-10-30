@@ -53,7 +53,7 @@ async function newUser(free = false) {
 }
 
 //#endregion
-//#region Formatting & Utils
+//#region Formatting & BotInfo
 
 function formatDate(date) {
     /* return d.toLocaleString(undefined, {
@@ -101,4 +101,21 @@ function getBotInfo(obj) {
         }
     });
 }
+
+//#endregion
+//#region Data operations
+
+function resizeDimensions(x, y, x2) {
+    return y / x * x2;
+}
+
+function getContentType(mimeType) {
+    let match = mimeType.match(/([^/]+)\/([^/]+)/);
+    return {
+        mime: mimeType,
+        category: match[1],
+        tpye: match[2]
+    }
+}
+
 //#endregion
