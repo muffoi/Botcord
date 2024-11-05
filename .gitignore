@@ -10,6 +10,7 @@ eslint.config.mjs
 discordMarkdown.pegjs
 accounts.json
 moment.*
+tsconfig.json
 
 # Branding templates
 branding

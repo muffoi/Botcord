@@ -62,6 +62,8 @@ function createWindow () {
         })
     });
 
+    win.removeMenu();
+
     win.loadFile(join(__dirname, "src", "index.html"));
     /* win.on("unresponsive", ()=>{
         dialog.showErrorBox("Not Responding", "App window has gone unresponsive");
