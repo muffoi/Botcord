@@ -57,6 +57,7 @@ function afterEffect(li) {
 
     for(let elem of msgContent.querySelectorAll("span.d-spoiler")) {
         evt(elem, "click", e => {
+            if(elem.classList.contains("show")) return;
             e.preventDefault();
             elem.classList.add("show");
         })

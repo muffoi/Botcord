@@ -91,12 +91,18 @@ function loadChannels() {
 //#endregion
 //#region Select Channel
 
-function selectChannel() {
+let loadingChannel = false;
+
+async function selectChannel() {
+    if(loadingChannel) return;
+    loadingChannel = true;
+
     let target = Botcord.channels[this.getAttribute("cid")];
     let allowedChannelTypes = [0, 5];
     if(allowedChannelTypes.includes(target.type)) {
         if(target.id == Botcord.currentChannel.id) {
-            Botcord.chatContent.scrollTo({top: 0})
+            Botcord.chatContent.scrollTo({top: 0});
+            loadingChannel = false;
             return;
         }
 
@@ -110,10 +116,14 @@ function selectChannel() {
         if(Botcord.pinnedOpenChannel) Botcord.pinnedOpenChannel.remove();
         Botcord.chatContent.scrollTop = 0;
 
-        loadChat();
+        await loadChat();
     } else {
-        dialog.confirm(...templates.confirms.INVALID_CHANNEL_TYPE(target))
+        try {
+            dialog.confirm(...templates.confirms.INVALID_CHANNEL_TYPE(target));
+        } catch {}
     }
+
+    loadingChannel = false;
 }
 
 //#endregion
