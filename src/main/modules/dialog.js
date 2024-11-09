@@ -1,4 +1,5 @@
 const { Client } = require("discord.js");
+const { propIcons } = require("./displays");
 
 let dialog = elem("#dialog");
 

@@ -1,6 +1,6 @@
 (function() {
 
-    let css = elem("#stylesMain"), backup = mkelem("link");
+    let css = document.getElementById("stylesMain"), backup = document.createElement("link");
     let href = css.href, paused = false;
 
     backup.rel = css.rel;

@@ -63,6 +63,7 @@ function createWindow () {
     });
 
     win.removeMenu();
+    if(!app.isPackaged) win.webContents.openDevTools();
 
     win.loadFile(join(__dirname, "src", "index.html"));
     /* win.on("unresponsive", ()=>{

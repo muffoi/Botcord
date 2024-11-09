@@ -1,11 +1,14 @@
+const { channelIcon } = require("../utils");
+const { loadChat } = require("./chat");
+
 //#region Load Channels
 
 function loadChannels() {
     let el = elem("#channels"), categoryObjs = {}, channelObjs = {}, categoryEls = {}, channelEls = {};
     el.innerHTML = "";
 
-    for(let i in channels) {
-        let channel = channels[i];
+    for(let i in Botcord.channels) {
+        let channel = Botcord.channels[i];
 
         if(channel.type == 4) categoryObjs[i] = channel;
             else channelObjs[i] = channel;
@@ -27,23 +30,23 @@ function loadChannels() {
             let isActive = actives.categoryOf == this;
 
             if(isActive && this.open) {
-                if(pinnedOpenChannel) {
-                    pinnedOpenChannel.remove();
-                    pinnedOpenChannel = null;
+                if(Botcord.pinnedOpenChannel) {
+                    Botcord.pinnedOpenChannel.remove();
+                    Botcord.pinnedOpenChannel = null;
                 }
             } else if(isActive) {
-                pinnedOpenChannel = actives.channel.cloneNode(true);
-                categoryEls[currentChannel.parentId].parentElement.after(pinnedOpenChannel);
+                Botcord.pinnedOpenChannel = actives.channel.cloneNode(true);
+                categoryEls[Botcord.currentChannel.parentId].parentElement.after(Botcord.pinnedOpenChannel);
             }
         })
     }
 
-    if(logs.values) logger.log(`Loaded channels:`, channelObjs);
+    if(Botcord.logs.values) logger.log(`Loaded channels:`, channelObjs);
 
     for(let channel of channelObjs) {
         if(!channel) continue;
 
-        if(logs.channels) {
+        if(Botcord.logs.channels) {
             // logger.log(`-----`);
             logger.log(`Channel #${channel.name} (type ${channel.type}):`, channel);
         }
@@ -53,13 +56,13 @@ function loadChannels() {
 
         li.appendChild(mkelem(
             "img", "chIcon", 0,
-            channelIcon(channel, currentGuild)
+            channelIcon(channel, Botcord.currentGuild)
         ));
 
         li.innerHTML += esc(channel.name);
         li.setAttribute("cid", channel.id);
 
-        if(channel.permissionsFor(client.user).has("ViewChannel")) {
+        if(channel.permissionsFor(Botcord.client.user).has("ViewChannel")) {
             evt(li, "click", selectChannel);
         } else {
             li.classList.add("invisible");
@@ -73,14 +76,14 @@ function loadChannels() {
         ).appendChild(li);
     }
 
-    active( channelEls[currentChannel.id], "channel" );
+    active( channelEls[Botcord.currentChannel.id], "channel" );
 
     let parent = actives.channel?.parentElement.parentElement;
     active(parent, "categoryOf");
     if(parent) parent.open = true;
 
-    elem("#chInfoName").textContent = currentChannel.name;
-    elem("#chInfoImg").src = channelIcon(currentChannel, currentGuild);
+    elem("#chInfoName").textContent = Botcord.currentChannel.name;
+    elem("#chInfoImg").src = channelIcon(Botcord.currentChannel, Botcord.currentGuild);
 
     loadChat();
 }
@@ -89,18 +92,18 @@ function loadChannels() {
 //#region Select Channel
 
 function selectChannel() {
-    let target = channels[this.getAttribute("cid")];
+    let target = Botcord.channels[this.getAttribute("cid")];
     let allowedChannelTypes = [0, 5];
     if(allowedChannelTypes.includes(target.type)) {
         active(this, "channel");
         active(this.parentElement.parentElement, "categoryOf");
-        currentChannel = target;
+        Botcord.currentChannel = target;
 
-        elem("#chInfoName").textContent = currentChannel.name;
-        elem("#chInfoImg").src = channelIcon(currentChannel, currentGuild);
+        elem("#chInfoName").textContent = Botcord.currentChannel.name;
+        elem("#chInfoImg").src = channelIcon(Botcord.currentChannel, Botcord.currentGuild);
 
-        if(pinnedOpenChannel) pinnedOpenChannel.remove();
-        chatContent.scrollTop = 0;
+        if(Botcord.pinnedOpenChannel) Botcord.pinnedOpenChannel.remove();
+        Botcord.chatContent.scrollTop = 0;
 
         loadChat();
     } else {
@@ -109,3 +112,9 @@ function selectChannel() {
 }
 
 //#endregion
+
+module.exports = {
+    loadChannels,
+    selectChannel,
+    loadChat
+}

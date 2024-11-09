@@ -1,14 +1,16 @@
+const { loadChannels, selectChannel, loadChat } = require("./channels");
+
 //#region Load Guilds
 
 async function loadGuilds() {
-    let firstGuild, allGuilds = await client.guilds.fetch();
+    let firstGuild, allGuilds = await Botcord.client.guilds.fetch();
     allGuilds/* .filter(g => g.available === true) */.forEach(guild => {
         if(!firstGuild) firstGuild = guild.id;
-        guilds[guild.id] = guild;
+        Botcord.guilds[guild.id] = guild;
     });
 
-    for (const guildID in guilds) {
-        guilds[guildID] = await guilds[guildID].fetch();
+    for (const guildID in Botcord.guilds) {
+        Botcord.guilds[guildID] = await Botcord.guilds[guildID].fetch();
     }
 
     if(!firstGuild) {
@@ -16,25 +18,25 @@ async function loadGuilds() {
         return;
     }
 
-    firstGuild = guilds[firstGuild];
+    firstGuild = Botcord.guilds[firstGuild];
 
-    currentGuild = guilds[firstGuild.id];
+    Botcord.currentGuild = Botcord.guilds[firstGuild.id];
 
-    let firstChannel, allChannels = await currentGuild.channels.fetch();
+    let firstChannel, allChannels = await Botcord.currentGuild.channels.fetch();
     allChannels.forEach(channel => {
         if(!firstChannel) firstChannel = channel;
-        channels[channel.id] = channel;
+        Botcord.channels[channel.id] = channel;
     });
-    currentChannel = channels[
-        currentGuild.systemChannelId?
-        currentGuild.systemChannelId:
+    Botcord.currentChannel = Botcord.channels[
+        Botcord.currentGuild.systemChannelId?
+        Botcord.currentGuild.systemChannelId:
         firstChannel.id
     ];
 
-    elem("#gName").innerText = currentGuild.name;
+    elem("#gName").innerText = Botcord.currentGuild.name;
 
-    for(let i in guilds) {
-        let guild = guilds[i];
+    for(let i in Botcord.guilds) {
+        let guild = Botcord.guilds[i];
         let icon = guild.iconURL({size: 128});
 
         let li = mkelem("li", "gItem"),
@@ -68,24 +70,32 @@ async function loadGuilds() {
 async function selectGuild() {
     active(this.parentElement.parentElement, "guild");
 
-    currentGuild = guilds[this.getAttribute("gid")];
-    channels = {};
+    Botcord.currentGuild = Botcord.guilds[this.getAttribute("gid")];
+    Botcord.channels = {};
 
-    let firstChannel, allChannels = await currentGuild.channels.fetch();
+    let firstChannel, allChannels = await Botcord.currentGuild.channels.fetch();
     allChannels.forEach(channel => {
         if(!firstChannel) firstChannel = channel;
-        channels[channel.id] = channel;
+        Botcord.channels[channel.id] = channel;
     });
 
-    currentChannel = channels[
-        currentGuild.systemChannelId?
-        currentGuild.systemChannelId:
+    Botcord.currentChannel = Botcord.channels[
+        Botcord.currentGuild.systemChannelId?
+        Botcord.currentGuild.systemChannelId:
         firstChannel.id
     ];
 
-    elem("#gName").innerText = currentGuild.name;
+    elem("#gName").innerText = Botcord.currentGuild.name;
 
     loadChannels();
 }
 
 //#endregion
+
+module.exports = {
+    loadGuilds,
+    selectGuild,
+    loadChannels,
+    selectChannel,
+    loadChat
+}

@@ -1,4 +1,4 @@
-//#region MD Parser & Msg AE
+const discordMarkdown = require("@odiffey/discord-markdown");
 
 function markdown(message) {
     // let md = MDParser.parse(esc(message.content)).split(/(&lt;|&gt;)/);
@@ -21,8 +21,8 @@ function markdown(message) {
             channel: node => {
                 logger.debug(node);
                 try {
-                    let channel = client.channels.resolve(node.id);
-                    return "#" + (channel.guildId != currentGuild.id? channel.guild.name + " > ": "") + channel.name;  // message.mentions.roles.get(node.id).name;
+                    let channel = Botcord.client.channels.resolve(node.id);
+                    return "#" + (channel.guildId != Botcord.currentGuild.id? channel.guild.name + " > ": "") + channel.name;  // message.mentions.roles.get(node.id).name;
                 } catch {
                     return "#unknown";
                 }
@@ -32,7 +32,7 @@ function markdown(message) {
         }
     });
 
-    if(logs.messages) {
+    if(Botcord.logs.messages) {
         logger.log(markdown);
     }
     return markdown;   // .join("");
@@ -45,7 +45,7 @@ function afterEffect(li) {
     let msgContent = li.children[1].children;
     msgContent = msgContent[msgContent.length - 2];
 
-    if(logs.messages) logger.log(msgContent);
+    if(Botcord.logs.messages) logger.log(msgContent);
 
     if(msgContent.childNodes.length == 1 &&
         (
@@ -63,4 +63,7 @@ function afterEffect(li) {
     }
 }
 
-//#endregion
+module.exports = {
+    markdown,
+    afterEffect
+}

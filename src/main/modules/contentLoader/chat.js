@@ -1,13 +1,16 @@
+const { formatDate, resizeDimensions, getContentType } = require("../utils");
+const { markdown, afterEffect } = require("../makeMessage");
+
 //#region Load Chat
 
 async function loadChat(add = false) {
-    if(!add) chatContent.innerHTML = "";
+    if(!add) Botcord.chatContent.innerHTML = "";
 
-    let msgs = await currentChannel.messages.fetch(add? {
-        before: topLoadedMessage,
-        limit: limits.messageFetch
+    let msgs = await Botcord.currentChannel.messages.fetch(add? {
+        before: Botcord.topLoadedMessage,
+        limit: Botcord.limits.messageFetch
     }: {
-        limit: limits.messageFetch
+        limit: Botcord.limits.messageFetch
     }), messages = [];
 
     let previousMessage; // , nextMessage;
@@ -16,7 +19,7 @@ async function loadChat(add = false) {
         messages.push(message);
     });
 
-    if(add && messages.length != 0) chatContent.removeChild(chatContent.lastChild);
+    if(add && messages.length != 0) Botcord.chatContent.removeChild(Botcord.chatContent.lastChild);
 
     for(let id in messages) {
         let li = mkelem("li", "message");
@@ -24,14 +27,14 @@ async function loadChat(add = false) {
 
         previousMessage = messages[+id + 1];
         let isLast = !previousMessage;
-        if(logs.messages) {
+        if(Botcord.logs.messages) {
             // logger.log(`-----`);
             logger.log(message, message.author);
         }
 
 
         let followup = (previousMessage?.author === message.author) &&
-            (message.createdTimestamp - previousMessage.createdTimestamp < limits.messageGroupingTime),
+            (message.createdTimestamp - previousMessage.createdTimestamp < Botcord.limits.messageGroupingTime),
             attachments = ""; // , nfollowup = nextMessage?.author === message.author;
         // logger.log(prevMsg, nextMsg, followup, nfollowup, isLast);
 
@@ -44,21 +47,24 @@ async function loadChat(add = false) {
                 if(getContentType(media.contentType).category != "image") continue;
                 let { width, height } = media;
 
-                if(height > limits.attachmentHeight) {
-                    width = resizeDimensions(height, width, limits.attachmentHeight);
-                    height = limits.attachmentHeight;
+                if(height > Botcord.limits.attachmentHeight) {
+                    width = resizeDimensions(height, width, Botcord.limits.attachmentHeight);
+                    height = Botcord.limits.attachmentHeight;
                 }
 
-                let maxMsgWidth = styleDimensions.maxMessageWidth();
+                let maxMsgWidth = Botcord.styleDimensions.maxMessageWidth();
 
                 if(width > maxMsgWidth) {
                     height = resizeDimensions(width, height, maxMsgWidth);
                     width = maxMsgWidth;
                 }
 
+                width = Math.round(width);
+                height = Math.round(height);
+
                 attachments += `
                 <div class="attachmentBox"  style="aspect-ratio:${width}/${height};width:${width}px">
-                    <img class="attachment" src="${media.proxyURL}">
+                    <img class="attachment" src="${media.proxyURL + `width=${width}&height=${height}`}">
                 </div>
                 `;
             }
@@ -110,13 +116,15 @@ async function loadChat(add = false) {
                 li.classList.add("unknown");
         }
 
-        if(!isLast) topLoadedMessage = message.id;
+        if(!isLast) Botcord.topLoadedMessage = message.id;
         // nextMessage = message;
 
         afterEffect(li);
 
-        chatContent.appendChild(li);
+        Botcord.chatContent.appendChild(li);
     }
 }
 
 //#endregion
+
+module.exports = { loadChat };

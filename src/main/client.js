@@ -1,35 +1,34 @@
-/**
- * @typedef {import("../modules/templates")} Templates
- * @typedef {import("../modules/storage")} Storage
- * @typedef {import("../modules/popouts")} Popouts
- * @typedef {import("../modules/dialog")} Dialog
- */
+// /**
+//  * @typedef {import("../modules/templates")} Templates
+//  * @typedef {import("../modules/storage")} Storage
+//  * @typedef {import("../modules/popouts")} Popouts
+//  * @typedef {import("../modules/dialog")} Dialog
+//  */
 
 const { Client, Partials, DiscordjsErrorCodes } = require("discord.js");
-const discordMarkdown = require("@odiffey/discord-markdown");
 const dayjs = require("dayjs");
-const Vibrant = require("node-vibrant");
+const Botcord = new (require("./modules/botcord"));
 
-/** @type {Storage} */
+// /** @type {Storage} */
 const storageInit = require("./modules/storage");
 
-/** @type {Dialog} */
+// /** @type {Dialog} */
 const dialog = require("./modules/dialog");
 
-/** @type {Popouts} */
+// /** @type {Popouts} */
 const popouts = require("./modules/popouts");
 
-/** @type {Templates} */
-const templates = require("./modules/templates");
+// /** @type {Templates} */
+const templates = require("./data/templates");
 
+const { displayPresence } = require("./modules/displays");
+const { newUser } = require("./modules/clientApps");
+const { loadChat } = require("./modules/contentLoader");
 
 dayjs.extend(require("dayjs/plugin/calendar"));
 times.stamp("client");
 
-let guilds = {}, channels = {};
-let currentGuild, currentChannel, topLoadedMessage;
-let pinnedOpenChannel, chatContent = elem("#chContent");
-let storage, current, client;
+let current;
 
 //#region Sort Channels
 
@@ -51,8 +50,8 @@ function sortChannels(channelsArray) {
 //#region API Shortcuts
 
 function setStatus(status) {
-    client.presence.set({status: status});
-    storage.updateUser(storage.userIndex, {presence: status});
+    Botcord.client.presence.set({status: status});
+    Botcord.storage.updateUser(Botcord.storage.userIndex, {presence: status});
     displayPresence();
 }
 
@@ -61,10 +60,8 @@ function setStatus(status) {
 (async () => {
 
     //#region The Code
-    
-    await require("./main/client/subs")();
 
-    if(flags.disableLoaderCurtain) {
+    if(Botcord.flags.disableLoaderCurtain) {
         let l = elem("#loader");
         l.style.transform = "scaleY(0)";
         l.style.opacity = 0;
@@ -74,13 +71,13 @@ function setStatus(status) {
 
     let loadInProgress = false;
 
-    chatContent.addEventListener("scroll", async () => {
+    Botcord.chatContent.addEventListener("scroll", async () => {
         if( clampNumber(
-            chatContent.scrollHeight
-            + chatContent.scrollTop
-            - chatContent.clientHeight,
+            Botcord.chatContent.scrollHeight
+            + Botcord.chatContent.scrollTop
+            - Botcord.chatContent.clientHeight,
             0
-        ) <= limits.bufferChatScroll && !loadInProgress) {
+        ) <= Botcord.limits.bufferChatScroll && !loadInProgress) {
             loadInProgress = true;
             await loadChat(true);
             loadInProgress = false;
@@ -90,10 +87,10 @@ function setStatus(status) {
     //#endregion
     //#region Init Storage
 
-    storage = await storageInit();
-    if(storage.status) {
-        let ecodes = storage.errorCodes;
-        switch(storage.error) {
+    Botcord.storage = await storageInit();
+    if(Botcord.storage.status) {
+        let ecodes = Botcord.storage.errorCodes;
+        switch(Botcord.storage.error) {
             case ecodes.noUser:
                 newUser();
                 break;
@@ -102,12 +99,10 @@ function setStatus(status) {
         return;
     }
 
-    current = () => storage.getCurrentUser();
-
     //#endregion
     //#region Init Client
 
-    client = new Client({
+    Botcord.client = new Client({
         intents: [
             "Guilds",
             "GuildMessages",
@@ -118,13 +113,13 @@ function setStatus(status) {
         partials: [ Partials.Channel ]
     });
 
-    initClientEvents();
+    require("./modules/events")();
 
     //#endregion
     //#region Client Login
 
     try {
-        let loginPromise = client.login(current().token);
+        let loginPromise = Botcord.client.login(Botcord.current().token);
         loginPromise.catch(e => {
             if(e.message == "Used disallowed intents") {
                 dialog.confirm(...templates.confirms.DISALLOWED_INTENTS());
@@ -138,7 +133,7 @@ function setStatus(status) {
             let choice;
 
             try {
-                choice = await dialog.confirm(...templates.confirms.INVALID_TOKEN(current));
+                choice = await dialog.confirm(...templates.confirms.INVALID_TOKEN(Botcord.current));
             } catch(e) {
                 if(e == dialog.errors.DISMISSED) {
                     logger.log(`Primary dialog dismissed.`);
@@ -149,8 +144,8 @@ function setStatus(status) {
             if(choice) {
                 try {
                     await wait(theme._dat.tr2 + 500);
-                    let token = await dialog.newToken(current().tag || "User");
-                    await storage.updateUser(storage.userIndex, {token});
+                    let token = await dialog.newToken(Botcord.current().tag || "User");
+                    await Botcord.storage.updateUser(Botcord.storage.userIndex, {token});
                     location.reload();
                 } catch(e) {
                     if(e == dialog.errors.DISMISSED) {
@@ -159,7 +154,7 @@ function setStatus(status) {
                     } else throw e;
                 }
             } else {
-                await storage.removeUser(storage.userIndex);
+                await Botcord.storage.removeUser(Botcord.storage.userIndex);
                 location.reload();
             }
         } else throw e;

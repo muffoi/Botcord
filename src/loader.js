@@ -1,4 +1,7 @@
-const { join } = require("path");
+const { join } = module.require("path");
+const { createRequire } = module.require("module");
+global.require = createRequire(join(__dirname, "main") + "/");
+
 const times = {
     startTimestamp: Math.round( performance.now() ),
     loader: null,
@@ -40,7 +43,7 @@ const times = {
 
 (async function(doc) {
     const scripts = [
-        "helpers",
+        // "helpers",
         "imgFixer",
         "client",
         "quickDev"

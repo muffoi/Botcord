@@ -120,3 +120,19 @@ function logError(error) {
         `ERROR LOGGED => Name: ${error.name}; Message: ${error.message}; Code: ${error.code}; Constr: ${error.constructor.name}`
     );
 }
+
+module.exports = {
+    mkelem,
+    elem,
+    esc,
+    evt,
+    active,
+    anonymize,
+    prepEvt,
+    pushFrame,
+    clampNumber,
+    mergeObjects,
+    wait,
+    logError,
+    actives
+}
