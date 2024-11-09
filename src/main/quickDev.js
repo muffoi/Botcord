@@ -1,4 +1,5 @@
 (function() {
+    if(Botcord.args.isPackaged) return;
 
     let css = document.getElementById("stylesMain"), backup = document.createElement("link");
     let href = css.href; // paused = false;
@@ -28,19 +29,17 @@
     // }
 
     window.addEventListener("keydown", evt => {
-        if(!Botcord.args.isPackaged) {
-            if(evt.ctrlKey == true && evt.code == "Digit1") {
-                css.href = "";
-                css.href = href;
+        if(evt.ctrlKey == true && evt.code == "Digit1") {
+            css.href = "";
+            css.href = href;
 
-                setTimeout(() => {
-                    backup.href = "";
-                    backup.href = href;
-                }, 150);
-            }
-
-            if(evt.ctrlKey == true && evt.code == "KeyR") location.reload();
+            setTimeout(() => {
+                backup.href = "";
+                backup.href = href;
+            }, 150);
         }
+
+        if(evt.ctrlKey == true && evt.code == "KeyR") location.reload();
     })
 
 })();
