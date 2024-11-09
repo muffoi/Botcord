@@ -19,7 +19,8 @@ async function loadChat(add = false) {
         messages.push(message);
     });
 
-    if(add && messages.length != 0) Botcord.chatContent.removeChild(Botcord.chatContent.lastChild);
+    if(add && messages.length > 1) Botcord.chatContent.removeChild(Botcord.chatContent.lastChild);
+        else if(add) return;
 
     for(let id in messages) {
         let li = mkelem("li", "message");

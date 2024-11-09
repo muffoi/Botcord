@@ -95,6 +95,11 @@ function selectChannel() {
     let target = Botcord.channels[this.getAttribute("cid")];
     let allowedChannelTypes = [0, 5];
     if(allowedChannelTypes.includes(target.type)) {
+        if(target.id == Botcord.currentChannel.id) {
+            Botcord.chatContent.scrollTo({top: 0})
+            return;
+        }
+
         active(this, "channel");
         active(this.parentElement.parentElement, "categoryOf");
         Botcord.currentChannel = target;

@@ -2,7 +2,10 @@ const limits = {
     messageFetch: 20,
     bufferChatScroll: 50,
     attachmentHeight: 350,
-    messageGroupingTime: 420_000
+    messageGroupingTime: 420_000,
+    // get smoothScroll(){
+    //     return document.body.clientHeight * 5;
+    // }
 }, logs = {
     // Log message parser outputs and elements
     messages: true,
