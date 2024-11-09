@@ -63,9 +63,12 @@ async function loadChat(add = false) {
                 width = Math.round(width);
                 height = Math.round(height);
 
+                let realW = Math.round(width * devicePixelRatio),
+                    realH = Math.round(height * devicePixelRatio);
+
                 attachments += `
                 <div class="attachmentBox"  style="aspect-ratio:${width}/${height};width:${width}px">
-                    <img class="attachment" src="${media.proxyURL + `width=${width}&height=${height}`}">
+                    <img class="attachment" src="${media.proxyURL + `width=${realW}&height=${realH}`}">
                 </div>
                 `;
             }

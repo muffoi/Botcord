@@ -144,9 +144,13 @@ img.attachment {
 }
 
 div.attachmentBox {
-    margin: 2px 0;
     border-radius: 2px;
     overflow: hidden;
+    background: var(--backgroundLight);
+}
+
+div.attachmentBox:not(:last-child) {
+    margin-bottom: 4px;
 }
 
 div.msgAttachment:not(:empty) {
