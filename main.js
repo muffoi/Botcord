@@ -11,7 +11,7 @@ function createWindow () {
             sandbox: false,
             contextIsolation: false,
             devTools: !app.isPackaged,
-            additionalArguments: encodeArgs( app.getPath("userData") )
+            additionalArguments: encodeArgs( app.getPath("userData"), app.isPackaged )
         },
         autoHideMenuBar: true,
         title: package.productName + " v" + package.version,
@@ -72,7 +72,14 @@ function createWindow () {
 }
 
 function encodeArgs(...args) {
-    return [...args, args.length + ""];
+    let newArgs = [];
+
+    for (const arg of args) {
+        if(typeof arg == "boolean") newArgs.push(+arg+"");
+            else newArgs.push(arg.toString());
+    }
+
+    return [...newArgs, newArgs.length + ""];
 }
 
 app.whenReady().then(() => {

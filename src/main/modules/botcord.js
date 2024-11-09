@@ -35,6 +35,42 @@ const limits = {
     }
 }
 
+let arg = (() => {
+    try {
+        let argv = process.argv;
+        let dataLength = +argv[argv.length-2];
+        if(isNaN(dataLength) || dataLength == 0) {
+            throw new Error("Couldn't separate argv data out of 'process.argv'. Length: " + dataLength);
+        }
+        let args = argv.slice(-2 - dataLength, -2), argDefs = [
+            { key: "appData", type: "string" },
+            { key: "isPackaged", type: "bool" }
+        ], argObj = {};
+
+        for (let i = 0; i < args.length; i++) {
+            let def = argDefs[i];
+            let value;
+
+            switch(def.type) {
+                case "string":
+                    value = args[i];
+                    break;
+                case "number":
+                    value = +args[i];
+                    break;
+                case "bool":
+                    value = !!+args[i];
+            }
+
+            argObj[def.key] = value;
+        }
+
+        return argObj;
+    } catch(e) {
+        logger.report(`Botcord module failed loading`, {cause: e});
+    }
+})();
+
 module.exports = class BotcordClient {
     constructor() {
         this.guilds = {};
@@ -63,6 +99,14 @@ module.exports = class BotcordClient {
         this.flags = flags;
         this.package = packagePartial;
         this.styleDimensions = styleDimensions;
+
+        /**
+         * @type {{
+         *  appData: string,
+         *  isPackaged: boolean
+         * }}
+         */
+        this.args = arg;
     }
 
     initStorage(bypassLogin) {

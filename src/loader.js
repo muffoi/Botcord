@@ -1,6 +1,12 @@
 const { join } = module.require("path");
 const { createRequire } = module.require("module");
 global.require = createRequire(join(__dirname, "main") + "/");
+// global.require = id => {
+//     if(id.match(/^\.+\//)) return module.require(
+//         resolve(__dirname, "main", id)
+//     );
+//     return module.require(id);
+// }
 
 const times = {
     startTimestamp: Math.round( performance.now() ),
@@ -36,7 +42,7 @@ const times = {
     },
 
     report(message, {constr, cause} = {}) {
-        if(cause) this.error(cause.toString());
+        if(cause) this.error(cause);
         throw new (constr || Error)(message, cause? {cause}: null);
     }
 };
