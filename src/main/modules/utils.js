@@ -27,8 +27,7 @@ function formatDate(date) {
         minute:"numeric"
     }) */
 
-    return dayjs().calendar(date);
-    // return require("./moment.min")(date).calendar();
+    return dayjs(date).calendar();
 }
 
 function color(hex) {
