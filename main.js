@@ -7,10 +7,10 @@ let win, package = require("./package.json");
 function createWindow () {
     win = new BrowserWindow({
         webPreferences: {
-            nodeIntegration:!0,
-            sandbox:!1,
-            contextIsolation:!1,
-            devTools:!app.isPackaged || true,
+            nodeIntegration: true,
+            sandbox: false,
+            contextIsolation: false,
+            devTools: !app.isPackaged,
             additionalArguments: encodeArgs( app.getPath("userData") )
         },
         autoHideMenuBar: true,
@@ -98,9 +98,11 @@ app.whenReady().then(() => {
     })
 })
 
-app.on("window-all-closed", () => {
-    if (process.platform !== "darwin") {
-        app.quit();
-    }
-})
+// app.on("window-all-closed", () => {
+//     if (process.platform !== "darwin") {
+//         app.quit();
+//     }
+// })
+
+app.on("window-all-closed", app.quit);
 
