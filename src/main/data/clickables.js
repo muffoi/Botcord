@@ -109,7 +109,7 @@ const clickables = {
             creditsWin.close();
             creditsWin = null;
         } else {
-            creditsWin = open("info.html", "", "autoHideMenuBar=true,titleBarStyle=hidden,width=420,height=340");
+            creditsWin = open("info.html", "", "autoHideMenuBar=true,titleBarStyle=hidden,width=420,height=310");
         }
     }
 }

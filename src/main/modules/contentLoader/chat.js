@@ -90,7 +90,10 @@ async function loadChat(add = false) {
                     <div class="msgCon">
                         <div class="msgHeader">
                             <span class="msgAuthor">${esc(message.author.displayName)}</span>
-                            <span class="msgDate" title="${message.createdAt}">${formatDate(message.createdAt)}</span>
+                            <span class="msgDate" title="${message.createdAt}">
+                                <span class="visuallyHidden"> — </span>
+                                ${formatDate(message.createdAt)}
+                            </span>
                         </div>
                         <div class="msgContent">${markdown(message)}</div>
                         <div class="msgAttachment">${attachments}</div>
@@ -106,7 +109,8 @@ async function loadChat(add = false) {
                     <div class="msgCon">
                         <div class="msgHeader">
                             <span class="msgAuthor">${esc(message.author.displayName)}</span>
-                            <span class="msgAddition">(responding to ${message.mentions.repliedUser? `<b>${message.mentions.repliedUser.displayName}</b>`: "a deleted message"})</span>
+                            <span class="msgAddition"> (responding to ${message.mentions.repliedUser? `<b>${message.mentions.repliedUser.displayName}</b>`: "a deleted message"})</span>
+                            <span class="visuallyHidden"> — </span>
                             <span class="msgDate" title="${message.createdAt}">${formatDate(message.createdAt)}</span>
                         </div>
                         <div class="msgContent">${markdown(message)}</div>

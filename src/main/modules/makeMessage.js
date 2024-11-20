@@ -8,7 +8,7 @@ function markdown(message) {
                 try {
                     return "@" + message.mentions.users.get(node.id).displayName;
                 } catch {
-                    return "@" + node.id;
+                    return `<@${node.id}>`;
                 }
             },
             role: node => {
@@ -41,6 +41,8 @@ function markdown(message) {
 function afterEffect(li) {
 
     if(!li.classList.contains("text")) return;
+
+    li.innerHTML = li.innerHTML.replace(/\n|(\s{4})/g, "");
 
     let msgContent = li.children[1].children;
     msgContent = msgContent[msgContent.length - 2];

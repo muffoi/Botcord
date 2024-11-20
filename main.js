@@ -15,7 +15,7 @@ function createWindow () {
         },
         autoHideMenuBar: true,
         title: package.productName + " v" + package.version,
-        icon: join(__dirname, "resources", "icon.ico")
+        icon: join(__dirname, "resources", "icon-sm.ico")
     })
 
     let allowed = [

@@ -67,6 +67,24 @@ function setStatus(status) {
         l.style.opacity = 0;
     }
 
+    window.openPersistent = window.open;
+    Object.defineProperty(window, "__childWindows", {
+        value: [],
+        writable: false,
+        configurable: false
+    })
+
+    window.open = (...args) => {
+        let win = window.openPersistent(...args);
+        __childWindows.push(win);
+    }
+
+    window.addEventListener("beforeunload", () => {
+        for (const win of __childWindows) {
+            if(!win.closed) win.close();
+        }
+    })
+
     popouts.link(elem("#profilePopout"), elem("#btnSwitch"));
 
     let loadInProgress = false;

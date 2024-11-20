@@ -139,3 +139,11 @@ a:hover {
 a:visited {
     color: var(--accentLighter);
 }
+
+.visuallyHidden {
+    position: absolute;
+    opacity: 0;
+    display: inline-block;
+    font-style: normal;
+    z-index: -1;
+}

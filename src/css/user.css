@@ -78,6 +78,7 @@ div.user {
     text-overflow: ellipsis;
     overflow: hidden;
     text-wrap: nowrap;
+    user-select: text;
 }
 
 .status {
@@ -85,6 +86,7 @@ div.user {
     top: 16px;
     font-size: 12px;
     font-weight: 400;
+    user-select: text;
 }
 
 .buttonsProfile {
