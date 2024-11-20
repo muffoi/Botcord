@@ -1,3 +1,5 @@
+const { newUser } = require("../modules/clientApps");
+const { fillBCM, propIcons } = require("../modules/displays");
 let creditsWin;
 
 const clickables = {
@@ -7,9 +9,9 @@ const clickables = {
         if(popouts.toggle(popMain)) {
 
             pop.innerHTML = "";
-            let users = storage.getUsers(), empty = true, i = 0;
+            let users = Botcord.storage.getUsers(), empty = true, i = 0;
             for (const user of users) {
-                // if(user.token == storage.getCurrentUser().token) continue;
+                // if(user.token == Botcord.storage.getCurrentUser().token) continue;
                 let opt = mkelem("div", "popItem"), index = i;
                 empty = false;
 
@@ -36,8 +38,8 @@ const clickables = {
                     }
 
                     if(confirmed) {
-                        await storage.removeUser(index);
-                        if(index === storage.userIndex) location.reload();
+                        await Botcord.storage.removeUser(index);
+                        if(index === Botcord.storage.userIndex) location.reload();
                         
                         let el = elem("#btnSwitch");
                         el.click();
@@ -48,7 +50,7 @@ const clickables = {
                 })}></div>`;
 
                 evt(opt, "click", () => {
-                    storage.setCurrentUser(index);
+                    Botcord.storage.setCurrentUser(index);
                     location.reload();
                 });
 
@@ -57,7 +59,7 @@ const clickables = {
             }
 
             let addUserBtn = elem(".popItem#addUser");
-            if(logs.elements) logger.log(`Add User button:`, addUserBtn);
+            if(Botcord.logs.elements) logger.log(`Add User button:`, addUserBtn);
             if(empty) addUserBtn.classList.add("standalone");
                 else addUserBtn.classList.remove("standalone");
 
@@ -107,7 +109,9 @@ const clickables = {
             creditsWin.close();
             creditsWin = null;
         } else {
-            creditsWin = open("info.html", "", "autoHideMenuBar=true,titleBarStyle=hidden,width=420,height=340");
+            creditsWin = open("info.html", "", "autoHideMenuBar=true,titleBarStyle=hidden,width=420,height=310");
         }
     }
 }
+
+module.exports = clickables;

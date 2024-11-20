@@ -1,10 +1,10 @@
 function applyColorVars() {
-    let cssString = 'body, #dialog {', el = document.getElementById('themeCSS');
+    let cssString = "body, #dialog {", el = document.getElementById("themeCSS");
     for(let i in theme) {
         if(i == _themeData.spec) continue;
         cssString += `--${i}: ${theme[i]};`
     }
-    cssString += '}';
+    cssString += "}";
     el.textContent = cssString;
 }
 let _themeData = {
@@ -14,24 +14,39 @@ let _themeData = {
     },
     spec: "_dat"
 };
+
 const theme = {
     [_themeData.spec]: _themeData.durations,
-    bg: '#1e1f22',
-    bgNi: '#2b2d31',
-    fg: '#313338',
-    fgNi: '#37393f',
-    color: '#dddddd',
-    colorNi: '#868686',
-    accent: '#515cd3',
-    accentLight: '#6b78ff',
-    accentDark: '#293297',
-    error: '#ff4455',
-    errorDark: '#96121d',
-    shadow: '#00000066',
-    abs: '#ffffff',
-    absRgb: '255, 255, 255',
-    trSmooth: _themeData.durations.tr1 + 'ms',
-    trLongEase: _themeData.durations.tr2 + 'ms ease-in-out',
+    background: "#1e1f22",
+    backgroundLight: "#2b2d31",
+    foreground: "#313338",
+    foregroundLight: "#37393f",
+    // background: "#17181C",
+    // backgroundLight: "#202024",
+    // foreground: "#252629",
+    // foregroundLight: "#2E2F33",
+    // foregroundLightest: "#424245",
+
+    color: "#dddddd",
+    colorDark: "#868686",
+
+    accentLightest: "#e3c9ff",
+    accentLighter: "#b27aff",
+    accentLight: "#9f5fff", // "#6b78ff",
+    accentLightTransparent: "#9f5fff4d",
+    accent: "#701dff",// "#515cd3",
+    accentTransparent: "#701dff4d",
+    accentDark: "#491b98", // "#293297",
+
+    error: "#ff4455",
+    errorDark: "#96121d",
+
+    shadow: "#00000066",
+    absolute: "#ffffff",
+    absoluteRgb: "255, 255, 255",
+
+    trSmooth: _themeData.durations.tr1 + "ms",
+    trLongEase: _themeData.durations.tr2 + "ms ease-in-out",
     iconFilter: "brightness(1.523)"
 };
 

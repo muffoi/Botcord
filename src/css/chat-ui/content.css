@@ -9,7 +9,7 @@ li.message {
     margin-top: 1.0625rem;
 }
 
-li.message * {
+li.message:not(.unknown) * {
     user-select: text;
 }
 
@@ -42,19 +42,20 @@ li.message > div.pfpCon > div.msgFollowupFiller {
 
 div.msgHeader > span.msgAuthor {
     font-weight: 500;
-    margin-right: 2px;
 }
 
 div.msgHeader > span.msgAddition {
     font-style: italic;
-    font-size: 0.8em;
+    font-size: 0.8rem;
     vertical-align: top;
 }
 
 div.msgHeader > span.msgDate {
-    font-size: 0.75em;
-    color: var(--colorNi);
-
+    margin-left: 8px;
+    font-size: 0.75rem;
+    color: var(--colorDark);
+    vertical-align: top;
+    white-space: break-spaces;
 }
 
 li.message div.msgContent {
@@ -62,6 +63,7 @@ li.message div.msgContent {
     word-wrap: break-word;
     user-select: text;
     width: 100%;
+    overflow: hidden;
 }
 
 li.message div.msgCon {

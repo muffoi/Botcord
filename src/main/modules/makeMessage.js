@@ -1,4 +1,4 @@
-//#region MD Parser & Msg AE
+const discordMarkdown = require("@odiffey/discord-markdown");
 
 function markdown(message) {
     // let md = MDParser.parse(esc(message.content)).split(/(&lt;|&gt;)/);
@@ -8,7 +8,7 @@ function markdown(message) {
                 try {
                     return "@" + message.mentions.users.get(node.id).displayName;
                 } catch {
-                    return "@" + node.id;
+                    return `<@${node.id}>`;
                 }
             },
             role: node => {
@@ -21,8 +21,8 @@ function markdown(message) {
             channel: node => {
                 logger.debug(node);
                 try {
-                    let channel = client.channels.resolve(node.id);
-                    return "#" + (channel.guildId != currentGuild.id? channel.guild.name + " > ": "") + channel.name;  // message.mentions.roles.get(node.id).name;
+                    let channel = Botcord.client.channels.resolve(node.id);
+                    return "#" + (channel.guildId != Botcord.currentGuild.id? channel.guild.name + " > ": "") + channel.name;  // message.mentions.roles.get(node.id).name;
                 } catch {
                     return "#unknown";
                 }
@@ -32,7 +32,7 @@ function markdown(message) {
         }
     });
 
-    if(logs.messages) {
+    if(Botcord.logs.messages) {
         logger.log(markdown);
     }
     return markdown;   // .join("");
@@ -42,17 +42,31 @@ function afterEffect(li) {
 
     if(!li.classList.contains("text")) return;
 
-    let msgContent = li.children[1].children;
-    msgContent = msgContent[msgContent.length - 1];
+    li.innerHTML = li.innerHTML.replace(/\n|(\s{4})/g, "");
 
-    if(logs.messages) logger.log(msgContent);
+    let msgContent = li.children[1].children;
+    msgContent = msgContent[msgContent.length - 2];
+
+    if(Botcord.logs.messages) logger.log(msgContent);
 
     if(msgContent.childNodes.length == 1 &&
         (
             msgContent.children.length == 1 &&
-            msgContent.children[0].tagName == "IMG"
+            msgContent.children[0].tagName == "IMG" /* &&
+            msgContent.children[0].classList.contains("d-emoji") */
         )
     ) msgContent.children[0].classList.add("d-single");
+
+    for(let elem of msgContent.querySelectorAll("span.d-spoiler")) {
+        evt(elem, "click", e => {
+            if(elem.classList.contains("show")) return;
+            e.preventDefault();
+            elem.classList.add("show");
+        })
+    }
 }
 
-//#endregion
+module.exports = {
+    markdown,
+    afterEffect
+}

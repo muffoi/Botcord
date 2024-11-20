@@ -23,7 +23,7 @@ div.gIconC {
     height: 48px;
     margin: 0 12px;
     transition: all var(--trSmooth);
-    background-color: var(--bgNi);
+    background-color: var(--backgroundLight);
 }
 
 img.gIcon {

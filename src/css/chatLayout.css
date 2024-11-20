@@ -16,7 +16,7 @@ div.chatCont {
 }
 
 div#chName {
-    background-color: var(--fg);
+    background-color: var(--foreground);
     width: 100%;
     height: 48px;
     box-shadow: #000a 0 0 5px;
@@ -50,16 +50,16 @@ div.chInfoBox {
     width: 80px;
     line-height: 48px;
     padding: 0px 12px;
-    color: var(--colorNi);
+    color: var(--colorDark);
     transition: color var(--trSmooth);
 }
 
 #credits:hover {
-    color: var(--accent);
+    color: var(--accentLight);
 }
 
 div#chContent {
-    background-color: var(--fg);
+    background-color: var(--foreground);
     width: calc(100% - 240px);
     display: flex;
     flex-direction: column-reverse;

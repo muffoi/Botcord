@@ -10,7 +10,7 @@ div#botClientMenu {
     /* overflow: hidden; */
 
     border-radius: 12px;
-    background-color: var(--bg);
+    background-color: var(--background);
     box-shadow: var(--shadow) 0 6px 20px;
 }
 
@@ -40,7 +40,7 @@ div.bcmPfpCont {
     padding: 6px;
 
     border-radius: 50%;
-    background-color: var(--bg);
+    background-color: var(--background);
 }
 
 #bcmPfp {
@@ -58,7 +58,7 @@ div.bcmPfpCont {
     left: 78px;
     padding: 2px;
 
-    background-color: var(--bg);
+    background-color: var(--background);
     border-radius: 50%;
 }
 
@@ -80,7 +80,7 @@ div.bcmName {
     display: block;
     font-size: 24px;
     font-weight: 500;
-    color: var(--colorNi);
+    color: var(--colorDark);
     text-wrap: nowrap;
 }
 
@@ -101,7 +101,7 @@ div.bcmDetails {
     font-weight: 600;
     /* overflow: hidden; */
 
-    background-color: var(--bgNi);
+    background-color: var(--backgroundLight);
     border-radius: 8px;
 }
 
@@ -125,14 +125,14 @@ div.bcmDetails.openable:hover .arrow {
 }
 
 div.bcmDetails.openable:hover {
-    background-color: var(--fg);
+    background-color: var(--foreground);
     color: var(--color);
 }
 
 div.bcmDetails.openable {
     /* transition: background-color var(--trSmooth); */
     cursor: pointer;
-    color: var(--colorNi);
+    color: var(--colorDark);
 }
 
 .arrow {
@@ -153,8 +153,8 @@ div.bcmDetails.openable {
     padding: 6px 8px;
     font-size: 16px;
 
-    background-color: var(--bgNi);
-    color: var(--colorNi);
+    background-color: var(--backgroundLight);
+    color: var(--colorDark);
     border-radius: 4px;
     box-shadow: var(--shadow) 0 4px 20px;
 }
@@ -164,7 +164,7 @@ div.bcmDetails.openable {
 }
 
 #bcmStatusSetter > div:hover {
-    color: var(--abs);
+    color: var(--absolute);
     background-color: var(--accent);
 }
 

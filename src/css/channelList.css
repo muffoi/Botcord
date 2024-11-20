@@ -1,6 +1,6 @@
 div.menu {
     width: 240px;
-    background-color: var(--bgNi);
+    background-color: var(--backgroundLight);
     display: flex;
     flex-direction: column;
     position: relative;
@@ -32,7 +32,7 @@ div#channels {
     height: calc(100vh - 48px * 2);
     overflow-x: hidden;
     overflow-y: auto;
-    color: var(--colorNi);
+    color: var(--colorDark);
     list-style-type: none;
 }
 
@@ -83,12 +83,12 @@ li.channel > img.chIcon {
 li.channel.active {
     color: var(--color);
     position:relative;
-    background-color: var(--fgNi);
+    background-color: var(--foregroundLight);
 }
 
 li.channel:not(.active):hover {
     color: var(--color);
-    background-color: var(--fg);
+    background-color: var(--foreground);
 }
 
 li.channel.invisible {

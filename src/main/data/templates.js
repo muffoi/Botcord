@@ -3,7 +3,7 @@ module.exports = {
         DISALLOWED_INTENTS() { 
             return [
                 "Failed To Connect",
-                `This bot account doesn't allow usage of gateway intents required for ${package.productName} to run.<br>`
+                `This bot account doesn't allow usage of gateway intents required for ${Botcord.package.productName} to run.<br>`
                 + "<b>How to fix:</b><br>"
                 + "1. Go to the <a href=\"https://discord.com/developers/applications\">discord developer page</a><br>"
                 + "2. Open your bot's <i>Bot</i> tab<br>"
@@ -16,7 +16,7 @@ module.exports = {
             ]
         },
 
-        INVALID_TOKEN() {
+        INVALID_TOKEN(current) {
             return [
                 "Invalid Token",
                 `Connecting to <b>'${current().tag || "User"}'</b> failed, because the token provided is not a valid token.<br>`
@@ -32,7 +32,7 @@ module.exports = {
         REMOVE_ACCOUNT(user, index) {
             return [
                 `Remove '${user.username || "User"}'?`,
-                `Are you sure you want to remove <b>${user.username || "User"}</b>${index === storage.userIndex? " (your current user)": ""}? You won't be able to access this account unless you log in again.`,
+                `Are you sure you want to remove <b>${user.username || "User"}</b>${index === Botcord.storage.userIndex? " (your current user)": ""}? You won't be able to access this account unless you log in again.`,
                 {
                     main: "Remove Account",
                     other: "Cancel",
@@ -51,7 +51,7 @@ module.exports = {
         INVALID_CHANNEL_TYPE(target) { 
             return [
                 "Channel content couldn't be loaded",
-                package.productName + " is still in development and currently only supports basic text channels.<br>"
+                Botcord.package.productName + " is still in development and currently only supports basic text channels.<br>"
                 + `<b>Channel type:</b> <code>${target.type}</code>`
             ]
         }

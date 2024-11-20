@@ -1,7 +1,7 @@
 body {
     font-family: "Work Sans";
     color: var(--color);
-    background-color: var(--bg);
+    background-color: var(--background);
     text-align: center;
     user-select: none;
     width: 100vw;
@@ -15,14 +15,14 @@ body {
 }
 
 a {
-    color: var(--accent);
+    color: var(--accentLight);
     text-decoration: none;
 }
 
 a:hover {
-    color: var(--accentDark);
+    text-decoration: underline;
 }
 
 a:visited {
-    color: var(--accent);
+    color: var(--accentLight);
 }

@@ -1,44 +1,51 @@
 {
-  "name": "botcord",
-  "productName": "Botcord",
-  "version": "0.0.1",
-  "description": "Unofficial Discord client for bot accounts",
-  "private": true,
-  "main": "main.js",
-  "scripts": {
-    "start": "electron .",
-    "debug": "electron --inspect=5858 --inspect-brk .",
-    "build": "electron-builder"
-  },
-  "build": {
-    "appId": "botcordclient",
+    "name": "botcord",
     "productName": "Botcord",
-    "icon": "./resources/icon.ico",
-    "files": [
-      "!**/accounts.json",
-      "!**/{discordMarkdown.pegjs,eslint.config.mjs}",
-      "!**/{_templateWiki,asarunpacked,unpack.bat}"
-    ],
-    "win": {
-      "target": [
-        "portable",
-        "zip"
-      ]
+    "private": true,
+    "version": "0.1.0",
+    "description": "Unofficial Discord client for bot accounts",
+    "homepage": "https://github.com/muffoi/Botcord#readme",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/muffoi/Botcord.git"
+    },
+    "bugs": {
+        "url": "https://github.com/muffoi/Botcord/issues"
+    },
+    "license": "GPL-3.0-or-later",
+    "author": "Muffoi",
+    "main": "main.js",
+    "scripts": {
+        "start": "electron .",
+        "debug": "electron --inspect=5858 --inspect-brk .",
+        "build": "electron-builder"
+    },
+    "build": {
+        "appId": "botcordclient",
+        "productName": "Botcord",
+        "icon": "./resources/icon.ico",
+        "files": [
+            "!accounts.json",
+            "!**/discordMarkdown.pegjs",
+            "!{eslint.config.mjs,tsconfig.json}",
+            "!{_templateWiki,asarunpacked,unpack.bat,CHANGELOG.txt}",
+            "!branding"
+        ],
+        "win": {
+            "target": [
+                "portable",
+                "zip"
+            ]
+        }
+    },
+    "dependencies": {
+        "@odiffey/discord-markdown": "^3.3.0",
+        "dayjs": "^1.11.13",
+        "discord.js": "^14.16.3",
+        "node-vibrant": "^3.1.6"
+    },
+    "devDependencies": {
+        "electron": "^29.1.1",
+        "electron-builder": "^25.1.7"
     }
-  },
-  "author": {
-    "name": "muffoi",
-    "url": "https://github.com/muffoi"
-  },
-  "license": "MIT",
-  "dependencies": {
-    "dayjs": "^1.11.13",
-    "discord-markdown": "^2.5.1",
-    "discord.js": "^14.16.3",
-    "node-vibrant": "^3.1.6"
-  },
-  "devDependencies": {
-    "electron": "^29.1.1",
-    "electron-builder": "^25.1.7"
-  }
 }

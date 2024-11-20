@@ -1,17 +1,17 @@
-const { app, BrowserWindow, ipcMain, safeStorage, shell } = require('electron');
+const { app, BrowserWindow, ipcMain, safeStorage, shell } = require("electron");
 const { join, relative } = require("path");
-const { bg } = require('./src/theme');
+const { background } = require("./src/theme");
 
 let win, package = require("./package.json");
 
 function createWindow () {
     win = new BrowserWindow({
         webPreferences: {
-            nodeIntegration:!0,
-            sandbox:!1,
-            contextIsolation:!1,
-            devTools:!app.isPackaged || true,
-            additionalArguments: encodeArgs( app.getPath("userData") )
+            nodeIntegration: true,
+            sandbox: false,
+            contextIsolation: false,
+            devTools: !app.isPackaged,
+            additionalArguments: encodeArgs( app.getPath("userData"), app.isPackaged )
         },
         autoHideMenuBar: true,
         title: package.productName + " v" + package.version,
@@ -38,7 +38,7 @@ function createWindow () {
                     autoHideMenuBar: true,
                     maximizable: false,
                     minimizable:false,
-                    backgroundColor: bg,
+                    backgroundColor: background,
                     icon: join(__dirname, "resources", "icon-sm.ico"),
                     webPreferences: {
                         devTools: !app.isPackaged
@@ -62,6 +62,9 @@ function createWindow () {
         })
     });
 
+    win.removeMenu();
+    if(!app.isPackaged) win.webContents.openDevTools();
+
     win.loadFile(join(__dirname, "src", "index.html"));
     /* win.on("unresponsive", ()=>{
         dialog.showErrorBox("Not Responding", "App window has gone unresponsive");
@@ -69,7 +72,14 @@ function createWindow () {
 }
 
 function encodeArgs(...args) {
-    return [...args, args.length + ""];
+    let newArgs = [];
+
+    for (const arg of args) {
+        if(typeof arg == "boolean") newArgs.push(+arg+"");
+            else newArgs.push(arg.toString());
+    }
+
+    return [...newArgs, newArgs.length + ""];
 }
 
 app.whenReady().then(() => {
@@ -88,16 +98,18 @@ app.whenReady().then(() => {
         createWindow();
     });
 
-    app.on('activate', () => {
+    app.on("activate", () => {
         if (BrowserWindow.getAllWindows().length === 0) {
             createWindow();
         }
     })
 })
 
-app.on('window-all-closed', () => {
-    if (process.platform !== 'darwin') {
-        app.quit();
-    }
-})
+// app.on("window-all-closed", () => {
+//     if (process.platform !== "darwin") {
+//         app.quit();
+//     }
+// })
+
+app.on("window-all-closed", app.quit);
 

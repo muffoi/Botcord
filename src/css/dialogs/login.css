@@ -12,13 +12,13 @@ input[name="loginToken"] {
     border-radius: 6px;
     line-height: 1.5em;
 
-    background-color: var(--fgNi);
+    background-color: var(--foregroundLight);
     color: var(--color);
     font-family: inherit;
 }
 
 input[name="loginToken"]::placeholder {
-    color: var(--colorNi);
+    color: var(--colorDark);
 }
 
 input[name="loginSubmit"] {
@@ -28,19 +28,19 @@ input[name="loginSubmit"] {
     border: none;
     border-radius: 8px;
 
-    background-color: var(--fgNi);
+    background-color: var(--foregroundLight);
     box-shadow: var(--shadow) 0 3px 10px;
     transition: all var(--trSmooth);
 }
 
 input[name="loginSubmit"]:hover:not(:disabled) {
-    background-color: var(--bg);
+    background-color: var(--background);
     box-shadow: none;
     cursor: pointer;
 }
 
 input[name="loginSubmit"]:disabled {
-    color: var(--colorNi);
+    color: var(--colorDark);
 }
 
 input[name="loginDefaultStatus"] {
