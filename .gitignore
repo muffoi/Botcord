@@ -21,5 +21,8 @@ CHANGELOG.txt
 asarunpacked
 unpack.bat
 
+# Private style guide for ui
+STYLEGUIDE.md
+
 # NPM Files
 package-lock.json

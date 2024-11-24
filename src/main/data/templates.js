@@ -32,7 +32,7 @@ module.exports = {
         REMOVE_ACCOUNT(user, index) {
             return [
                 `Remove '${user.username || "User"}'?`,
-                `Are you sure you want to remove <b>${user.username || "User"}</b>${index === Botcord.storage.userIndex? " (your current user)": ""}? You won't be able to access this account unless you log in again.`,
+                `Are you sure you want to remove <b>${user.username || "User"}</b>${index === Botcord.storage.userIndex? " (your current user)": ""}? You won't be able to access this account until you log in again.`,
                 {
                     main: "Remove Account",
                     other: "Cancel",
