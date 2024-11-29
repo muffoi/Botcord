@@ -1,5 +1,5 @@
 div.dialogHeader {
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 600;
     margin-bottom: 12px;
 }
@@ -17,7 +17,7 @@ button[class*=dialogBtn] {
     border-radius: 8px;
 
     background-color: var(--foregroundLight);
-    box-shadow: var(--shadow) 0 3px 10px;
+    box-shadow: var(--shadowSm);
     transition: all var(--trSmooth);
 }
 

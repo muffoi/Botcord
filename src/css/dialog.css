@@ -3,20 +3,20 @@
 
 #dialog {
     border: none;
-    border-radius: 12px;
+    border-radius: 16px;
     font-family: inherit;
     margin: auto;
     width: 500px;
 
-    padding: 30px 15px;
+    padding: 32px 16px;
     overflow-x: hidden;
     
     transition: all var(--trLongEase);
     opacity: 0;
-    transform:translateY(-30px);
+    transform: translateY(-32px);
     background-color: var(--backgroundLight);
     color: var(--color);
-    box-shadow: var(--shadow) 0 10px 30px;
+    box-shadow: var(--shadowLg);
 }
 
 #dialog.small {
@@ -25,7 +25,7 @@
 
 #dialog.show {
     opacity: 1;
-    transform:translateY(0px);
+    transform: translateY(0px);
 }
 
 #dialog::backdrop {
@@ -35,16 +35,20 @@
 }
 
 #dialog.show::backdrop {
-    background-color: rgba(var(--absoluteRgb), 0.125);
-    backdrop-filter: blur(15px);
+    background-color: rgba(var(--absoluteRgb), .125);
+    backdrop-filter: blur(32px);
+}
+
+#dialog.show.small::backdrop {
+    backdrop-filter: blur(16px);
 }
 
 #dialog .dismiss {
     width: 24px;
     height: 24px;
     position: absolute;
-    top: 15px;
-    right: 15px;
+    top: 16px;
+    right: 16px;
 }
 
 #dialog.small .dismiss {

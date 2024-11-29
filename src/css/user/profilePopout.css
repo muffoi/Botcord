@@ -1,21 +1,22 @@
 div#profilePopout {
     width: 224px;
-    /* padding: 10px; */
-    /* vertical-align: text-top; */
-    box-sizing: border-box;
-    background-color: var(--background);
-    border-radius: 10px;
+    /* height: auto; */
+    bottom: calc(
+        var(--height)
+        + var(--margin) * 2 
+    );
+    left: 0px;
 
     display: flex;
     flex-direction: column;
     position: absolute;
     overflow: hidden;
     justify-content: space-between;
-    box-shadow: var(--shadow) 0 6px 20px;
-    transition: all var(--trSmooth);
 
-    bottom: 60px;
-    left: 0px;
+    box-shadow: var(--shadowMd);
+    transition: all var(--trSmooth);
+    background-color: var(--background);
+    border-radius: 16px;
 }
 
 div#profilePopout:not(.open) {
@@ -24,12 +25,12 @@ div#profilePopout:not(.open) {
 }
 
 div.popItem {
+    --popPadding: 12px;
     width: 100%;
-    padding: 10px 10px 10px;
+    padding: var(--popPadding);
     /* vertical-align: text-top; */
-    box-sizing: border-box;
     background-color: var(--background);
-    transition: background-color var(--trSmooth);
+    /* transition: background-color var(--trSmooth); */
 
     display: flex;
     flex-direction: row;
@@ -43,11 +44,6 @@ div.popItem:not(.static):hover {
     background-color: var(--backgroundLight);
 }
 
-div.popItem:last-child {
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-}
-
 div.popItem.standalone {
     border-radius: 10px;
     width: 224px;
@@ -55,10 +51,7 @@ div.popItem.standalone {
 
 div#addUser {
     color: var(--colorDark);
-    transition: all var(--trSmooth);
-
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+    /* transition: all var(--trSmooth); */
 }
 
 div#addUser:hover {
@@ -66,8 +59,8 @@ div#addUser:hover {
 }
 
 div#addUser .usernameBox {
-    top: 8px;
-    position: relative;
+    line-height: 32px;
+    vertical-align: middle;
 }
 
 div#addUser:hover .pfp {
@@ -75,8 +68,8 @@ div#addUser:hover .pfp {
 }
 
 div.delBotBtn {
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
     float: right;
     align-self: center;
     margin-left: auto;
@@ -86,5 +79,9 @@ div.delBotBtn {
 }
 
 div.popItem .usernameBox {
-    max-width: 138px;
+    max-width: calc(
+        200px - 32px
+        - var(--offset, 8px)
+        - 20px - var(--popPadding)
+    );
 }

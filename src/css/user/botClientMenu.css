@@ -3,15 +3,15 @@ div#botClientMenu {
     z-index: 500;
     position: absolute;
     left: 42px;
-    bottom: 74px;
+    bottom: calc(64px + 8px * 3);
 
     display: flex;
     flex-direction: column;
     /* overflow: hidden; */
 
-    border-radius: 12px;
+    border-radius: 16px;
     background-color: var(--background);
-    box-shadow: var(--shadow) 0 6px 20px;
+    box-shadow: var(--shadowMd);
 }
 
 div#botClientMenu:not(.open) {
@@ -26,7 +26,7 @@ div#bcmBanner {
     height: 105px;
 
     background-size: cover;
-    border-radius: 12px 12px 0 0;
+    border-radius: 16px 16px 0 0;
 }
 
 div.bcmPfpCont {
@@ -87,7 +87,7 @@ div.bcmName {
 #bcmDisplayName {
     display: inline-block;
     color: var(--color);
-    max-width: 185px;
+    max-width: 188px;
     overflow: hidden;
     text-overflow: ellipsis;
     text-wrap: nowrap;
@@ -96,8 +96,8 @@ div.bcmName {
 }
 
 div.bcmDetails {
-    padding: 8px;
-    font-size: 14px;
+    padding: 8px 12px;
+    font-size: .875rem;
     font-weight: 600;
     /* overflow: hidden; */
 
@@ -107,14 +107,14 @@ div.bcmDetails {
 
 div.bcmDetails > *:not(.arrow) {
     display: block;
-    margin: 4px 0px 8px;
+    margin: 4px 0px 0px;
 
     font-weight: 400;
 }
 
-div.bcmDetails > *:last-child {
+/* div.bcmDetails > *:last-child {
     margin-bottom: 0px;
-}
+} */
 
 div.bcmDetails:not(:last-child) {
     margin-bottom: 8px;
@@ -148,15 +148,16 @@ div.bcmDetails.openable {
     position: absolute;
     left: calc(100% - 8px);
     bottom: 15px;
-    width: 172px;
+    width: 180px;
+    margin: 0;
 
-    padding: 6px 8px;
-    font-size: 16px;
+    padding: 8px 8px;
+    font-size: 1rem;
 
     background-color: var(--backgroundLight);
     color: var(--colorDark);
-    border-radius: 4px;
-    box-shadow: var(--shadow) 0 4px 20px;
+    border-radius: 12px;
+    box-shadow: var(--shadowMd);
 }
 
 #bcmStatusSetter:not(.open) {
@@ -179,7 +180,7 @@ div.bcmDetails.openable {
 }
 
 #bcmStatusSetter > div {
-    margin: 2px 0px;
-    padding: 6px 8px;
-    border-radius: 2px;
+    margin: 0px 0px;
+    padding: 8px 8px;
+    border-radius: 4px;
 }

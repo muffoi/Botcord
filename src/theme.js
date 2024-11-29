@@ -7,6 +7,7 @@ function applyColorVars() {
     cssString += "}";
     el.textContent = cssString;
 }
+
 let _themeData = {
     durations: {
         tr1: 170,
@@ -14,6 +15,8 @@ let _themeData = {
     },
     spec: "_dat"
 };
+
+let _v = variable => `var(--${variable})`;
 
 const theme = {
     [_themeData.spec]: _themeData.durations,
@@ -49,6 +52,11 @@ const theme = {
     trLongEase: _themeData.durations.tr2 + "ms ease-in-out",
     iconFilter: "brightness(1.523)"
 };
+
+theme.shadowXs = _v("shadow") + " 0 0 8px";
+theme.shadowSm = _v("shadow") + " 0 4px 8px";
+theme.shadowMd = _v("shadow") + " 0 8px 16px";
+theme.shadowLg = _v("shadow") + " 0 16px 32px";
 
 let isModule = false;
 try {
