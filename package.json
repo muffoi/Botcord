@@ -2,7 +2,7 @@
     "name": "botcord",
     "productName": "Botcord",
     "private": true,
-    "version": "0.1.0",
+    "version": "0.1.0-alpha.1",
     "description": "Unofficial Discord client for bot accounts",
     "homepage": "https://github.com/muffoi/Botcord#readme",
     "repository": {
@@ -46,6 +46,6 @@
     },
     "devDependencies": {
         "electron": "^29.1.1",
-        "electron-builder": "^25.1.7"
+        "electron-builder": "^25.1.8"
     }
 }

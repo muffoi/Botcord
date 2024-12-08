@@ -20,31 +20,27 @@ let _v = variable => `var(--${variable})`;
 
 const theme = {
     [_themeData.spec]: _themeData.durations,
-    background: "#1e1f22",
-    backgroundLight: "#2b2d31",
+    
+    background: "#1E1F22",
+    backgroundLight: "#292C2F",
     foreground: "#313338",
-    foregroundLight: "#37393f",
-    // background: "#17181C",
-    // backgroundLight: "#202024",
-    // foreground: "#252629",
-    // foregroundLight: "#2E2F33",
-    // foregroundLightest: "#424245",
+    foregroundLight: "#414347",
 
     color: "#dddddd",
     colorDark: "#868686",
 
     accentLightest: "#e3c9ff",
     accentLighter: "#b27aff",
-    accentLight: "#9f5fff", // "#6b78ff",
+    accentLight: "#9f5fff",
     accentLightTransparent: "#9f5fff4d",
-    accent: "#701dff",// "#515cd3",
+    accent: "#701dff",
     accentTransparent: "#701dff4d",
-    accentDark: "#491b98", // "#293297",
+    accentDark: "#470EAA",
 
     error: "#ff4455",
     errorDark: "#96121d",
 
-    shadow: "#00000066",
+    shadow: "#000000aa",
     absolute: "#ffffff",
     absoluteRgb: "255, 255, 255",
 
