@@ -8,58 +8,63 @@ function applyColorVars() {
     el.textContent = cssString;
 }
 
-let _themeData = {
-    durations: {
-        tr1: 170,
-        tr2: 350
-    },
-    spec: "_dat"
-};
+(() => {
+    let isModule = false;
+    try {
+       isModule = !module.children.length;
+       if(window.forceNoModule) isModule = false;
+    } catch {}
 
-let _v = variable => `var(--${variable})`;
+    let glob = isModule? global: window;
 
-const theme = {
-    [_themeData.spec]: _themeData.durations,
-    
-    background: "#1E1F22",
-    backgroundLight: "#292C2F",
-    foreground: "#313338",
-    foregroundLight: "#414347",
 
-    color: "#dddddd",
-    colorDark: "#868686",
+    glob._themeData = {
+        durations: {
+            tr1: 170,
+            tr2: 350
+        },
+        spec: "_dat"
+    };
 
-    accentLightest: "#e3c9ff",
-    accentLighter: "#b27aff",
-    accentLight: "#9f5fff",
-    accentLightTransparent: "#9f5fff4d",
-    accent: "#701dff",
-    accentTransparent: "#701dff4d",
-    accentDark: "#470EAA",
+    let _v = variable => `var(--${variable})`;
 
-    error: "#ff4455",
-    errorDark: "#96121d",
+    glob.theme = {
+        [_themeData.spec]: _themeData.durations,
 
-    shadow: "#000000aa",
-    absolute: "#ffffff",
-    absoluteRgb: "255, 255, 255",
+        background: "#1E1F22",
+        backgroundLight: "#292C2F",
+        foreground: "#313338",
+        foregroundLight: "#414347",
 
-    trSmooth: _themeData.durations.tr1 + "ms",
-    trLongEase: _themeData.durations.tr2 + "ms ease-in-out",
-    iconFilter: "brightness(1.523)"
-};
+        color: "#dddddd",
+        colorDark: "#868686",
 
-theme.shadowXs = _v("shadow") + " 0 0 8px";
-theme.shadowSm = _v("shadow") + " 0 4px 8px";
-theme.shadowMd = _v("shadow") + " 0 8px 16px";
-theme.shadowLg = _v("shadow") + " 0 16px 32px";
+        accentLightest: "#e3c9ff",
+        accentLighter: "#b27aff",
+        accentLight: "#9f5fff",
+        accentLightTransparent: "#9f5fff4d",
+        accent: "#701dff",
+        accentTransparent: "#701dff4d",
+        accentDark: "#470EAA",
 
-let isModule = false;
-try {
-   isModule = !module.children.length;
-   if(window.forceNoModule) isModule = false;
-} catch {}
+        error: "#ff4455",
+        errorDark: "#96121d",
 
-if(isModule) {
-    module.exports = theme;
-} else applyColorVars();
+        shadow: "#000000aa",
+        absolute: "#ffffff",
+        absoluteRgb: "255, 255, 255",
+
+        trSmooth: _themeData.durations.tr1 + "ms",
+        trLongEase: _themeData.durations.tr2 + "ms ease-in-out",
+        iconFilter: "brightness(1.523)"
+    };
+
+    theme.shadowXs = _v("shadow") + " 0 0px 8px";
+    theme.shadowSm = _v("shadow") + " 0 4px 8px";
+    theme.shadowMd = _v("shadow") + " 0 8px 16px";
+    theme.shadowLg = _v("shadow") + " 0 16px 32px";
+
+    if(isModule) {
+        module.exports = theme;
+    } else applyColorVars();
+})();

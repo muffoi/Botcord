@@ -33,6 +33,14 @@
             css.href = "";
             css.href = href;
 
+            let oldScript = elem("#themeJs");
+            let newScript = mkelem("script", null, "themeJs");
+
+            newScript.src = oldScript.src;
+            
+            oldScript.remove();
+            document.head.appendChild(newScript);
+
             setTimeout(() => {
                 backup.href = "";
                 backup.href = href;
