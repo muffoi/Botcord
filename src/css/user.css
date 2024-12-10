@@ -20,7 +20,7 @@ div.user {
 
     width: var(--width);
     height: var(--height);
-    padding: 12px;
+    padding: var(--padding);
     /* vertical-align: text-top; */
     background-color: var(--background);
     border-radius: 16px;
@@ -30,7 +30,7 @@ div.user {
     position: relative;
     /* overflow: hidden; */
     justify-content: space-between;
-    margin: 8px;
+    margin: var(--margin);
     box-shadow: var(--shadowMd);
 }
 

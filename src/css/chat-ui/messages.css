@@ -1,4 +1,4 @@
-div.msgContent span.d-mention {
+div.msgContent span.d-mention, span.format.d-mention {
     /* display: inline-block; */
     background-color: var(--accentLightTransparent);
     color: var(--accentLightest);

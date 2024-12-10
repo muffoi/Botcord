@@ -2,7 +2,7 @@ const { app, BrowserWindow, ipcMain, safeStorage, shell } = require("electron");
 const { join, relative } = require("path");
 const { background } = require("./src/theme");
 
-let win, package = require("./package.json");
+let win, packageJson = require("./package.json");
 
 function createWindow () {
     win = new BrowserWindow({
@@ -14,7 +14,7 @@ function createWindow () {
             additionalArguments: encodeArgs( app.getPath("userData"), app.isPackaged )
         },
         autoHideMenuBar: true,
-        title: package.productName + " v" + package.version,
+        title: packageJson.productName + " v" + packageJson.version,
         icon: join(__dirname, "resources", "icon-sm.ico")
     })
 

@@ -81,7 +81,7 @@ div#loader {
     background-clip: padding-box;
     border: 4px solid transparent;
     border-radius: 8px;
-    background-color: var(--foregroundLight);
+    background-color: var(--background);
     min-height: 40px;
 }
 

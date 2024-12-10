@@ -121,6 +121,36 @@ function logError(error) {
     );
 }
 
+function toNull(thenable) {
+    return new Promise(resolve => {
+        if(typeof thenable?.then == "function") {
+            thenable.then(resolve).catch(() => {
+                resolve(null);
+            });
+        } else resolve(thenable);
+    })
+}
+
+const fetchUnfinished = (() => {
+    let fetches = {};
+
+    const fn = (fetcher, id) => {
+        let removeFetch = () => {
+            fetches[id] = null;
+        };
+
+        if(!fetches[id]) {
+            fetches[id] = fetcher;
+            fetcher.then(removeFetch).catch(removeFetch);
+        }
+
+        return fetches[id];
+    };
+
+    fn._fetches = fetches;
+    return fn;
+})();
+
 module.exports = {
     mkelem,
     elem,
@@ -134,5 +164,7 @@ module.exports = {
     mergeObjects,
     wait,
     logError,
-    actives
+    actives,
+    toNull,
+    fetchUnfinished
 }

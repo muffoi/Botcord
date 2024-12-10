@@ -74,6 +74,20 @@ async function loadChat(add = false) {
             }
         }
 
+        // TEST THIS !!!!
+        let guildMember = toNull(
+            message.author.globalName === null? null: (
+                Botcord.currentGuild.members.resolve(message.author.id)
+                || fetchUnfinished(
+                    Botcord.currentGuild.members.fetch(message.author.id),
+                    "guildMember:" + message.author.id
+                )
+            )
+        );
+
+        // Test manual fetch of values 1. bare, 2. /w fetchUnfinished, 3. /w toNull,
+        // 4. and both + 5. full syntax ^^^
+
         switch(message.type) {
             case 0: // Text message
                 li.innerHTML = followup?`
@@ -99,6 +113,9 @@ async function loadChat(add = false) {
                         <div class="msgAttachment">${attachments}</div>
                     </div>`;
                 li.classList.add("text");
+                if(!followup) guildMember.then(member => {
+                    if(member) li.querySelector("span.msgAuthor").style.color = member.displayHexColor;
+                });
                 break;
 
             case 19: // Response
@@ -109,7 +126,7 @@ async function loadChat(add = false) {
                     <div class="msgCon">
                         <div class="msgHeader">
                             <span class="msgAuthor">${esc(message.author.displayName)}</span>
-                            <span class="msgAddition"> (responding to ${message.mentions.repliedUser? `<b>${message.mentions.repliedUser.displayName}</b>`: "a deleted message"})</span>
+                            <span class="msgAddition"> (responding to ${message.mentions.repliedUser? `<span class="format d-mention">${message.mentions.repliedUser.displayName}</span>`: "a deleted message"})</span>
                             <span class="visuallyHidden"> — </span>
                             <span class="msgDate" title="${message.createdAt}">${formatDate(message.createdAt)}</span>
                         </div>
