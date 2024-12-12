@@ -17,7 +17,7 @@ div.msgContent img.d-emoji.d-single {
     height: 48px;
 }
 
-span.codeFull {
+/* span.codeFull {
     display: block;
     margin: 2px 0;
 
@@ -29,7 +29,7 @@ span.codeFull {
     border-radius: 8px;
     font-family: "Source Code Pro";
     font-weight: 400;
-}
+} */
 
 code {
     /* display: inline-block; */
@@ -42,7 +42,7 @@ code {
 
     background-color: var(--background);
     border-radius: 4px;
-    font-family: "Source Code Pro";
+    font-family: "Source Code Pro", "Courier New", Courier, monospace;
     font-size: .875em;
     font-weight: 400;
 }
