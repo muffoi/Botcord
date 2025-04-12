@@ -12,6 +12,8 @@ declare global {
     export var dialog: typeof import("./main/modules/dialog").api;
     export var popouts: InstanceType<typeof import("./main/modules/popouts").Popouts>;
     export var templates: typeof import("./main/modules/templates");
+    export var logger: typeof import("./main/modules/debug").logger;
+    export var times: typeof import("./main/modules/debug").times;
 
     export function sortChannels<T extends import("discord.js").GuildChannel>(channelsList: ListByIDOf<T>): T[];
     export function setStatus(status: Presence): void;

@@ -56,7 +56,7 @@ function initializeApp() {
 //#endregion
 //#region Functions
 
-function sortChannels<T extends GuildChannel>(channelsList: ListByIDOf<T>): T[] {
+export function sortChannels<T extends GuildChannel>(channelsList: ListByIDOf<T>): T[] {
     let sorted = [];
 
     for (let id in channelsList) {
@@ -70,7 +70,7 @@ function sortChannels<T extends GuildChannel>(channelsList: ListByIDOf<T>): T[] 
     return sorted;
 }
 
-function setStatus(status: Presence): void {
+export function setStatus(status: Presence): void {
     Botcord.client?.user.presence.set({status: status});
     Botcord.storage?.updateUser(Botcord.storage.userIndex, {presence: status});
     displayPresence();

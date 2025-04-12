@@ -7,7 +7,7 @@ interface Times {
     stamp(key: "loader" | "client" | "finish" | "login"): void
 }
 
-const times: Times = {
+export const times: Times = {
     startTimestamp: Math.round( performance.now() ),
     
     loader: null,
@@ -20,7 +20,7 @@ const times: Times = {
     }
 }
 
-const logger = {
+export const logger = {
     _log(level: "log" | "warn" | "error" | "info", args: any[]): void {
         console[level](...args);
     },
@@ -46,33 +46,3 @@ const logger = {
         throw new (constr || Error)(message, {cause});
     }
 };
-
-(async function(doc) {
-    const scripts = [
-        // "helpers",
-        "imgFixer",
-        "client",
-        "quickDev"
-    ];
-    
-    let i = 0;
-    let promises: Promise<void>[] = [];
-
-    for (const name of scripts) {
-        let elem = doc.createElement("script");
-
-        doc.body.appendChild(elem);
-        promises.push(new Promise(resolve => {
-            elem.addEventListener("load", () => {
-                i++;
-                logger.log(`Script "${name + ".js"}" loaded. (${i}/${scripts.length})`);
-                resolve();
-            })
-            elem.src = `main/${name}.js`;
-        }));
-    }
-
-    await Promise.all(promises);
-
-    times.stamp("loader");
-})(document);
