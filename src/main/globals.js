@@ -45,8 +45,8 @@ document.addEventListener("DOMContentLoaded", () => {
         backup.href = href;
         document.head.appendChild(backup);
 
-        window.addEventListener("keydown", evt => {
-            if(evt.ctrlKey == true && evt.code == "Digit1") {
+        document.addEventListener("keyup", evt => {
+            if(evt.ctrlKey && evt.code == "Digit1") {
                 css.href = "";
                 css.href = href;
 
@@ -57,11 +57,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 applyColorVars();
 
-                newScript.src = oldScript.src;
-                
-                oldScript.remove();
-                document.head.appendChild(newScript);
-
                 setTimeout(() => {
                     backup.href = "";
                     backup.href = href;
@@ -69,7 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             // Enable reloading with Ctrl + R
-            if(evt.ctrlKey == true && evt.code == "KeyR") location.reload();
+            if(evt.ctrlKey && evt.code == "KeyR") location.reload();
         });
     }
 

@@ -55,10 +55,12 @@ let arg = (() => {
         if(isNaN(dataLength) || dataLength == 0) {
             throw new Error("Couldn't separate argv data out of 'process.argv'. Length: " + dataLength);
         }
-        let args = argv.slice(-2 - dataLength, -2), argDefs = [
+        const args = argv.slice(-2 - dataLength, -2);
+        const argDefs = [
             { key: "appData", type: "string" },
             { key: "isPackaged", type: "bool" }
-        ], argObj: RendererArgs = {
+        ];
+        const argObj: RendererArgs = {
             appData: "",
             isPackaged: true
         };
@@ -76,6 +78,7 @@ let arg = (() => {
                     break;
                 case "bool":
                     value = !!+args[i];
+                    break;
                 default:
                     value = args[i];
             }
