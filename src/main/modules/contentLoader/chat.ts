@@ -5,21 +5,25 @@ import { Message, TextChannel } from "discord.js";
 export async function loadChat(add: boolean = false): Promise<void> {
     if(!add) Botcord.chatContent.innerHTML = "";
 
-    let msgs = await (Botcord.currentChannel as TextChannel).messages.fetch(add? {
+    const collection = await (Botcord.currentChannel as TextChannel).messages.fetch(add? {
         before: Botcord.topLoadedMessage!,
         limit: Botcord.limits.messageFetch
     }: {
         limit: Botcord.limits.messageFetch
-    }), messages: Message[] = [];
-
-    let previousMessage; // , nextMessage;
-
-    msgs.forEach(message => {
-        messages.push(message);
     });
+    
+    let previousMessage: Message;
+    
+    const messages = collection.reduce((array: Message<true>[], message) => {
+        array.push(message);
+        return array;
+    }, []);
+    
+    if(add && messages.length > 1) {
+        Botcord.chatContent.removeChild(Botcord.chatContent.lastChild!);
+    } else if(add) return;
 
-    if(add && messages.length > 1) Botcord.chatContent.removeChild(Botcord.chatContent.lastChild!);
-        else if(add) return;
+    const fragment = document.createDocumentFragment();
 
     for(let id in messages) {
         let li = mkelem("li", "message");
@@ -137,10 +141,11 @@ export async function loadChat(add: boolean = false): Promise<void> {
         }
 
         if(!isLast) Botcord.topLoadedMessage = message.id;
-        // nextMessage = message;
 
         afterEffect(li);
 
-        Botcord.chatContent.appendChild(li);
+        fragment.appendChild(li);
     }
+
+    Botcord.chatContent.appendChild(fragment);
 }
