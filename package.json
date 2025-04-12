@@ -16,9 +16,11 @@
     "author": "Muffoi",
     "main": "main.js",
     "scripts": {
-        "start": "electron .",
-        "debug": "electron --inspect=5858 --inspect-brk .",
-        "build": "electron-builder"
+        "start": "tsc && electron .",
+        "dev": "npm run compile-dev && electron .",
+        "compile-dev": "tsc --inlineSourceMap --inlineSources",
+        "build": "tsc && electron-builder",
+        "cleanup": "tsx scripts/cleanup.ts"
     },
     "build": {
         "appId": "botcordclient",
@@ -28,8 +30,9 @@
             "!accounts.json",
             "!**/discordMarkdown.pegjs",
             "!{eslint.config.mjs,tsconfig.json}",
-            "!{_templateWiki,asarunpacked,unpack.bat,CHANGELOG.txt}",
-            "!branding"
+            "!{_templateWiki,asarunpacked,CHANGELOG.txt,STYLEGUIDE.md}",
+            "!{branding,scripts,.vscode}",
+            "!**/*{.d.ts,.ts}"
         ],
         "win": {
             "target": [
@@ -45,7 +48,11 @@
         "node-vibrant": "^3.1.6"
     },
     "devDependencies": {
+        "@types/node": "^22.13.13",
         "electron": "^33.3.0",
-        "electron-builder": "^25.1.8"
+        "electron-builder": "^25.1.8",
+        "glob": "^11.0.1",
+        "tsx": "^4.19.3",
+        "typescript": "^5.7.2"
     }
 }

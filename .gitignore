@@ -1,5 +1,8 @@
+# Editor files
+.vscode
+
 # Electron Builder Output
-dist/
+dist
 
 # Node Modules
 node_modules
@@ -9,7 +12,6 @@ _templateWiki
 eslint.config.mjs
 discordMarkdown.pegjs
 accounts.json
-tsconfig.json
 
 # Branding templates
 branding
@@ -24,5 +26,6 @@ unpack.bat
 # Private style guide for ui
 STYLEGUIDE.md
 
-# NPM Files
-package-lock.json
+# TypeScript output
+*.js
+!globals.js

@@ -1,8 +1,9 @@
-const { app, BrowserWindow, ipcMain, safeStorage, shell } = require("electron");
-const { join, relative } = require("path");
-const { background } = require("./src/theme");
+import { app, BrowserWindow, ipcMain, safeStorage, shell } from "electron";
+import { join, relative } from "path";
+import { theme } from "./src/theme";
+import packageJson from "./package.json";
 
-let win, packageJson = require("./package.json");
+let win: BrowserWindow;
 
 function createWindow () {
     win = new BrowserWindow({
@@ -37,8 +38,8 @@ function createWindow () {
                     resizable: false,
                     autoHideMenuBar: true,
                     maximizable: false,
-                    minimizable:false,
-                    backgroundColor: background,
+                    minimizable: false,
+                    backgroundColor: theme.background,
                     icon: join(__dirname, "resources", "icon-sm.ico"),
                     webPreferences: {
                         devTools: !app.isPackaged
@@ -71,7 +72,9 @@ function createWindow () {
     }) */
 }
 
-function encodeArgs(...args) {
+type ArgType = string | number | boolean;
+
+function encodeArgs(...args: ArgType[]) {
     let newArgs = [];
 
     for (const arg of args) {
@@ -112,4 +115,3 @@ app.whenReady().then(() => {
 // })
 
 app.on("window-all-closed", app.quit);
-

@@ -1,5 +1,5 @@
-async function newUser(free = false) {
-    let store = free? Botcord.storage: await storageInit(true);
+export async function newUser(free: boolean = false): Promise<void> {
+    let store = free? Botcord.storage!: await FSStorage.build(true);
 
     let user;
     try {
@@ -23,38 +23,33 @@ async function newUser(free = false) {
     location.reload();
 }
 
-function getBotInfo(obj) {
-    return new Promise(r => {
+export function getBotInfo(data: BaseUserData): Promise<UserData | BaseUserData> {
+    return new Promise(resolve => {
         try {
             let c = new Client({
                 intents: []
             });
 
             c.on("ready", () => {
-                let u = c.user;
+                let user = c.user!;
 
                 let info = {
-                    username: u.username,
-                    discriminator: u.discriminator,
-                    id: u.id,
-                    tag: u.tag,
-                    avatar: u.avatarURL({size: 64}) || u.defaultAvatarURL,
-                    token: obj.token,
-                    presence: obj.presence || Botcord.current().presence
+                    username: user.username,
+                    discriminator: user.discriminator,
+                    id: user.id,
+                    tag: user.tag,
+                    avatar: user.avatarURL({size: 64}) || user.defaultAvatarURL,
+                    token: data.token,
+                    presence: data.presence
                 }
 
                 c.destroy();
-                r(info);
+                resolve(info);
             });
 
-            c.login(obj.token);
+            c.login(data.token);
         } catch {
-            r(obj);
+            resolve(data);
         }
     });
-}
-
-module.exports = {
-    newUser,
-    getBotInfo
 }

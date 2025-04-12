@@ -1,15 +1,19 @@
-const { newUser } = require("../modules/clientApps");
-const { fillBCM, propIcons } = require("../modules/displays");
-let creditsWin;
+import { newUser } from "./clientApps";
+import { fillBCM, propIcons } from "./displays";
+let creditsWin: WindowProxy | null;
 
-const clickables = {
-    btnSwitch: () => {
+function addListener<T extends HTMLElement>(selector: string, fn: (this: T, e: MouseEvent) => PromiseOrNot<void>): void {
+    evt(elem<T>(selector), "click", fn);
+}
+
+export function initClickables() {
+    addListener("#btnSwitch", () => {
         let popMain = elem("#profilePopout"), pop = elem("#profilePopoutFill");
 
         if(popouts.toggle(popMain)) {
 
             pop.innerHTML = "";
-            let users = Botcord.storage.getUsers(), empty = true, i = 0;
+            let users = Botcord.storage!.getUsers(), empty = true, i = 0;
             for (const user of users) {
                 // if(user.token == Botcord.storage.getCurrentUser().token) continue;
                 let opt = mkelem("div", "popItem"), index = i;
@@ -29,7 +33,7 @@ const clickables = {
                     e.stopPropagation();
                     let confirmed;
                     try{
-                        confirmed = await dialog.confirm(...templates.confirms.REMOVE_ACCOUNT(user, index))
+                        confirmed = await dialog.confirm(templates.confirms.REMOVE_ACCOUNT(user, index))
                     } catch(e) {
                         if(e == dialog.errors.DISMISSED) {
                             logger.log(`Account deletion cancelled.`);
@@ -38,8 +42,8 @@ const clickables = {
                     }
 
                     if(confirmed) {
-                        await Botcord.storage.removeUser(index);
-                        if(index === Botcord.storage.userIndex) location.reload();
+                        await Botcord.storage!.removeUser(index);
+                        if(index === Botcord.storage!.userIndex) location.reload();
                         
                         let el = elem("#btnSwitch");
                         el.click();
@@ -47,10 +51,10 @@ const clickables = {
                     } else {
                         logger.log(`Account deletion cancelled.`);
                     }
-                })}></div>`;
+                }, "click")}></div>`;
 
                 evt(opt, "click", () => {
-                    Botcord.storage.setCurrentUser(index);
+                    Botcord.storage!.setCurrentUser(index);
                     location.reload();
                 });
 
@@ -65,42 +69,42 @@ const clickables = {
 
             propIcons();
         }
-    },
+    });
 
-    addUser: () => {
-        clickables.btnSwitch();
+    addListener("#addUser", () => {
+        elem("#btnSwitch").click();
         newUser(true);
-    },
+    });
 
-    infoProfile: async () => {
+    addListener("#infoProfile", async () => {
         let el = elem("#botClientMenu");
         if(popouts.toggle(el)) {
             elem("#bcmStatusSetter").classList.remove("open");
             await fillBCM();
         }
-    },
+    });
 
-    bcmStatusPicker: function() {
-        this.children[1].classList.toggle("open");
-    },
+    addListener("#bcmStatusPicker", () => {
+        elem("#bcmStatusSetter").classList.toggle("open");
+    });
 
-    bcmStatusOnline: () => {
+    addListener("#bcmStatusOnline", () => {
         setStatus("online");
-    },
+    });
 
-    bcmStatusIdle: () => {
+    addListener("#bcmStatusIdle", () => {
         setStatus("idle");
-    },
+    });
 
-    bcmStatusDnd: () => {
+    addListener("#bcmStatusDnd", () => {
         setStatus("dnd");
-    },
+    });
 
-    bcmStatusInvis: () => {
+    addListener("#bcmStatusInvis", () => {
         setStatus("invisible");
-    },
+    });
 
-    credits: () => {
+    addListener("#credits", () => {
         if(creditsWin?.closed) {
             creditsWin = null;
         }
@@ -111,7 +115,5 @@ const clickables = {
         } else {
             creditsWin = open("info.html", "", "autoHideMenuBar=true,titleBarStyle=hidden,width=420,height=310");
         }
-    }
-}
-
-module.exports = clickables;
+    });
+};

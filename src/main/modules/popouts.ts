@@ -1,54 +1,63 @@
-module.exports = {
-    active: null,
+export class Popouts {
+    active: HTMLElement | null;
     links: {
-        occupied: 0,
-        db: [],
-        ref: "popoutLinkRef"
-    },
+        occupied: number,
+        db: HTMLElement[][],
+        readonly ref: "popoutLinkRef"
+    };
 
-    _rem(el) {
+    constructor() {
+        this.active = null;
+        this.links = {
+            occupied: 0,
+            db: [],
+            ref: "popoutLinkRef"
+        };
+    }
+
+    _rem(el: HTMLElement): void {
         el.classList.remove("open");
-    },
+    }
 
-    _add(el) {
+    _add(el: HTMLElement): void {
         el.classList.add("open");
-    },
+    }
 
-    enable(el) {
+    enable(el: HTMLElement): true {
         if(this.active !== el) {
             if(this.active !== null) {
                 this._rem(this.active);
                 if(typeof this.active[this.links.ref] === "number") {
-                    for (const link of this.links.db[this.active[this.links.ref]]) {
+                    for (const link of this.links.db[this.active[this.links.ref]!]) {
                         this._rem(link);
                     }
                 }
             }
             this._add(el);
             if(typeof el[this.links.ref] === "number") {
-                for (const link of this.links.db[el[this.links.ref]]) {
+                for (const link of this.links.db[el[this.links.ref]!]) {
                     this._add(link);
                 }
             }
             this.active = el;
         }
         return true;
-    },
+    }
 
-    disable(el) {
+    disable(el: HTMLElement): false {
         if(this.active === el) {
             this._rem(el);
             if(typeof el[this.links.ref] === "number") {
-                for (const link of this.links.db[el[this.links.ref]]) {
+                for (const link of this.links.db[el[this.links.ref]!]) {
                     this._rem(link);
                 }
             }
             this.active = null;
         }
         return false;
-    },
+    }
 
-    toggle(el) {
+    toggle(el: HTMLElement): boolean {
         if(this.active === el) {
             this.disable(el);
             return false;
@@ -56,23 +65,23 @@ module.exports = {
             this.enable(el);
             return true;
         }
-    },
+    }
 
-    isActive(el) {
+    isActive(el: HTMLElement): boolean {
         return this.active === el;
-    },
+    }
 
-    link(mainEl, secondaryEl) {
+    link(mainEl: HTMLElement, secondaryEl: HTMLElement): number {
         let added = typeof mainEl[this.links.ref] == "number";
-        let i = added? mainEl[this.links.ref]: this.links.occupied, db = this.links.db;
+        let index = added? mainEl[this.links.ref]!: this.links.occupied, db = this.links.db;
 
-        if(!db[i]) db[i] = [];
-        db[i].push(secondaryEl);
+        if(!db[index]) db[index] = [];
+        db[index].push(secondaryEl);
         if(!added) {
-            mainEl[this.links.ref] = i;
+            mainEl[this.links.ref] = index;
             this.links.occupied++;
         }
 
-        return i;
+        return index;
     }
 }

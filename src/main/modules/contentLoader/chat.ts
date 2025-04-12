@@ -1,17 +1,16 @@
-const { formatDate, resizeDimensions, getContentType } = require("../utils");
-const { markdown, afterEffect } = require("../makeMessage");
+import { formatDate, resizeDimensions, getContentType } from "../utils";
+import { markdown, afterEffect } from "../makeMessage";
+import { Message, TextChannel } from "discord.js";
 
-//#region Load Chat
-
-async function loadChat(add = false) {
+export async function loadChat(add: boolean = false): Promise<void> {
     if(!add) Botcord.chatContent.innerHTML = "";
 
-    let msgs = await Botcord.currentChannel.messages.fetch(add? {
-        before: Botcord.topLoadedMessage,
+    let msgs = await (Botcord.currentChannel as TextChannel).messages.fetch(add? {
+        before: Botcord.topLoadedMessage!,
         limit: Botcord.limits.messageFetch
     }: {
         limit: Botcord.limits.messageFetch
-    }), messages = [];
+    }), messages: Message[] = [];
 
     let previousMessage; // , nextMessage;
 
@@ -19,7 +18,7 @@ async function loadChat(add = false) {
         messages.push(message);
     });
 
-    if(add && messages.length > 1) Botcord.chatContent.removeChild(Botcord.chatContent.lastChild);
+    if(add && messages.length > 1) Botcord.chatContent.removeChild(Botcord.chatContent.lastChild!);
         else if(add) return;
 
     for(let id in messages) {
@@ -45,23 +44,23 @@ async function loadChat(add = false) {
             for (const attachment of message.attachments) {
                 let media = attachment[1];
 
-                if(getContentType(media.contentType).category != "image") continue;
+                if(getContentType(media.contentType!)?.category != "image") continue;
                 let { width, height } = media;
 
-                if(height > Botcord.limits.attachmentHeight) {
-                    width = resizeDimensions(height, width, Botcord.limits.attachmentHeight);
+                if(height! > Botcord.limits.attachmentHeight) {
+                    width = resizeDimensions(height!, width!, Botcord.limits.attachmentHeight);
                     height = Botcord.limits.attachmentHeight;
                 }
 
                 let maxMsgWidth = Botcord.styleDimensions.maxMessageWidth();
 
-                if(width > maxMsgWidth) {
-                    height = resizeDimensions(width, height, maxMsgWidth);
+                if(width! > maxMsgWidth) {
+                    height = resizeDimensions(width!, height!, maxMsgWidth);
                     width = maxMsgWidth;
                 }
 
-                width = Math.round(width);
-                height = Math.round(height);
+                width = Math.round(width!);
+                height = Math.round(height!);
 
                 let realW = Math.round(width * devicePixelRatio),
                     realH = Math.round(height * devicePixelRatio);
@@ -74,19 +73,15 @@ async function loadChat(add = false) {
             }
         }
 
-        // TEST THIS !!!!
-        let guildMember = toNull(
+        let guildMember = Promise.resolve(
             message.author.globalName === null? null: (
-                Botcord.currentGuild.members.resolve(message.author.id)
+                Botcord.currentGuild!.members.resolve(message.author.id)
                 || fetchUnfinished(
-                    Botcord.currentGuild.members.fetch(message.author.id),
+                    toNull(Botcord.currentGuild!.members.fetch(message.author.id)),
                     "guildMember:" + message.author.id
                 )
             )
         );
-
-        // Test manual fetch of values 1. bare, 2. /w fetchUnfinished, 3. /w toNull,
-        // 4. and both + 5. full syntax ^^^
 
         switch(message.type) {
             case 0: // Text message
@@ -114,7 +109,7 @@ async function loadChat(add = false) {
                     </div>`;
                 li.classList.add("text");
                 if(!followup) guildMember.then(member => {
-                    if(member) li.querySelector("span.msgAuthor").style.color = member.displayHexColor;
+                    if(member) li.querySelector<HTMLSpanElement>("span.msgAuthor")!.style.color = member.displayHexColor;
                 });
                 break;
 
@@ -149,7 +144,3 @@ async function loadChat(add = false) {
         Botcord.chatContent.appendChild(li);
     }
 }
-
-//#endregion
-
-module.exports = { loadChat };

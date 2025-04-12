@@ -1,49 +1,49 @@
-const { join } = module.require("path");
-const { createRequire } = module.require("module");
-global.require = createRequire(join(__dirname, "main") + "/");
-// global.require = id => {
-//     if(id.match(/^\.+\//)) return module.require(
-//         resolve(__dirname, "main", id)
-//     );
-//     return module.require(id);
-// }
+interface Times {
+    startTimestamp: number,
+    loader: number | null,
+    client: number | null,
+    login: number | null,
+    finish: number | null,
+    stamp(key: "loader" | "client" | "finish" | "login"): void
+}
 
-const times = {
+const times: Times = {
     startTimestamp: Math.round( performance.now() ),
+    
     loader: null,
     client: null,
     login: null,
     finish: null,
-    /**
-     * @param {"loader"|"client"|"login"|"finish"} key 
-     */
-    stamp(key) {
+
+    stamp(key: "loader" | "client" | "finish" | "login") {
         this[key] = Math.round( performance.now() - this.startTimestamp );
     }
-}, logger = {
-    _log(level, args) {
+}
+
+const logger = {
+    _log(level: "log" | "warn" | "error" | "info", args: any[]): void {
         console[level](...args);
     },
 
-    log(...args) {
+    log(...args: any[]) {
         this._log("log", args);
     },
 
-    warn(...args) {
+    warn(...args: any[]) {
         this._log("warn", args);
     },
 
-    error(...args) {
+    error(...args: any[]) {
         this._log("error", args);
     },
 
-    debug(...args) {
+    debug(...args: any[]) {
         this._log("info", args);
     },
 
-    report(message, {constr, cause} = {}) {
+    report(message: string, {constr, cause}: {constr?: { new(): object }, cause?: any}): never {
         if(cause) this.error(cause);
-        throw new (constr || Error)(message, cause? {cause}: null);
+        throw new (constr || Error)(message, {cause});
     }
 };
 
@@ -56,20 +56,23 @@ const times = {
     ];
     
     let i = 0;
+    let promises: Promise<void>[] = [];
 
     for (const name of scripts) {
         let elem = doc.createElement("script");
 
         doc.body.appendChild(elem);
-        await new Promise(r => {
+        promises.push(new Promise(resolve => {
             elem.addEventListener("load", () => {
                 i++;
                 logger.log(`Script "${name + ".js"}" loaded. (${i}/${scripts.length})`);
-                r();
+                resolve();
             })
             elem.src = `main/${name}.js`;
-        });
+        }));
     }
+
+    await Promise.all(promises);
 
     times.stamp("loader");
 })(document);

@@ -1,7 +1,8 @@
-const Vibrant = require("node-vibrant");
-const { color } = require("./utils");
+import Vibrant from "node-vibrant";
+import { color } from "./utils";
+import { Snowflake, User } from "discord.js";
 
-function displayPresence() {
+export function displayPresence(): void {
     let translations = {
         online: "Online",
         idle: "Idle",
@@ -9,25 +10,29 @@ function displayPresence() {
         invisible: "Invisible"
     }
 
-    let readable = translations[Botcord.client.presence.status];
+    let readable = translations[Botcord.client?.user.presence.status as keyof typeof translations];
     let statusIcon = `../resources/status${readable.replace(/\s/g, "")}.svg`;
 
     elem("#status").textContent = readable;
-    elem("#bcmStatus").src = statusIcon;
-    elem("#userStatus").src = statusIcon;
+    elem<HTMLImageElement>("#bcmStatus").src = statusIcon;
+    elem<HTMLImageElement>("#userStatus").src = statusIcon;
 }
 
-async function fillBCM(id) {
-    let user = await (id? Botcord.client.users.fetch(id, {force: true}): Botcord.client.user.fetch(true));
+export async function fillBCM(id?: Snowflake): Promise<User> {
+    let user: User = await (id? Botcord.client?.users.fetch(id, {force: true}): Botcord.client?.user.fetch(true))!;
     let avatar = user.avatarURL({ extension: "png" }) || user.defaultAvatarURL;
 
-    if(user.banner) elem("#bcmBanner").style.backgroundImage = `url(${user.bannerURL({size: 512})})`;
-        else elem("#bcmBanner").style.backgroundImage = "none";
+    if(user.banner) {
+        elem("#bcmBanner").style.backgroundImage = `url(${user.bannerURL({size: 512})})`;
+    } else {
+        elem("#bcmBanner").style.backgroundImage = "none";
+    }
+
     elem("#bcmBanner").style.backgroundColor = user.hexAccentColor || (
         await Vibrant.from(avatar).getPalette()
-    ).Vibrant.hex;
+    ).Vibrant?.hex || "";
 
-    elem("#bcmPfp").src = avatar;
+    elem<HTMLImageElement>("#bcmPfp").src = avatar;
     elem("#bcmDisplayName").textContent = user.displayName;
     elem("#bcmTag").textContent = user.discriminator;
 
@@ -37,38 +42,22 @@ async function fillBCM(id) {
     return user;
 }
 
-function propIcons() {
-    let els = elem(".i:not(.i-done)", true);
+export function propIcons(): void {
+    let els = elem(".i:not(.i-done)", { all: true });
     if(Botcord.logs.elements) logger.log(`Propagated 3rd party icons:`, els);
 
     for(let i = 0; i < els.length; i++) {
         let el = els[i];
         if(el.hasAttribute("data-icon")) {
             let icon = el.getAttribute("data-icon");
-            el.style.backgroundImage = `url(https://img.icons8.com/material-rounded/${color(el.classList.contains("static")?theme.color:theme.colorDark)}/${icon})`;
+            el.style.backgroundImage = `url(https://img.icons8.com/material-rounded/${
+                color(el.classList.contains("static")? theme.color: theme.colorDark)
+            }/${icon})`;
+
             // if(el.hasAttribute("data-size")) {
             //     el.style.backgroundSize
             // }
             el.classList.add("i-done");
         } else logger.warn(`Element #${i} lacks "data-icon"! (skipped) -`, el);
     }
-}
-
-function initClickables() {
-    const clickables = require("../data/clickables");
-
-    for(let selector in clickables) {
-        let el = elem("#" + selector);
-        el.addEventListener(
-            "click",
-            clickables[selector]
-        );
-    }
-}
-
-module.exports = {
-    displayPresence,
-    fillBCM,
-    propIcons,
-    initClickables
 }
