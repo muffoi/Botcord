@@ -34,18 +34,14 @@ function initializeApp() {
 
     popouts.link(elem("#profilePopout"), elem("#btnSwitch"));
 
-    let loadInProgress = false;
-
     Botcord.chatContent.addEventListener("scroll", async () => {
-        if( clampNumber(
+        if(clampNumber(
             Botcord.chatContent.scrollHeight
             + Botcord.chatContent.scrollTop
             - Botcord.chatContent.clientHeight,
             0
-        ) <= Botcord.limits.bufferChatScroll && !loadInProgress) {
-            loadInProgress = true;
-            await loadChat(true);
-            loadInProgress = false;
+        ) <= Botcord.limits.bufferChatScroll) {
+            loadChat(true);
         }
     })
 
@@ -127,7 +123,7 @@ Botcord.isInitialized = (async () => {
                 choice = await dialog.confirm(templates.confirms.INVALID_TOKEN());
             } catch(e) {
                 if(e == dialog.errors.DISMISSED) {
-                    logger.log(`Primary dialog dismissed.`);
+                    logger.log(`INVALID_TOKEN dialog dismissed`);
                     return;
                 } else throw e;
             }
@@ -140,7 +136,7 @@ Botcord.isInitialized = (async () => {
                     location.reload();
                 } catch(e) {
                     if(e == dialog.errors.DISMISSED) {
-                        logger.log(`Secondary dialog dismissed.`);
+                        logger.log(`Update User dialog dismissed`);
                         return;
                     } else throw e;
                 }

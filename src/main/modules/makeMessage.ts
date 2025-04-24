@@ -24,10 +24,9 @@ export function markdown(message: Message) {
         }
     });
 
-    if(Botcord.logs.messages) {
-        logger.log(markdown);
-    }
-    return markdown;   // .join("");
+    logger.debug("messages", markdown);
+
+    return markdown;
 }
 
 export function afterEffect(li: HTMLLIElement) {
@@ -38,7 +37,7 @@ export function afterEffect(li: HTMLLIElement) {
 
     let msgContent = li.querySelector<HTMLDivElement>(".msgContent")!;
 
-    if(Botcord.logs.messages) logger.log(msgContent);
+    logger.debug("messages", msgContent);
 
     if(msgContent.childNodes.length == 1 &&
         (

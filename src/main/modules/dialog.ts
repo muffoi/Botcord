@@ -74,7 +74,6 @@ export const api = {
                                 } else ok(id);
                             } else ok(id);
                         } catch(e) {
-                            // logger.debug(e);
                             invalid(id, "Please input a valid Discord bot token!");
                         }
                     }

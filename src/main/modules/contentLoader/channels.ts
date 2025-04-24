@@ -1,8 +1,8 @@
 import { CategoryChannel, Channel, GuildChannel } from "discord.js";
 import { channelIcon } from "../utils";
-import { loadChat } from "./chat";
+import { getLoadingStatus, loadChat } from "./chat";
 
-export { loadChat };
+export * from "./chat";
 
 export async function loadChannels(): Promise<void> {
     let el = elem("#channels");
@@ -55,15 +55,13 @@ export async function loadChannels(): Promise<void> {
         })
     }
 
-    if(Botcord.logs.values) logger.log(`Loaded channels:`, sortedChannels);
+    logger.debug("channels", `Loaded channels:`, sortedChannels);
 
     for(let channel of sortedChannels) {
         if(!channel) continue;
 
-        if(Botcord.logs.channels) {
-            // logger.log(`-----`);
-            logger.log(`Channel #${channel.name} (type ${channel.type}):`, channel);
-        }
+        logger.debug("channels", `Channel #${channel.name} (type ${channel.type}):`, channel);
+
         // if(channel.type == 11) continue;
 
         let li = mkelem("li", "channel");
@@ -102,18 +100,14 @@ export async function loadChannels(): Promise<void> {
     loadChat();
 }
 
-let loadingChannel = false;
-
 export async function selectChannel(this: HTMLLIElement): Promise<void> {
-    if(loadingChannel) return;
-    loadingChannel = true;
+    // if(getLoadingStatus().isFull) return;
 
     let target = Botcord.channels[this.getAttribute("cid")!];
     let allowedChannelTypes = [0, 5];
     if(allowedChannelTypes.includes(target.type)) {
         if(target.id == Botcord.currentChannel?.id) {
             Botcord.chatContent.scrollTo({top: 0});
-            loadingChannel = false;
             return;
         }
 
@@ -133,6 +127,4 @@ export async function selectChannel(this: HTMLLIElement): Promise<void> {
             dialog.confirm(templates.confirms.INVALID_CHANNEL_TYPE(target as Channel));
         } catch {}
     }
-
-    loadingChannel = false;
 }

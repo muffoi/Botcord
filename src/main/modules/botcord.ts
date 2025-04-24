@@ -13,21 +13,18 @@ const limits = {
     // }
 }
 
-const logs = {
-    // Log message parser outputs and elements
-    messages: true,
+const debugLogs = {
+    // Debug message parser outputs and elements
+    messages: false,
 
-    // Log other generated elements
-    elements: false,
+    // Debug data about channels
+    channels: false,
 
-    // Log loaded channels
-    channels: true,
+    // Debug setup times
+    timings: true,
 
-    // Log other internal values
-    values: false,
-
-    // Log setup times
-    timings: true
+    // Debug channel loader handle manager
+    handles: true
 }
 
 const flags = {
@@ -115,7 +112,7 @@ export class BotcordClient {
     helpers: typeof import("./helpers");
 
     limits: typeof limits;
-    logs: typeof logs;
+    debug: typeof debugLogs;
     flags: typeof flags;
     package: typeof packagePartial;
     styleDimensions: typeof styleDimensions;
@@ -149,7 +146,7 @@ export class BotcordClient {
         }
 
         this.limits = limits;
-        this.logs = logs;
+        this.debug = debugLogs;
         this.flags = flags;
         this.package = packagePartial;
         this.styleDimensions = styleDimensions;

@@ -1,8 +1,17 @@
 import { formatDate, resizeDimensions, getContentType } from "../utils";
 import { markdown, afterEffect } from "../makeMessage";
 import { Message, TextChannel } from "discord.js";
+import { obtainHandle } from "./loaderHandle";
+
+export * from "./loaderHandle";
 
 export async function loadChat(add: boolean = false): Promise<void> {
+    // Obtain loader handle with correct flag
+    const handle = obtainHandle(!add, Botcord.currentChannel!.id);
+
+    // If obtaining handle failed, quit
+    if(!handle) return;
+
     if(!add) Botcord.chatContent.innerHTML = "";
 
     const collection = await (Botcord.currentChannel as TextChannel).messages.fetch(add? {
@@ -12,16 +21,21 @@ export async function loadChat(add: boolean = false): Promise<void> {
         limit: Botcord.limits.messageFetch
     });
     
-    let previousMessage: Message;
+    let previousMessage: Message, topLoadedMessage = Botcord.topLoadedMessage;
     
+    // Convert Collection to an Array
     const messages = collection.reduce((array: Message<true>[], message) => {
         array.push(message);
         return array;
     }, []);
     
-    if(add && messages.length > 1) {
-        Botcord.chatContent.removeChild(Botcord.chatContent.lastChild!);
-    } else if(add) return;
+    if(add && messages.length <= 1) {
+        logger.debug("handles", `Update #${handle!.id} not necessary!`);
+        
+        // If no additional messages to render are present, release handle and quit
+        handle!.clear();
+        return;
+    }
 
     const fragment = document.createDocumentFragment();
 
@@ -31,16 +45,15 @@ export async function loadChat(add: boolean = false): Promise<void> {
 
         previousMessage = messages[+id + 1];
         let isLast = !previousMessage;
-        if(Botcord.logs.messages) {
-            // logger.log(`-----`);
-            logger.log(message, message.author);
-        }
 
+        logger.debug("messages", message, message.author);
 
-        let followup = (previousMessage?.author === message.author) &&
-            (message.createdTimestamp - previousMessage.createdTimestamp < Botcord.limits.messageGroupingTime),
-            attachments = ""; // , nfollowup = nextMessage?.author === message.author;
-        // logger.log(prevMsg, nextMsg, followup, nfollowup, isLast);
+        let followup = (
+            previousMessage?.author === message.author
+        ) && (
+            message.createdTimestamp - previousMessage.createdTimestamp < Botcord.limits.messageGroupingTime
+        );
+        let attachments = "";
 
         if(followup) li.classList.add("no-margin");
 
@@ -140,12 +153,27 @@ export async function loadChat(add: boolean = false): Promise<void> {
                 li.classList.add("unknown");
         }
 
-        if(!isLast) Botcord.topLoadedMessage = message.id;
+        if(!isLast) topLoadedMessage = message.id;
 
         afterEffect(li);
 
         fragment.appendChild(li);
     }
 
-    Botcord.chatContent.appendChild(fragment);
+    // Check for handle validity and clear handle
+    // If handle was not obtained by other loader, apply rendered messages
+    if(handle!.clear()) {
+
+        logger.debug("handles", `Successfully applied update #${handle!.id}!`);
+
+        if(add) {
+            // Clear oldest loaded message to redender it
+            // Removing is useful for cases like multiple messages from same author in a row,
+            // with a part of this stack being loaded and part unloaded
+            Botcord.chatContent.removeChild(Botcord.chatContent.lastChild!);
+        }
+
+        Botcord.topLoadedMessage = topLoadedMessage;
+        Botcord.chatContent.appendChild(fragment);
+    } else logger.debug("handles", `Update #${handle!.id} aborted!`);
 }

@@ -37,7 +37,9 @@ export const logger = {
         this._log("error", args);
     },
 
-    debug(...args: any[]) {
+    debug(level: keyof typeof Botcord.debug, ...args: any[]) {
+        if(Botcord.args.isPackaged || !Botcord.debug[level]) return;
+
         this._log("info", args);
     },
 

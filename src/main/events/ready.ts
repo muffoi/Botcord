@@ -27,7 +27,7 @@ export async function handleEvent() {
     await Botcord.isInitialized;
 
     times.stamp("finish");
-    if(Botcord.logs.timings) logger.log(`Startup time: ${times.finish}ms; Client time: ${times.client}ms`);
+    logger.debug("timings", `Startup time: ${times.finish}ms; Client time: ${times.client}ms`);
 
     // Botcord.client.users.fetch()
 }

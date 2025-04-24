@@ -44,7 +44,6 @@ export async function fillBCM(id?: Snowflake): Promise<User> {
 
 export function propIcons(): void {
     let els = elem(".i:not(.i-done)", { all: true });
-    if(Botcord.logs.elements) logger.log(`Propagated 3rd party icons:`, els);
 
     for(let i = 0; i < els.length; i++) {
         let el = els[i];

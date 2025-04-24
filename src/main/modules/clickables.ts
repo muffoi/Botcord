@@ -36,7 +36,7 @@ export function initClickables() {
                         confirmed = await dialog.confirm(templates.confirms.REMOVE_ACCOUNT(user, index))
                     } catch(e) {
                         if(e == dialog.errors.DISMISSED) {
-                            logger.log(`Account deletion cancelled.`);
+                            logger.log(`Account deletion cancelled`);
                             return;
                         } else throw e;
                     }
@@ -49,7 +49,7 @@ export function initClickables() {
                         el.click();
                         el.click();
                     } else {
-                        logger.log(`Account deletion cancelled.`);
+                        logger.log(`Account deletion cancelled`);
                     }
                 }, "click")}></div>`;
 
@@ -63,7 +63,6 @@ export function initClickables() {
             }
 
             let addUserBtn = elem(".popItem#addUser");
-            if(Botcord.logs.elements) logger.log(`Add User button:`, addUserBtn);
             if(empty) addUserBtn.classList.add("standalone");
                 else addUserBtn.classList.remove("standalone");
 

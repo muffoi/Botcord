@@ -9,13 +9,12 @@ export async function newUser(free: boolean = false): Promise<void> {
     } catch(e) {
         switch(e) {
             case dialog.errors.DISMISSED:
-                logger.log("Log In modal dismissed: " + e);
+                logger.log("Log In modal dismissed");
                 return;
             default:
                 throw e;
         }
     }
-    logger.log(`User data acquired: `, user);
 
     await store.addUser(user);
     store.setCurrentUser(store.getUsers().length - 1);
