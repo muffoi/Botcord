@@ -45,7 +45,7 @@
         "@odiffey/discord-markdown": "^3.3.0",
         "dayjs": "^1.11.13",
         "discord.js": "^14.19.3",
-        "node-vibrant": "^3.1.6"
+        "node-vibrant": "^4.0.3"
     },
     "devDependencies": {
         "@types/node": "22.14.0",

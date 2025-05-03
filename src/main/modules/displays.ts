@@ -1,4 +1,4 @@
-import Vibrant from "node-vibrant";
+import { Vibrant } from "node-vibrant/node";
 import { color } from "./utils";
 import { Snowflake, User } from "discord.js";
 
