@@ -44,15 +44,15 @@
     "dependencies": {
         "@odiffey/discord-markdown": "^3.3.0",
         "dayjs": "^1.11.13",
-        "discord.js": "^14.16.3",
+        "discord.js": "^14.19.3",
         "node-vibrant": "^3.1.6"
     },
     "devDependencies": {
-        "@types/node": "^22.13.13",
-        "electron": "^33.3.0",
+        "@types/node": "22.14.0",
+        "electron": "^33.4.11",
         "electron-builder": "^25.1.8",
-        "glob": "^11.0.1",
-        "tsx": "^4.19.3",
-        "typescript": "^5.7.2"
+        "glob": "^11.0.2",
+        "tsx": "^4.19.4",
+        "typescript": "^5.8.3"
     }
 }
