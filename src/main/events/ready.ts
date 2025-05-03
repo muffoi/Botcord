@@ -15,7 +15,7 @@ export async function handleEvent() {
 
     await Botcord.storage!.updateUser(
         Botcord.storage!.userIndex,
-        await getBotInfo({token: Botcord.current!.token})
+        await getBotInfo(Botcord.current!)
     );
 
     if(!Botcord.flags.noServerList) await loadGuilds();

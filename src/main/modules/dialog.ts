@@ -92,13 +92,16 @@ export const api = {
                     </div>
             
                     <div class="loginDefaultStatusSetter">
-                        <input type="checkbox" name="loginDefaultStatus" value="off">
+                        <input type="checkbox" name="loginDefaultStatus" value="on">
                         Invisible Bot Presence <div class="i info" data-icon="24/info" title="Don't let others see your activity"></div>
                         <div class="checkbox" ${prepEvt((_e, t) => {
                             let value = +(t.getAttribute("data-value") as string);
+
                             value = value == 0? 1: 0;
                             t.setAttribute("data-value", value + "");
-                            (t.parentElement!.children[0] as HTMLInputElement).value = [ "off", "on" ][value];
+
+                            let checkbox = t.parentElement!.children[0] as HTMLInputElement;
+                            checkbox.checked = !!value;
                         }, "click")}>
                             <div class="checkboxThumb"></div>
                         </div>

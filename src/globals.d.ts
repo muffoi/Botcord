@@ -56,7 +56,7 @@ declare global {
     
     interface BaseUserData {
         token: string,
-        presence?: Presence
+        presence: Presence
     }
 
     interface AnyUserData {
@@ -66,7 +66,7 @@ declare global {
         id?: import("discord.js").Snowflake,
         tag?: string,
         avatar?: string,
-        presence?: Presence
+        presence: Presence
     };
 
     type Presence = "online" | "invisible" | "idle" | "dnd";
