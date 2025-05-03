@@ -5,6 +5,12 @@ import packageJson from "./package.json";
 
 let win: BrowserWindow;
 
+app.setAppUserModelId("com.muffoi.botcord");
+
+const userDataDirName = app.isPackaged ? packageJson.productName : `${packageJson.productName}_dev`;
+
+app.setPath("userData", join(app.getPath("userData"), "..", userDataDirName))
+
 function createWindow () {
     win = new BrowserWindow({
         webPreferences: {
@@ -64,7 +70,7 @@ function createWindow () {
     });
 
     win.removeMenu();
-    if(!app.isPackaged) win.webContents.openDevTools();
+    if(!app.isPackaged) win.webContents.openDevTools({ mode: "undocked" });
 
     win.loadFile(join(__dirname, "src", "index.html"));
     /* win.on("unresponsive", ()=>{

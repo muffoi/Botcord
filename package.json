@@ -23,7 +23,7 @@
         "cleanup": "tsx scripts/cleanup.ts"
     },
     "build": {
-        "appId": "botcordclient",
+        "appId": "com.muffoi.botcord",
         "productName": "Botcord",
         "icon": "./resources/icon.ico",
         "files": [
