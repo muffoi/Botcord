@@ -22,7 +22,8 @@ function createWindow () {
         },
         autoHideMenuBar: true,
         title: packageJson.productName + " v" + packageJson.version,
-        icon: join(__dirname, "resources", "icon.ico")
+        icon: join(__dirname, "resources", "icon.ico"),
+        backgroundColor: theme.background
     })
 
     let allowed = [
