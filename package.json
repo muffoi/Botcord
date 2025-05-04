@@ -27,12 +27,11 @@
         "productName": "Botcord",
         "icon": "./resources/icon.ico",
         "files": [
-            "!accounts.json",
-            "!**/discordMarkdown.pegjs",
-            "!{eslint.config.mjs,tsconfig.json}",
-            "!{_templateWiki,asarunpacked,CHANGELOG.txt,STYLEGUIDE.md}",
-            "!{branding,scripts,.vscode}",
-            "!**/*{.d.ts,.ts}"
+            "!{tsconfig.json,github}",
+            "!**/*{.d.ts,.ts}",
+            "!{asarunpacked,CHANGELOG.txt,STYLEGUIDE.md,branding,.vscode,scripts}",
+            "!{_templateWiki,eslint.config.mjs,accounts.json}",
+            "!**/discordMarkdown.pegjs"
         ],
         "win": {
             "target": [
