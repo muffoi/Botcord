@@ -45,8 +45,8 @@ const styleDimensions = {
     }
 }
 
-    let arg = process.argv.slice(-2, -1)[0];
 let args = (() => {
+    let jsonArgument = process.argv.slice(-2, -1)[0];
 
     const defaults: RendererArgs = {
         appData: "",
@@ -55,10 +55,10 @@ let args = (() => {
     };
 
     try {
-        let json = JSON.parse(arg);
-        if(typeof json !== "object") throw new TypeError(`Type mismatch! Expected to read object, found '${typeof json}'!`);
+        let argsObject = JSON.parse(jsonArgument);
+        if(typeof argsObject !== "object") throw new TypeError(`Type mismatch! Expected to read object, found '${typeof argsObject}'!`);
 
-        Object.assign(defaults, json);
+        Object.assign(defaults, argsObject);
     } catch(e) {
         logger.report(`Botcord module failed loading`, {cause: e});
     }

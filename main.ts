@@ -9,7 +9,7 @@ app.setAppUserModelId("com.muffoi.botcord");
 
 const userDataDirName = app.isPackaged ? packageJson.productName : `${packageJson.productName}_dev`;
 
-app.setPath("userData", join(app.getPath("userData"), "..", userDataDirName))
+app.setPath("userData", join(app.getPath("userData"), "..", userDataDirName));
 
 function createWindow () {
     win = new BrowserWindow({
