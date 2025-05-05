@@ -147,3 +147,7 @@ a:visited {
     font-style: normal;
     z-index: -1;
 }
+
+img {
+    -webkit-user-drag: none;
+}
