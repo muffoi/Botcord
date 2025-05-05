@@ -18,7 +18,10 @@ function createWindow () {
             sandbox: false,
             contextIsolation: false,
             devTools: !app.isPackaged,
-            additionalArguments: encodeArgs( app.getPath("userData"), app.isPackaged )
+            additionalArguments: [JSON.stringify({
+                appData: app.getPath("userData"),
+                isPackaged: app.isPackaged
+            })]
         },
         autoHideMenuBar: true,
         title: packageJson.productName + " v" + packageJson.version,
@@ -77,19 +80,6 @@ function createWindow () {
     /* win.on("unresponsive", ()=>{
         dialog.showErrorBox("Not Responding", "App window has gone unresponsive");
     }) */
-}
-
-type ArgType = string | number | boolean;
-
-function encodeArgs(...args: ArgType[]) {
-    let newArgs = [];
-
-    for (const arg of args) {
-        if(typeof arg == "boolean") newArgs.push(+arg+"");
-            else newArgs.push(arg.toString());
-    }
-
-    return [...newArgs, newArgs.length + ""];
 }
 
 app.whenReady().then(() => {

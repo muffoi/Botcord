@@ -46,55 +46,29 @@ const styleDimensions = {
 }
 
 let arg = (() => {
+    let arg = process.argv.slice(-2, -1)[0];
+
+    const defaults: RendererArgs = {
+        appData: "",
+        isPackaged: true
+    };
+
     try {
-        let argv = process.argv;
-        let dataLength = +argv[argv.length-2];
-        if(isNaN(dataLength) || dataLength == 0) {
-            throw new Error("Couldn't separate argv data out of 'process.argv'. Length: " + dataLength);
-        }
-        const args = argv.slice(-2 - dataLength, -2);
-        const argDefs = [
-            { key: "appData", type: "string" },
-            { key: "isPackaged", type: "bool" }
-        ];
-        const argObj: RendererArgs = {
-            appData: "",
-            isPackaged: true
-        };
+        let json = JSON.parse(arg);
+        if(typeof json !== "object") throw new TypeError(`Type mismatch! Expected to read object, found '${typeof json}'!`);
 
-        for (let i = 0; i < args.length; i++) {
-            let def = argDefs[i];
-            let value;
-
-            switch(def.type) {
-                case "string":
-                    value = args[i];
-                    break;
-                case "number":
-                    value = +args[i];
-                    break;
-                case "bool":
-                    value = !!+args[i];
-                    break;
-                default:
-                    value = args[i];
-            }
-
-            argObj[def.key] = value;
-        }
-
-        return argObj;
+        Object.assign(defaults, json);
     } catch(e) {
         logger.report(`Botcord module failed loading`, {cause: e});
     }
+
+    return defaults;
 })();
 
-// interface RendererArgsMap {
-//     appData: string,
-//     isPackaged: boolean
-// }
-
-type RendererArgs = Record<string, string | number | boolean>;
+interface RendererArgs {
+    appData: string,
+    isPackaged: boolean
+}
 
 export class BotcordClient {
     guilds: ListByIDOf<Guild>;
@@ -117,7 +91,7 @@ export class BotcordClient {
     package: typeof packagePartial;
     styleDimensions: typeof styleDimensions;
 
-    args: RendererArgs
+    args: RendererArgs;
 
     #inits = {
         storage: false,
