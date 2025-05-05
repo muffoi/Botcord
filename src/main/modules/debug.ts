@@ -44,7 +44,6 @@ export const logger = {
     },
 
     report(message: string, {constr, cause}: {constr?: { new(): object }, cause?: any}): never {
-        if(cause) this.error(cause);
         throw new (constr || Error)(message, {cause});
     }
 };
