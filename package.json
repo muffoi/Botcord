@@ -2,7 +2,7 @@
     "name": "botcord",
     "productName": "Botcord",
     "private": true,
-    "version": "0.1.0-alpha.1",
+    "version": "0.2.0",
     "description": "Unofficial Discord client for bot accounts",
     "homepage": "https://github.com/muffoi/Botcord#readme",
     "repository": {
