@@ -2,7 +2,7 @@
     "name": "botcord",
     "productName": "Botcord",
     "private": true,
-    "version": "0.1.0",
+    "version": "0.2.0",
     "description": "Unofficial Discord client for bot accounts",
     "homepage": "https://github.com/muffoi/Botcord#readme",
     "repository": {
@@ -16,20 +16,22 @@
     "author": "Muffoi",
     "main": "main.js",
     "scripts": {
-        "start": "electron .",
-        "debug": "electron --inspect=5858 --inspect-brk .",
-        "build": "electron-builder"
+        "start": "tsc && electron .",
+        "dev": "npm run compile-dev && electron .",
+        "compile-dev": "tsc --inlineSourceMap --inlineSources",
+        "build": "tsc && electron-builder",
+        "cleanup": "tsx scripts/cleanup.ts"
     },
     "build": {
-        "appId": "botcordclient",
+        "appId": "com.muffoi.botcord",
         "productName": "Botcord",
         "icon": "./resources/icon.ico",
         "files": [
-            "!accounts.json",
-            "!**/discordMarkdown.pegjs",
-            "!{eslint.config.mjs,tsconfig.json}",
-            "!{_templateWiki,asarunpacked,unpack.bat,CHANGELOG.txt}",
-            "!branding"
+            "!{tsconfig.json,github}",
+            "!**/*{.d.ts,.ts}",
+            "!{asarunpacked,CHANGELOG.txt,STYLEGUIDE.md,branding,.vscode,scripts}",
+            "!{_templateWiki,eslint.config.mjs,accounts.json}",
+            "!**/discordMarkdown.pegjs"
         ],
         "win": {
             "target": [
@@ -41,11 +43,15 @@
     "dependencies": {
         "@odiffey/discord-markdown": "^3.3.0",
         "dayjs": "^1.11.13",
-        "discord.js": "^14.16.3",
-        "node-vibrant": "^3.1.6"
+        "discord.js": "^14.19.3",
+        "node-vibrant": "^4.0.3"
     },
     "devDependencies": {
-        "electron": "^29.1.1",
-        "electron-builder": "^25.1.7"
+        "@types/node": "22.14.0",
+        "electron": "^36.1.0",
+        "electron-builder": "^26.0.12",
+        "glob": "^11.0.2",
+        "tsx": "^4.19.4",
+        "typescript": "^5.8.3"
     }
 }

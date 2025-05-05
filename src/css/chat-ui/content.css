@@ -4,9 +4,9 @@ li.message {
     display: flex;
     flex-direction: row;
     position: relative;
-    padding: 2px 48px 2px 72px;
-    line-height: 22px;
-    margin-top: 1.0625rem;
+    padding: 4px 48px 4px 72px;
+    line-height: 1.5em;
+    margin-top: 1rem;
 }
 
 li.message:not(.unknown) * {
@@ -21,7 +21,7 @@ li.message > div.pfpCon {
 
     position: absolute;
     left: 16px;
-    margin-top: 2px;
+    margin-top: 4px;
 }
 
 li.message > div.pfpCon > img {
@@ -31,10 +31,10 @@ li.message > div.pfpCon > img {
     user-select: none;
 }
 
-li.message > div.pfpCon > div.msgFollowupFiller {
+/* li.message > div.pfpCon > div.msgFollowupFiller {
     width: 40px;
     height: 24px;
-}
+} */
 
 .message.no-margin {
     margin-top: 0;
@@ -46,13 +46,13 @@ div.msgHeader > span.msgAuthor {
 
 div.msgHeader > span.msgAddition {
     font-style: italic;
-    font-size: 0.8rem;
+    font-size: .75rem;
     vertical-align: top;
 }
 
 div.msgHeader > span.msgDate {
     margin-left: 8px;
-    font-size: 0.75rem;
+    font-size: .75rem;
     color: var(--colorDark);
     vertical-align: top;
     white-space: break-spaces;

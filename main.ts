@@ -1,8 +1,15 @@
-const { app, BrowserWindow, ipcMain, safeStorage, shell } = require("electron");
-const { join, relative } = require("path");
-const { background } = require("./src/theme");
+import { app, BrowserWindow, ipcMain, safeStorage, shell } from "electron";
+import { join, relative } from "path";
+import { theme } from "./src/theme";
+import packageJson from "./package.json";
 
-let win, package = require("./package.json");
+let win: BrowserWindow;
+
+app.setAppUserModelId("com.muffoi.botcord");
+
+const userDataDirName = app.isPackaged ? packageJson.productName : `${packageJson.productName}_dev`;
+
+app.setPath("userData", join(app.getPath("userData"), "..", userDataDirName));
 
 function createWindow () {
     win = new BrowserWindow({
@@ -11,11 +18,16 @@ function createWindow () {
             sandbox: false,
             contextIsolation: false,
             devTools: !app.isPackaged,
-            additionalArguments: encodeArgs( app.getPath("userData"), app.isPackaged )
+            additionalArguments: [JSON.stringify({
+                appData: app.getPath("userData"),
+                isPackaged: app.isPackaged,
+                title: packageJson.productName
+            })]
         },
         autoHideMenuBar: true,
-        title: package.productName + " v" + package.version,
-        icon: join(__dirname, "resources", "icon-sm.ico")
+        title: packageJson.productName,
+        icon: join(__dirname, "resources", "icon.ico"),
+        backgroundColor: theme.background
     })
 
     let allowed = [
@@ -37,9 +49,9 @@ function createWindow () {
                     resizable: false,
                     autoHideMenuBar: true,
                     maximizable: false,
-                    minimizable:false,
-                    backgroundColor: background,
-                    icon: join(__dirname, "resources", "icon-sm.ico"),
+                    minimizable: false,
+                    backgroundColor: theme.background,
+                    icon: join(__dirname, "resources", "icon.ico"),
                     webPreferences: {
                         devTools: !app.isPackaged
                     }
@@ -63,23 +75,12 @@ function createWindow () {
     });
 
     win.removeMenu();
-    if(!app.isPackaged) win.webContents.openDevTools();
+    if(!app.isPackaged) win.webContents.openDevTools({ mode: "undocked" });
 
     win.loadFile(join(__dirname, "src", "index.html"));
     /* win.on("unresponsive", ()=>{
         dialog.showErrorBox("Not Responding", "App window has gone unresponsive");
     }) */
-}
-
-function encodeArgs(...args) {
-    let newArgs = [];
-
-    for (const arg of args) {
-        if(typeof arg == "boolean") newArgs.push(+arg+"");
-            else newArgs.push(arg.toString());
-    }
-
-    return [...newArgs, newArgs.length + ""];
 }
 
 app.whenReady().then(() => {
@@ -112,4 +113,3 @@ app.whenReady().then(() => {
 // })
 
 app.on("window-all-closed", app.quit);
-

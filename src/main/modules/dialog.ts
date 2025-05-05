@@ -1,49 +1,55 @@
-const { Client } = require("discord.js");
-const { propIcons } = require("./displays");
+import { propIcons } from "./displays";
+import { FSStorage } from "./storage";
 
-let dialog = elem("#dialog");
+let dialogElem = elem<HTMLDialogElement>("#dialog");
 
-const api = {
-    dom: dialog,
+document.addEventListener("DOMContentLoaded", () => {
+    if(dialogElem === null) dialogElem = elem<HTMLDialogElement>("#dialog");
+});
+
+export const api = {
+    dom: dialogElem,
     errors: {
         DISMISSED: "edismissed"
     },
 
-    open() {
-        dialog.showModal();
-        dialog.classList.add("show");
+    open(): void {
+        dialogElem.showModal();
+        dialogElem.classList.add("show");
     },
 
-    close() {
-        dialog.classList.remove("show");
+    close(): void {
+        dialogElem.classList.remove("show");
 
         setTimeout(() => {
-            dialog.close();
-            dialog.classList.remove("small");
+            dialogElem.close();
+            dialogElem.classList.remove("small");
         }, theme._dat.tr2);
     },
 
-    toggle() {
-        if(dialog.open) {
+    toggle(): void {
+        if(dialogElem.open) {
             api.close()
         } else api.open();
     },
 
-    addUserModal(dismissible, storage) {
-        return new Promise((r, reject) => {
-            dialog.innerHTML = `
+    addUserModal(dismissible: boolean, storage?: FSStorage): Promise<BaseUserData | never> {
+        return new Promise((resolve, reject) => {
+            dialogElem.innerHTML = `
             <div class="loginHeader">Log In</div>
-            <form id="loginForm" ${prepEvt(evt => {
+            <form id="loginForm" ${prepEvt((evt, form: HTMLFormElement) => {
                     evt.preventDefault();
                     api.close();
 
-                    r({
-                        token: evt.target[0].value,
-                        presence: (evt.target[1].value == "on")? "invisible": "online"
+                    let data = new FormData(form);
+
+                    resolve({
+                        token: data.get("loginToken") as string,
+                        presence: (data.get("loginDefaultStatus") == "on")? "invisible": "online"
                     });
                 }, "submit")}>
                 <label for="loginToken">Bot Token:</label>
-                <input type="text" name="loginToken" required="true" placeholder="Your Discord bot account token" ${prepEvt(async (_e, t) => {
+                <input type="text" name="loginToken" required="true" placeholder="Your Discord bot account token" ${prepEvt(async (_e, t: HTMLInputElement) => {
                     let token = t.value;
                     let valid1 = token.match(/[\w-]{24}\.[\w-]{6}\.[\w-]{27}/);
                     let id = "login";
@@ -55,9 +61,10 @@ const api = {
                                 intents:[]
                             });
                             client.on("ready", () => {
-                                elem("#loginPfp").src = client.user.avatarURL({size: 64}) ||
-                                                        client.user.defaultAvatarURL;
-                                elem("#loginName").textContent = client.user.displayName;
+                                elem<HTMLImageElement>("#loginPfp").src = client.user?.avatarURL({size: 64}) ||
+                                    client.user?.defaultAvatarURL || "";
+                                
+                                elem("#loginName").textContent = client.user?.displayName || "User";
                                 client.destroy();
                             });
                             await client.login(token);
@@ -67,7 +74,6 @@ const api = {
                                 } else ok(id);
                             } else ok(id);
                         } catch(e) {
-                            // logger.debug(e);
                             invalid(id, "Please input a valid Discord bot token!");
                         }
                     }
@@ -86,14 +92,17 @@ const api = {
                     </div>
             
                     <div class="loginDefaultStatusSetter">
-                        <input type="checkbox" name="loginDefaultStatus" value="off">
+                        <input type="checkbox" name="loginDefaultStatus" value="on">
                         Invisible Bot Presence <div class="i info" data-icon="24/info" title="Don't let others see your activity"></div>
                         <div class="checkbox" ${prepEvt((_e, t) => {
-                            let value = +t.getAttribute("data-value");
+                            let value = +(t.getAttribute("data-value") as string);
+
                             value = value == 0? 1: 0;
-                            t.setAttribute("data-value", value);
-                            t.parentElement.children[0].value = [ "off", "on" ][value];
-                        })}>
+                            t.setAttribute("data-value", value + "");
+
+                            let checkbox = t.parentElement!.children[0] as HTMLInputElement;
+                            checkbox.checked = !!value;
+                        }, "click")}>
                             <div class="checkboxThumb"></div>
                         </div>
                     </div>
@@ -104,8 +113,8 @@ const api = {
             `<div class="i dismiss" ${prepEvt(() => {
                 api.close();
                 reject(api.errors.DISMISSED);
-            })} data-icon="24/delete-sign"></div>`: "");
-            evt(dialog, "close", () => {
+            }, "click")} data-icon="24/delete-sign"></div>`: "");
+            evt(dialogElem, "close", () => {
                 api.close();
                 reject(api.errors.DISMISSED);
             })
@@ -114,17 +123,30 @@ const api = {
         });
     },
 
-    confirm(title, description, {main, other, warn, dismissible = true} = {}) {
-        return new Promise((r, reject) => {
-            dialog.classList.add("small");
+    confirm({
+        title,
+        description,
+        options: {main, other, warn, dismissible = true}
+    }: {
+        title: string,
+        description: string,
+        options: {
+            main?: string,
+            other?: string,
+            warn?: boolean,
+            dismissible?: boolean
+        }
+    }): Promise<boolean | never> {
+        return new Promise((resolve, reject) => {
+            dialogElem.classList.add("small");
             let btnMain = `<button class="dialogBtnMain${warn? " warn": ""}" ${prepEvt(() => {
                 api.close();
-                r(true);
-            })}>${main}</button>`, btnOther = `<button class="dialogBtn" ${prepEvt(() => {
+                resolve(true);
+            }, "click")}>${main}</button>`, btnOther = `<button class="dialogBtn" ${prepEvt(() => {
                 api.close();
-                r(false);
-            })}>${other}</button>`;
-            dialog.innerHTML = `
+                resolve(false);
+            }, "click")}>${other}</button>`;
+            dialogElem.innerHTML = `
             <div class="dialogHeader">${title}</div>
             <div class="dialogDescription">${description}</div>`
             + (warn?
@@ -141,10 +163,10 @@ const api = {
                 `<div class="i dismiss" ${prepEvt(() => {
                     api.close();
                     reject(api.errors.DISMISSED);
-                })} data-icon="24/delete-sign"></div>`:
+                }, "click")} data-icon="24/delete-sign"></div>`:
                 ""
             );
-            evt(dialog, "close", () => {
+            evt(dialogElem, "close", () => {
                 api.close();
                 reject(api.errors.DISMISSED);
             })
@@ -153,18 +175,20 @@ const api = {
         });
     },
 
-    newToken(username) {
-        return new Promise((r, reject) => {
-            dialog.innerHTML = `
+    newToken(username?: string, storage?: FSStorage): Promise<string | never> {
+        return new Promise((resolve, reject) => {
+            dialogElem.innerHTML = `
             <div class="loginHeader">Update Token</div>
-            <form id="loginForm" ${prepEvt(evt => {
+            <form id="loginForm" ${prepEvt((evt, form: HTMLFormElement) => {
                     evt.preventDefault();
                     api.close();
 
-                    r(evt.target[0].value);
+                    let data = new FormData(form);
+
+                    resolve(data.get("loginToken") as string);
                 }, "submit")}>
                 <label for="loginToken">Bot Token for <b>'${username || 'User'}'</b>:</label>
-                <input type="text" name="loginToken" required="true" placeholder="Your Discord bot account token" ${prepEvt(async (_e, t) => {
+                <input type="text" name="loginToken" required="true" placeholder="Your Discord bot account token" ${prepEvt(async (_e, t: HTMLInputElement) => {
                     let token = t.value;
                     let valid1 = token.match(/[\w-]{24}\.[\w-]{6}\.[\w-]{27}/);
                     let id = "login";
@@ -176,9 +200,9 @@ const api = {
                                 intents:[]
                             });
                             client.on("ready", () => {
-                                elem("#loginPfp").src = client.user.avatarURL({size: 64}) ||
-                                                        client.user.defaultAvatarURL;
-                                elem("#loginName").textContent = client.user.displayName;
+                                elem<HTMLImageElement>("#loginPfp").src = client.user?.avatarURL({size: 64}) ||
+                                                        client.user?.defaultAvatarURL || "";
+                                elem("#loginName").textContent = client.user?.displayName || "User";
                                 client.destroy();
                             });
                             await client.login(token);
@@ -206,7 +230,7 @@ const api = {
 
                 <input type="submit" name="loginSubmit" title="Update Token" value="Update" disabled>
             </form>`;
-            evt(dialog, "close", () => {
+            evt(dialogElem, "close", () => {
                 api.close();
                 reject(api.errors.DISMISSED);
             })
@@ -216,16 +240,14 @@ const api = {
     }
 }
 
-function ok(id) {
+function ok(id: string): void {
     elem(`#${id}Error`).classList.add("hide");
     elem(`#${id}Form > input[type="submit"]`).removeAttribute("disabled");
 }
 
-function invalid(id, info) {
+function invalid(id: string, info: string): void {
     let errorInfoElem = elem(`#${id}Error`);
     errorInfoElem.textContent = info;
     errorInfoElem.classList.remove("hide");
-    elem(`#${id}Form > input[type="submit"]`).setAttribute("disabled", true);
+    elem(`#${id}Form > input[type="submit"]`).setAttribute("disabled", "true");
 }
-
-module.exports = api;

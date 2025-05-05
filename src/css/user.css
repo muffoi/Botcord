@@ -2,41 +2,62 @@
 @import url(./user/botClientMenu.css);
 
 div.user {
-    width: 224px;
-    height: 52px;
-    padding: 10px;
+    --padding: 12px;
+    --margin: 8px;
+    --width: calc(
+        240px
+        - var(--margin) * 2
+    );
+    --height: calc(40px + (var(--padding) * 2));
+
+    --availableWidth: calc(
+        var(--width)
+        - var(--padding) * 2
+    );
+    --offsets: 8px;
+
+    --buttons: 1;
+
+    width: var(--width);
+    height: var(--height);
+    padding: var(--padding);
     /* vertical-align: text-top; */
-    box-sizing: border-box;
     background-color: var(--background);
-    border-radius: 10px;
+    border-radius: 16px;
 
     display: flex;
     flex-direction: row;
     position: relative;
     /* overflow: hidden; */
     justify-content: space-between;
-    margin: 8px;
-    box-shadow: var(--shadow) 0 5px 20px;
+    margin: var(--margin);
+    box-shadow: var(--shadowMd);
 }
 
 #infoProfile {
-    margin-right: 10px;
-    height: 32px;
+    --paddingInfo: 4px;
+    --bg: var(--background);
+
+    margin-right: var(--offsets);
+    padding: var(--paddingInfo);
+    height: 40px;
+
     display: flex;
     flex-direction: row;
     position: relative;
-    box-sizing: border-box;
+
+    background-color: var(--bg);
+    border-radius: 4px;
     cursor: pointer;
 }
 
 #infoProfile:hover {
-    background-color: var(--backgroundLight);
+    --bg: var(--backgroundLight);
 }
 
 .pfpBox {
     height: 32px;
     width: 32px;
-    box-sizing: border-box;
     overflow: hidden;
 }
 
@@ -50,50 +71,51 @@ div.user {
     width: 16px;
     height: 16px;
     position: absolute;
-    top: 19px;
-    left: 19px;
+    top: 23px;
+    left: 23px;
     padding: 2px;
 
-    background-color: var(--background);
+    background-color: var(--bg);
     border-radius: 50%;
 }
 
 .usernameBox {
     height: 32px;
     width: auto;
-    padding-left: 10px;
-    box-sizing: border-box;
+    padding-left: var(--offsets, 8px);
     overflow: hidden;
-    max-width: 126px;
+    max-width: calc(
+        var(--availableWidth)
+        - var(--paddingInfo) * 2
+        - var(--offsets)
+        - var(--buttons) * 32px
+        - 32px
+    );
 }
 
-/* .usernameBox * {
+.usernameBox * {
     user-select: text;
-} */
+}
 
 .username {
-    font-size: 14px;
+    font-size: .875rem;
     font-weight: 600;
     display: block;
     text-overflow: ellipsis;
     overflow: hidden;
     text-wrap: nowrap;
-    user-select: text;
 }
 
 .status {
     position: absolute;
-    top: 16px;
-    font-size: 12px;
+    top: 20px;
+    font-size: .75rem;
     font-weight: 400;
-    user-select: text;
 }
 
 .buttonsProfile {
     height: 32px;
-    /* width: 52px; */
-    /* padding: 0px 5px; */
-    box-sizing: border-box;
+    padding: 4px 0;
     position: relative;
 }
 
@@ -101,7 +123,7 @@ div.user {
     width: 24px !important;
     height: 24px !important;
     transition: filter var(--trSmooth);
-    margin: 4px 6px;
+    margin: 4px;
     background-size: 24px;
     cursor: pointer;
 }
