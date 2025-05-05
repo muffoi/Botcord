@@ -163,6 +163,8 @@ export class FSStorage {
         await this.save();
     }
 
+    async updateUser(index: number, data: UserData, merge: false): Promise<void>
+    async updateUser(index: number, data: Partial<UserData>, merge?: true): Promise<void>
     async updateUser(index: number, data: Partial<UserData>, merge: boolean = true): Promise<void> {
         if(merge) {
             for(let prop in data) {
