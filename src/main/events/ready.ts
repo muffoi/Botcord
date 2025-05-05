@@ -7,6 +7,7 @@ export async function handleEvent() {
     times.stamp("login");
 
     Botcord.client!.user.presence.set({ status: Botcord.current!.presence });
+    document.title = `${Botcord.client!.user.tag} - ${Botcord.args.title}`;
 
     let user = Botcord.client!.user;
     elem<HTMLImageElement>("#pfp").src = user.avatarURL({size: 64}) || Botcord.client!.user.defaultAvatarURL;

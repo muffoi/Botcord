@@ -45,12 +45,13 @@ const styleDimensions = {
     }
 }
 
-let arg = (() => {
     let arg = process.argv.slice(-2, -1)[0];
+let args = (() => {
 
     const defaults: RendererArgs = {
         appData: "",
-        isPackaged: true
+        isPackaged: true,
+        title: ""
     };
 
     try {
@@ -67,7 +68,8 @@ let arg = (() => {
 
 interface RendererArgs {
     appData: string,
-    isPackaged: boolean
+    isPackaged: boolean,
+    title: string
 }
 
 export class BotcordClient {
@@ -131,7 +133,9 @@ export class BotcordClient {
          *  isPackaged: boolean
          * }}
          */
-        this.args = arg!;
+        this.args = args;
+
+        document.title = args.title;
     }
 
     get chatContent(): HTMLDivElement {
@@ -142,6 +146,8 @@ export class BotcordClient {
         if(this.#inits.storage) return;
 
         this.storage = await FSStorage.build(bypassLogin);
+
+        document.title = `${this.storage.getCurrentUser().tag} - ${args.title}`;
 
         this.#inits.storage = true;
         return this.storage;

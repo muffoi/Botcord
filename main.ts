@@ -20,11 +20,12 @@ function createWindow () {
             devTools: !app.isPackaged,
             additionalArguments: [JSON.stringify({
                 appData: app.getPath("userData"),
-                isPackaged: app.isPackaged
+                isPackaged: app.isPackaged,
+                title: packageJson.productName
             })]
         },
         autoHideMenuBar: true,
-        title: packageJson.productName + " v" + packageJson.version,
+        title: packageJson.productName,
         icon: join(__dirname, "resources", "icon.ico"),
         backgroundColor: theme.background
     })
