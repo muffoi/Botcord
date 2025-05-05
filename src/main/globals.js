@@ -22,13 +22,13 @@
 const { Client, Partials, DiscordjsErrorCodes } = require("discord.js");
 const dayjs = require("dayjs");
 
+const { logger, times } = require("./modules/debug");
 const Botcord = new (require("./modules/botcord").BotcordClient);
 const FSStorage = require("./modules/storage").FSStorage;
 const dialog = require("./modules/dialog").api;
 const popouts = new (require("./modules/popouts").Popouts);
 const templates = require("./modules/templates");
 const { theme, applyColorVars } = require("../theme");
-const { logger, times } = require("./modules/debug");
 
 document.addEventListener("DOMContentLoaded", () => {
     // Clear unloaded image placeholders
