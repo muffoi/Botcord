@@ -2,7 +2,7 @@
     "name": "botcord",
     "productName": "Botcord",
     "private": true,
-    "version": "0.2.0",
+    "version": "0.2.1",
     "description": "Unofficial Discord client for bot accounts",
     "homepage": "https://github.com/muffoi/Botcord#readme",
     "repository": {
@@ -17,7 +17,7 @@
     "main": "main.js",
     "scripts": {
         "start": "tsc && electron .",
-        "dev": "npm run compile-dev && electron .",
+        "dev": "bun run compile-dev && electron .",
         "compile-dev": "tsc --inlineSourceMap --inlineSources",
         "build": "tsc && electron-builder",
         "cleanup": "tsx scripts/cleanup.ts"
@@ -42,16 +42,16 @@
     },
     "dependencies": {
         "@odiffey/discord-markdown": "^3.3.0",
-        "dayjs": "^1.11.13",
-        "discord.js": "^14.19.3",
-        "node-vibrant": "^4.0.3"
+        "dayjs": "^1.11.21",
+        "discord.js": "^14.26.5",
+        "node-vibrant": "^4.0.4"
     },
     "devDependencies": {
-        "@types/node": "22.14.0",
-        "electron": "^36.1.0",
-        "electron-builder": "^26.0.12",
-        "glob": "^11.0.2",
-        "tsx": "^4.19.4",
-        "typescript": "^5.8.3"
+        "@types/node": "^26.1.1",
+        "electron": "^43.1.0",
+        "electron-builder": "^26.15.3",
+        "glob": "^13.0.6",
+        "tsx": "^4.23.0",
+        "typescript": "^7.0.2"
     }
 }
