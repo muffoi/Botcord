@@ -1,3 +1,6 @@
+> [!WARNING]
+> **This is the old version of Botcord.** It should work, but **will not** receive any further updates. It's slow, incomplete and uses obsolete ways to achieve results. *A new, faster version, is coming public soon. **Feel free to look around and suggest improvements, though***
+
 <div align="center" id="toc">
   <img src="./github/logo.png" width="128px">
   <ul align="center" style="list-style: none">
