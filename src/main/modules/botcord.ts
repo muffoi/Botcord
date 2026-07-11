@@ -147,7 +147,7 @@ export class BotcordClient {
 
         this.storage = await FSStorage.build(bypassLogin);
 
-        document.title = `${this.storage.getCurrentUser().tag} - ${args.title}`;
+        document.title = `${this.storage.getCurrentUser()?.tag ?? "Log In"} - ${args.title}`;
 
         this.#inits.storage = true;
         return this.storage;
